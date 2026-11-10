@@ -412,6 +412,14 @@
             '<span class="sbar__val"><b>' + r[2] + '</b> → <b>' + r[3] + '</b> <em>/ ' + r[1] + '</em></span></div>'; };
           return '<div class="b">' + lab(b.title) + '<div class="sbars"><p class="sbars__legend"><span><i class="sbar__now"></i>보완 전</span><span><i class="sbar__goal"></i>보완 후 목표</span><span>배점 대비 길이</span></p>' + b.rows.map(function (r) { return row(r); }).join('') + (b.total ? row(b.total, true) : '') + '</div>' + note(b.note) + '</div>';
         case 'retro': return '<div class="b retro"><small>' + esc(b.title) + '</small><p>' + esc(b.text) + '</p></div>';
+        case 'journey': return '<div class="b">' + lab(b.title) + '<div class="tbl-wrap"><div class="jny" style="--n:' + b.stages.length + '">' + b.stages.map(function (st, i) {
+            var cut = (b.cut || []).indexOf(i) > -1;
+            return '<div class="jny__col' + (cut ? ' is-cut' : '') + '"><small>' + two(i + 1) + '</small><h4>' + esc(st[0]) + '</h4><p>' + esc(st[1]) + '</p><div class="jny__track"><span class="jny__dot" style="--lv:' + st[2] + '"></span></div><em>' + esc(st[3]) + '</em></div>';
+          }).join('') + '</div></div></div>';
+        case 'colors': return '<div class="b">' + lab(b.title) + '<div class="clr">' + b.items.map(function (c) {
+            var bg = c[1] ? c[1] : 'linear-gradient(90deg, ' + b.items[0][1] + ', ' + b.items[b.items.length - 1][1] + ')';
+            return '<div class="clr__item"><span class="clr__sw" style="background:' + bg + '"></span><h4>' + esc(c[0]) + (c[1] ? ' <code>' + esc(c[1]) + '</code>' : '') + '</h4><p>' + esc(c[2]) + '</p></div>';
+          }).join('') + '</div></div>';
         case 'learned': return '<div class="b learned"><small>LEARNED</small><p>' + esc(b.text) + '</p></div>';
       }
       return '';
