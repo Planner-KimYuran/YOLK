@@ -957,3 +957,90 @@ main { padding-top: var(--gnb-h); }
 .clr__item code { font-family: inherit; font-weight: 400; color: #777; margin-left: 6px; }
 .clr__item p { margin-top: 6px; font-size: 13px; line-height: 1.55; color: #555; }
 @media (max-width: 720px) { .clr { grid-template-columns: 1fr; } }
+
+/* =========================================================
+   TIDY v3 — 폭을 모으고, 상자 · 선을 덜어낸다
+   ========================================================= */
+:root {
+  --max: 1160px;
+  --gutter: clamp(20px, 4vw, 56px);
+  --sec-gap: clamp(72px, 8vw, 120px);
+  --soft: rgba(0, 0, 0, .035);
+  --hair: rgba(0, 0, 0, .09);
+}
+
+/* 섹션 간격 · 구분선 */
+.sec-head { padding-bottom: 24px; border-bottom: 0; }
+.sub-sec { padding-top: 0; margin-top: clamp(56px, 6vw, 96px); border-top: 0; grid-template-columns: 200px minmax(0, 1fr); }
+.records { margin-top: clamp(48px, 5vw, 72px); }
+.d-body { margin-top: clamp(56px, 6vw, 96px); padding-top: 0; border-top: 0; grid-template-columns: 180px minmax(0, 1fr); gap: clamp(28px, 4vw, 64px); }
+.dsec { padding-bottom: clamp(56px, 6vw, 96px); }
+.dsec__content { margin-top: 28px; }
+.dsec__stack { gap: clamp(28px, 2.6vw, 40px); }
+.d-q { margin-top: clamp(28px, 4vw, 56px); margin-bottom: clamp(24px, 3vw, 40px); }
+.page-head { padding-top: clamp(56px, 6vw, 96px); }
+.page-head .metarow { margin-top: clamp(32px, 4vw, 56px); border-bottom: 1px solid var(--hair); }
+
+/* 읽는 폭 — 글은 한 덩어리로 */
+.d-sum, .dsec__lead, .b-text, .b-callout p, .sec-head p, .exp__detail p { max-width: 64ch; }
+.b-note, .dtable + p { max-width: 72ch; }
+
+/* 상자 → 테두리 없는 옅은 면 */
+.scard, .finding, .r-visual, .s-visual, .cols section, .decision > div, .cmp__col,
+.skills section, .wcard, .spanel, .pao > div, .retro, .learned {
+  border: 0 !important; background: var(--soft);
+}
+.scard, .finding, .decision > div, .pao > div { padding: 20px 22px; }
+.s-visual, .r-visual { padding: clamp(18px, 2vw, 28px); max-width: none; }
+.cols li { border-top-color: var(--hair); }
+.decision > div:last-child { background: var(--ink); color: var(--on-ink); }
+.cmp__col--after { background: rgba(0, 0, 0, .06); }
+.skills section { padding: 22px 22px; }
+.wcard { min-height: 0; padding: 24px 22px; }
+.wcard__proof { border-top: 0; padding-top: 14px; }
+.the-core { border: 0; background: var(--soft); padding: clamp(20px, 2.2vw, 32px); }
+.pao { gap: 8px; }
+
+/* 콜아웃 — 위아래 굵은 선 대신 왼쪽 한 줄 */
+.b-callout { border: 0; border-left: 2px solid var(--ink); padding: 4px 0 4px clamp(16px, 1.6vw, 24px); }
+.cp { border: 0; padding-block: clamp(20px, 2.4vw, 32px); }
+
+/* 표 · 목록 — 머리 한 줄만 진하게, 나머지는 옅은 선 */
+.tbl-wrap { border-top: 1px solid var(--ink); }
+.dtable th { border-bottom: 1px solid var(--hair); padding-block: 10px; }
+.dtable td { border-bottom: 1px solid var(--hair); padding-block: 12px; }
+.dtable tr:last-child td { border-bottom: 0; }
+.info { border-top: 0; margin-top: 24px; }
+.info > div { border-bottom-color: var(--hair); padding: 11px 0; }
+.records h3 { border-bottom: 1px solid var(--ink); padding-bottom: 10px; }
+.records li { border-bottom-color: var(--hair); padding: 11px 0; }
+.records li:last-child { border-bottom: 0; }
+.exp li, .slist li, .dlist li { border-bottom-color: var(--hair); }
+.stats { border-top: 1px solid var(--ink); }
+.stats > li { border-bottom: 0; }
+.d-info { border-top: 1px solid var(--ink); }
+.d-info > div { border-bottom: 0; padding-bottom: 8px; }
+.sbar { border-bottom-color: var(--hair); }
+.sbars__legend { border-bottom-color: var(--hair); }
+.tab + .tab { border-left: 0; }
+.tabs { border-bottom-color: var(--hair); }
+.pager { border-bottom: 0; border-top-color: var(--hair); }
+.pager a + a { border-left: 0; }
+.core-line { border-color: var(--hair); }
+.empty { border: 0; background: var(--soft); }
+.footer { border-top-color: #2a2a2a; }
+
+/* 칩 — 테두리 대신 옅은 면 */
+.chip, .tag-doc { border-color: transparent; background: var(--soft); }
+.flow__step { border-color: var(--hair); background: var(--paper); }
+.jny { border-top-color: var(--ink); }
+.jny__col { border-right-color: var(--hair); }
+.jny__col.is-cut { background: var(--soft); }
+
+@media (max-width: 980px) {
+  .sub-sec, .d-body { grid-template-columns: 1fr; }
+}
+.dtable tbody th { border-bottom: 1px solid var(--hair); padding-block: 12px; font-weight: 600; }
+.dtable tbody tr:last-child th { border-bottom: 0; }
+.fchip, .sort__btn { border-color: transparent; background: var(--soft); }
+.fchip[aria-pressed="true"], .fchip[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
