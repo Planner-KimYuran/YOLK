@@ -331,7 +331,7 @@
 
     var r = P.research, s = P.solution;
     root.innerHTML =
-      '<section class="d-top wrap" aria-labelledby="d-title">' +
+      '<section class="d-top wrap" data-scene="OVERVIEW" aria-labelledby="d-title">' +
         '<div class="d-nav"><a class="tlink" href="works.html" id="back-top">← BACK TO PROJECTS</a><span>(PROJECT #' + id + ')</span></div>' +
         ph('PROJECT COVER / KEY VISUAL', P.cover).replace('class="ph"', 'class="ph d-cover"') +
         '<p class="d-tags">' + P.tags.map(esc).join(' ') + '</p>' +
@@ -348,25 +348,25 @@
           [['bg', 'Background'], ['research', 'Research'], ['core', 'Core Problem'], ['solution', 'Solution'], ['decision', 'Decision'], ['result', 'Result']].map(function (x, i) { return '<li><a href="#' + x[0] + '" data-sec="' + x[0] + '"><b>' + two(i + 1) + '</b>' + x[1] + '<i class="dot" aria-hidden="true"></i></a></li>'; }).join('') +
         '</ol></nav>' +
         '<div class="d-main">' +
-          '<section class="dsec" id="bg">' + head('01', 'Background', P.background.lead) +
+          '<section class="dsec" id="bg" data-scene="BACKGROUND">' + head('01', 'Background', P.background.lead) +
             '<div class="dsec__content bg-grid"><div class="bg-text">' + P.background.body.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '</div>' + stats(P.background.stats) + '</div></section>' +
-          '<section class="dsec" id="research">' + head('02', 'Research &amp; Insight', r.lead) +
+          '<section class="dsec" id="research" data-scene="RESEARCH">' + head('02', 'Research &amp; Insight', r.lead) +
             '<div class="dsec__content"><div class="methods">' + r.methods.map(function (m) { return '<span class="chip">' + esc(m) + '</span>'; }).join('') + '</div>' +
             '<div class="r-grid"><div class="r-visual">' + visual(r.visual) + '</div>' +
             '<figure class="quote"><small>' + esc(r.quote.label) + '</small><blockquote>“' + esc(r.quote.text) + '”</blockquote><cite>— ' + esc(r.quote.by) + '</cite></figure></div>' +
             '<div class="findings">' + r.findings.map(function (f, i) { return '<div class="finding"><small>FINDING ' + two(i + 1) + '</small><p>' + esc(f) + '</p></div>'; }).join('') + '</div></div></section>' +
-          '<section class="dsec" id="core"><div class="cp"><p class="cp__label"><i class="dot" aria-hidden="true"></i>03 · CORE PROBLEM</p>' +
+          '<section class="dsec" id="core" data-scene="CORE PROBLEM"><div class="cp"><p class="cp__label"><i class="dot" aria-hidden="true"></i>03 · CORE PROBLEM</p>' +
             '<h2 class="cp__line"><s>' + esc(P.coreProblem.phen) + '</s><span class="arr" aria-hidden="true">→</span>' + esc(P.coreProblem.core) + '</h2>' +
             '<p class="cp__next">' + esc(P.coreProblem.next) + '</p><p class="cp__go">↓ 04 Solution으로 이어짐</p></div></section>' +
-          '<section class="dsec" id="solution">' + head('04', 'Solution', s.lead) +
+          '<section class="dsec" id="solution" data-scene="SOLUTION">' + head('04', 'Solution', s.lead) +
             '<div class="dsec__content"><div class="s-visual">' + visual(s.visual) + '</div>' +
             '<div class="scards">' + s.cards.map(function (c, i) { return '<div class="scard"><small>' + two(i + 1) + '</small><h4>' + esc(c[0]) + '</h4><p>' + esc(c[1]) + '</p></div>'; }).join('') + '</div></div></section>' +
-          '<section class="dsec" id="decision">' + head('05', 'Decision', '처음 판단 → 확인한 근거 → 바꾼 방향') +
+          '<section class="dsec" id="decision" data-scene="DECISION">' + head('05', 'Decision', '처음 판단 → 확인한 근거 → 바꾼 방향') +
             '<div class="dsec__content decision">' +
               '<div><small>처음 판단</small><p>' + esc(P.decision[0]) + '</p></div><span class="arrow" aria-hidden="true">→</span>' +
               '<div><small>확인한 근거</small><p>' + esc(P.decision[1]) + '</p></div><span class="arrow" aria-hidden="true">→</span>' +
               '<div><small>바꾼 방향</small><p>' + esc(P.decision[2]) + '</p></div></div></section>' +
-          '<section class="dsec" id="result">' + head('06', 'Result', '') +
+          '<section class="dsec" id="result" data-scene="RESULT">' + head('06', 'Result', '') +
             '<div class="dsec__content res-grid">' + stats(P.result.stats) + '<div class="learned"><small>LEARNED</small><p>' + esc(P.result.learned) + '</p></div></div>' +
             '<nav class="pager" aria-label="이전 · 다음 프로젝트"><a href="project.html?id=' + prevId + '"><small>← PREVIOUS PROJECT</small><span>' + esc(D.projects[prevId].title) + '</span></a>' +
             '<a href="project.html?id=' + nextId + '"><small>NEXT PROJECT →</small><span>' + esc(D.projects[nextId].title) + '</span></a></nav>' +
@@ -382,4 +382,45 @@
     }
     window.addEventListener('scroll', idxSpy, { passive: true }); idxSpy();
   }
+  /* =========================================================
+     섹션 진행 표시 — 왼쪽 아래 '03 / 06 장면 이름' + 하단 구간 막대
+     (data-scene 이 붙은 섹션이 있는 페이지에서만 동작)
+     ========================================================= */
+  function initScenes() {
+    var scenes = $$('[data-scene]');
+    if (scenes.length < 2) return;
+    var total = scenes.length;
+    var wrap = document.createElement('div');
+    wrap.className = 'scene';
+    wrap.innerHTML = '<a class="scene__pill" href="#"><b class="scene__no">01</b><span class="scene__total">/ ' + two(total) + '</span><span class="scene__name"></span></a>' +
+      '<div class="scene__bar" aria-hidden="true">' + scenes.map(function () { return '<span><i></i></span>'; }).join('') + '</div>';
+    document.body.appendChild(wrap);
+    var pill = $('.scene__pill', wrap), noEl = $('.scene__no', wrap), nameEl = $('.scene__name', wrap), segs = $$('.scene__bar i', wrap);
+    pill.setAttribute('aria-label', '지금 보는 장면');
+    function run() {
+      var line = window.innerHeight * 0.4, cur = 0;
+      scenes.forEach(function (sc, i) { if (sc.getBoundingClientRect().top <= line) cur = i; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = total - 1;
+      noEl.textContent = two(cur + 1);
+      nameEl.textContent = scenes[cur].getAttribute('data-scene');
+      pill.setAttribute('href', '#' + (scenes[cur].id || ''));
+      segs.forEach(function (seg, i) {
+        var r = scenes[i].getBoundingClientRect(), h = Math.max(r.height, 1);
+        var f = i < cur ? 1 : i > cur ? 0 : Math.min(1, Math.max(0, (line - r.top) / h));
+        seg.style.transform = 'scaleX(' + f + ')';
+      });
+      wrap.classList.toggle('is-on', window.scrollY > 40);
+    }
+    pill.addEventListener('click', function (e) {
+      e.preventDefault();
+      var line = window.innerHeight * 0.4, cur = 0;
+      scenes.forEach(function (sc, i) { if (sc.getBoundingClientRect().top <= line) cur = i; });
+      var next = scenes[Math.min(cur + 1, total - 1)];
+      next.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+    });
+    window.addEventListener('scroll', run, { passive: true });
+    window.addEventListener('resize', run);
+    run();
+  }
+  initScenes();
 })();
