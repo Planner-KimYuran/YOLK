@@ -20,6 +20,7 @@
     if (gnb) gnb.classList.toggle('is-scrolled', y > 4);
     var top = $('.to-top'); if (top) top.classList.toggle('is-on', y > 700);
     var hint = $('.hero__scroll'); if (hint) hint.classList.toggle('is-hidden', y > 40);
+    var pct = $('.gnb__pct'); if (pct) { var max = document.documentElement.scrollHeight - window.innerHeight; pct.textContent = (max > 0 ? Math.round(y / max * 100) : 0) + '%'; }
   }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
@@ -157,7 +158,7 @@
     slist.innerHTML = D.mainOrder.map(function (id, i) {
       var p = D.projects[id];
       return '<li><a href="project.html?id=' + id + '" data-id="' + id + '" class="' + (i === 0 ? 'is-active' : '') + '">' +
-        '<span class="slist__no">' + two(i + 1) + '</span><span class="slist__name">' + esc(p.title) + '</span><span class="slist__arrow" aria-hidden="true">→</span>' +
+        '<span class="slist__no">#' + two(i + 1) + '</span><span class="slist__name">' + esc(p.title) + '</span><span class="slist__arrow" aria-hidden="true">→</span>' +
         '<span class="slist__tags">' + p.homeTags.map(esc).join(' ') + '</span>' +
         '<span class="slist__mobile"><p>' + esc(p.homeSummary) + '</p><span class="core-line"><span class="core-label"><i class="dot"></i>CORE</span><span>' + esc(p.core) + '</span></span></span></a></li>';
     }).join('');
@@ -202,7 +203,7 @@
       var items = D.documents[curType] || [];
       dlist.innerHTML = items.map(function (it, i) {
         var p = D.projects[it.id], doc = p.docs.filter(function (d) { return d.type === curType; })[0] || {};
-        return '<li data-i="' + i + '"' + (i === 0 ? ' class="is-active"' : '') + '><span class="dlist__no">' + two(i + 1) + '</span>' +
+        return '<li data-i="' + i + '"' + (i === 0 ? ' class="is-active"' : '') + '><span class="dlist__no">#' + two(i + 1) + '</span>' +
           '<span class="dlist__name">' + esc(it.name) + '<span class="dlist__meta">2026 · ' + (doc.pages ? doc.pages + 'p' : 'PDF 등록 예정') + '</span></span>' +
           '<span class="dlist__acts"><button type="button" class="btn btn--sm btn--line" data-pdf="' + esc(p.cardTitle + ' · ' + curType + ' PDF') + '"' + (doc.file ? ' data-file="' + esc(doc.file) + '"' : '') + '>미리보기</button>' +
           '<a class="tlink" href="project.html?id=' + it.id + '">상세보기 →</a></span></li>';
@@ -268,7 +269,7 @@
           var p = D.projects[id];
           return '<a class="card" href="project.html?id=' + id + '" aria-label="' + esc(p.cardTitle) + ' 프로젝트 보기">' +
             '<div class="card__thumb">' + ph('THUMBNAIL', p.cover).replace('class="ph"', 'class="ph" style="height:100%"') + '<span class="card__bar" aria-hidden="true">VIEW PROJECT ↗</span></div>' +
-            '<div class="card__body"><span class="card__no">' + two(i + 1) + '</span><h2 class="card__title">' + esc(p.cardTitle) + '</h2>' +
+            '<div class="card__body"><span class="card__no">#' + two(i + 1) + '</span><h2 class="card__title">' + esc(p.cardTitle) + '</h2>' +
             '<p class="core-line"><span class="core-label"><i class="dot" aria-hidden="true"></i>CORE</span><span>' + esc(p.core) + '</span></p>' +
             '<span class="card__docs">' + docsSorted(p).map(function (t) { return '<span class="tag-doc">' + t + '</span>'; }).join('') + '</span>' +
             '<span class="card__meta">' + esc(p.cardMeta) + '</span></div></a>';
@@ -331,7 +332,7 @@
     var r = P.research, s = P.solution;
     root.innerHTML =
       '<section class="d-top wrap" aria-labelledby="d-title">' +
-        '<div class="d-nav"><a class="tlink" href="works.html" id="back-top">← BACK TO PROJECTS</a><span>PROJECT DETAIL / ' + id + '</span></div>' +
+        '<div class="d-nav"><a class="tlink" href="works.html" id="back-top">← BACK TO PROJECTS</a><span>(PROJECT #' + id + ')</span></div>' +
         ph('PROJECT COVER / KEY VISUAL', P.cover).replace('class="ph"', 'class="ph d-cover"') +
         '<p class="d-tags">' + P.tags.map(esc).join(' ') + '</p>' +
         '<h1 class="d-title" id="d-title">' + esc(P.title) + '</h1>' +
