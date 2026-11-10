@@ -66,6 +66,7 @@
   var modal = $('#pdf'), lastFocus = null;
   function openPdf(title, file) {
     if (!modal) return;
+    galList = null;
     lastFocus = document.activeElement;
     $('.modal__title', modal).textContent = title;
     var view = $('.modal__view', modal), ext = $('.modal__ext', modal);
@@ -81,9 +82,36 @@
     modal.hidden = false; document.body.classList.add('is-locked');
     $('.modal__close', modal).focus();
   }
+  var galList = null, galIdx = 0;
+  function galShow() {
+    var it = galList[galIdx];
+    $('.modal__title', modal).textContent = it.cap;
+    $('.modal__view', modal).innerHTML = '<img class="modal__img" src="' + esc(it.src) + '" alt="' + esc(it.cap) + '">';
+    var ext = $('.modal__ext', modal); ext.href = it.src; ext.removeAttribute('aria-disabled'); ext.tabIndex = 0;
+    $('.modal__page', modal).textContent = two(galIdx + 1) + ' / ' + two(galList.length);
+    var btns = $$('.modal__foot button', modal);
+    btns[0].disabled = galIdx === 0; btns[1].disabled = galIdx === galList.length - 1;
+  }
+  function openGallery(list, i) {
+    if (!modal) return;
+    lastFocus = document.activeElement;
+    galList = list; galIdx = i; galShow();
+    modal.hidden = false; document.body.classList.add('is-locked');
+    $('.modal__close', modal).focus();
+  }
+  if (modal) {
+    var fb = $$('.modal__foot button', modal);
+    fb[0].addEventListener('click', function () { if (galList && galIdx > 0) { galIdx--; galShow(); } });
+    fb[1].addEventListener('click', function () { if (galList && galIdx < galList.length - 1) { galIdx++; galShow(); } });
+    modal.addEventListener('keydown', function (e) {
+      if (!galList) return;
+      if (e.key === 'ArrowLeft') fb[0].click();
+      if (e.key === 'ArrowRight') fb[1].click();
+    });
+  }
   function closePdf() {
     if (!modal || modal.hidden) return;
-    modal.hidden = true; document.body.classList.remove('is-locked');
+    modal.hidden = true; document.body.classList.remove('is-locked'); galList = null;
     $('.modal__view', modal).innerHTML = '';
     if (lastFocus) lastFocus.focus();
   }
@@ -111,6 +139,10 @@
     return '<button type="button" class="' + cls + '" data-pdf="' + esc(shortName(p) + ' · ' + type + ' PDF') + '"' + (doc.file ? ' data-file="' + esc(doc.file) + '"' : '') + '>' + esc(type) + ' 보기 ↗</button>';
   }
   function docsSorted(p) { return D.docTypes.filter(function (t) { return p.docs.some(function (d) { return d.type === t; }); }); }
+  function thumb(p, cls) {
+    if (p.thumb && p.thumb.src) return '<div class="ph ph--img' + (cls ? ' ' + cls : '') + '"><img loading="lazy" src="' + esc(p.thumb.thumb || p.thumb.src) + '" alt="' + esc(p.cardTitle) + ' 대표 이미지"></div>';
+    return ph('THUMBNAIL', typeof p.cover === 'string' ? p.cover : '').replace('class="ph"', 'class="ph' + (cls ? ' ' + cls : '') + '"');
+  }
   function ph(label, sub) { return '<div class="ph" role="img" aria-label="' + esc(label + (sub ? ' — ' + sub : '') + ' 이미지 자리') + '"><span class="ph__label">' + esc(label) + (sub ? '<span class="ph__sub">' + esc(sub) + '</span>' : '') + '</span></div>'; }
 
   /* =========================================================
@@ -164,7 +196,7 @@
     }).join('');
     function panel(id) {
       var p = D.projects[id], info = p.homeInfo || { period: p.period, role: p.role, team: p.team };
-      return ph('THUMBNAIL', p.cover).replace('class="ph"', 'class="ph spanel__thumb"') +
+      return thumb(p, 'spanel__thumb') +
         '<p class="spanel__tags">' + p.homeTags.map(esc).join(' ') + '</p>' +
         '<h3 class="spanel__title">' + esc(p.title) + '</h3><p class="spanel__sum">' + esc(p.homeSummary) + '</p>' +
         '<p class="core-line"><span class="core-label"><i class="dot" aria-hidden="true"></i>CORE</span><span>' + esc(p.core) + '</span></p>' +
@@ -268,7 +300,7 @@
         gridEl.innerHTML = list.map(function (id, i) {
           var p = D.projects[id];
           return '<a class="card" href="project.html?id=' + id + '" aria-label="' + esc(p.cardTitle) + ' 프로젝트 보기">' +
-            '<div class="card__thumb">' + ph('THUMBNAIL', p.cover).replace('class="ph"', 'class="ph" style="height:100%"') + '<span class="card__bar" aria-hidden="true">VIEW PROJECT ↗</span></div>' +
+            '<div class="card__thumb">' + thumb(p, 'ph--fill') + '<span class="card__bar" aria-hidden="true">VIEW PROJECT ↗</span></div>' +
             '<div class="card__body"><span class="card__no">#' + two(i + 1) + '</span><h2 class="card__title">' + esc(p.cardTitle) + '</h2>' +
             '<p class="core-line"><span class="core-label"><i class="dot" aria-hidden="true"></i>CORE</span><span>' + esc(p.core) + '</span></p>' +
             '<span class="card__docs">' + docsSorted(p).map(function (t) { return '<span class="tag-doc">' + t + '</span>'; }).join('') + '</span>' +
@@ -322,56 +354,121 @@
       if (v.kind === 'beforeAfter') return '<h3>' + esc(v.title) + '</h3><div class="ba">' +
         '<div class="ba__row ba__row--before"><b>BEFORE</b><div class="flow">' + v.before.map(function (s) { return '<span class="flow__step">' + esc(s) + '</span>'; }).join(arrow) + '</div></div>' +
         '<div class="ba__row ba__row--after"><b>AFTER</b><div class="flow">' + v.after.map(function (s) { return '<span class="flow__step">' + esc(s) + '</span>'; }).join(arrow) + '</div></div></div>' + (v.note ? '<p class="r-note">※ ' + esc(v.note) + '</p>' : '');
-      if (v.kind === 'stations') return '<h3>' + esc(v.title) + '</h3><ol class="stations">' + v.stops.map(function (s, i) { return '<li class="station"><i aria-hidden="true"></i><b>' + esc(s[0]) + '</b><span>' + esc(s[1]) + '</span><em>STAMP ' + two(i + 1) + '</em></li>'; }).join('') + '</ol>';
+      if (v.kind === 'stations') { var hi = v.hi === undefined ? 3 : v.hi; return '<h3>' + esc(v.title) + '</h3><ol class="stations" style="--n:' + v.stops.length + '">' + v.stops.map(function (s, i) { return '<li class="station' + (i === hi ? ' is-hi' : '') + '"><i aria-hidden="true"></i><b>' + esc(s[0]) + '</b><span>' + esc(s[1]) + '</span>' + (v.stamps === false || v.hi !== undefined ? '' : '<em>STAMP ' + two(i + 1) + '</em>') + '</li>'; }).join('') + '</ol>'; }
       if (v.kind === 'frames') return '<h3>' + esc(v.title) + '</h3><div class="frames">' + v.frames.map(function (f, i) { return '<figure>' + ph('#' + two(i + 1)) + '<figcaption><b>#' + two(i + 1) + '</b>' + esc(f) + '</figcaption></figure>'; }).join('') + '</div>';
       return '';
     }
     function head(no, title, lead) { return '<div class="dsec__head"><span class="dsec__no">' + no + '</span><h2 class="dsec__title">' + title + '</h2>' + (lead ? '<p class="dsec__lead">' + esc(lead) + '</p>' : '') + '</div>'; }
     function stats(arr) { return '<ul class="stats">' + arr.map(function (s) { return '<li><strong>' + esc(s[0]) + '</strong><span>' + esc(s[1]) + '</span></li>'; }).join('') + '</ul>'; }
 
-    var r = P.research, s = P.solution;
-    root.innerHTML =
+    /* ---------- 상단 (DETAIL-01) ---------- */
+    var coverHtml = (P.cover && P.cover.src)
+      ? '<figure class="d-cover d-cover--img"><button type="button" class="g-open" data-g="cover" aria-label="표지 크게 보기"><img src="' + esc(P.cover.src) + '" alt="' + esc(P.cardTitle) + ' 표지"></button></figure>'
+      : ph('PROJECT COVER / KEY VISUAL', P.cover).replace('class="ph"', 'class="ph d-cover"');
+    var topHtml =
       '<section class="d-top wrap" data-scene="OVERVIEW" aria-labelledby="d-title">' +
         '<div class="d-nav"><a class="tlink" href="works.html" id="back-top">← BACK TO PROJECTS</a><span>(PROJECT #' + id + ')</span></div>' +
-        ph('PROJECT COVER / KEY VISUAL', P.cover).replace('class="ph"', 'class="ph d-cover"') +
+        (P.question ? '<div class="d-q"><p class="d-q__eyebrow">(' + esc(P.tagline || '') + ')</p><p class="d-q__line">' + P.question.join('<br>') + '</p></div>' : '') +
+        coverHtml +
         '<p class="d-tags">' + P.tags.map(esc).join(' ') + '</p>' +
         '<h1 class="d-title" id="d-title">' + esc(P.title) + '</h1>' +
         '<p class="d-sum">' + esc(P.summary) + '</p>' +
         '<div class="the-core"><i class="dot" aria-hidden="true"></i><div><small>THE CORE · 이 프로젝트에서 찾아낸 핵심</small><p>' + esc(P.core) + '</p></div></div>' +
-        '<dl class="d-info"><div><dt>PERIOD</dt><dd>' + esc(P.period) + '</dd></div><div><dt>TEAM</dt><dd>' + esc(P.team) + '</dd></div><div><dt>MY ROLE</dt><dd>' + esc(P.role) + '</dd></div><div><dt>DELIVERABLE</dt><dd>' + esc(P.deliverable) + '</dd></div></dl>' +
+        '<dl class="d-info"><div><dt>PERIOD</dt><dd>' + esc(P.period) + '</dd></div><div><dt>TEAM</dt><dd>' + esc(P.team) + '</dd></div><div><dt>MY ROLE</dt><dd>' + esc(P.role) + '</dd></div><div><dt>DELIVERABLE</dt><dd>' + esc(P.deliverable) + '</dd></div>' +
+          (P.course ? '<div><dt>COURSE</dt><dd>' + esc(P.course) + '</dd></div>' : '') + '</dl>' +
         '<div class="d-docs">' + docs.map(function (t, i) { return pdfBtn(P, t, 'btn' + (i ? ' btn--line' : '')); }).join('') + '</div>' +
         '<dl class="pao"><div><dt>PROBLEM</dt><dd>' + esc(P.pao[0]) + '</dd></div><div><dt>APPROACH</dt><dd>' + esc(P.pao[1]) + '</dd></div><div><dt>OUTCOME</dt><dd>' + esc(P.pao[2]) + '</dd></div></dl>' +
         '<p class="d-scroll" aria-hidden="true">SCROLL ↓</p>' +
-      '</section>' +
+      '</section>';
+
+    /* ---------- 장면형 본문 (story 데이터가 있는 프로젝트) ---------- */
+    var gallery = [];
+    if (P.cover && P.cover.src) gallery.cover = { src: P.cover.src, cap: P.cardTitle + ' — 표지' };
+    function block(b) {
+      var lab = function (t) { return t ? '<h3 class="b-label">' + esc(t) + '</h3>' : ''; };
+      var note = function (t) { return t ? '<p class="r-note">※ ' + esc(t) + '</p>' : ''; };
+      switch (b.t) {
+        case 'text': return '<div class="b b-text">' + b.paras.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '</div>';
+        case 'stats': return '<div class="b">' + lab(b.label) + stats(b.items) + note(b.note) + '</div>';
+        case 'callout': return '<div class="b b-callout"><p>' + esc(b.text) + '</p>' + (b.sub ? '<span>' + esc(b.sub) + '</span>' : '') + '</div>';
+        case 'chips': return '<div class="b methods">' + b.items.map(function (m) { return '<span class="chip">' + esc(m) + '</span>'; }).join('') + '</div>';
+        case 'visual': return '<div class="b s-visual s-visual--wide">' + visual(b.v) + '</div>';
+        case 'cards': return '<div class="b">' + lab(b.label) + '<div class="scards" style="--n:' + (b.cols || b.items.length) + '">' + b.items.map(function (c, i) { return '<div class="scard"><small>' + two(i + 1) + '</small><h4>' + esc(c[0]) + '</h4><p>' + esc(c[1]) + '</p></div>'; }).join('') + '</div></div>';
+        case 'compare':
+          var col = function (side, cls) { return '<div class="cmp__col ' + cls + '"><small>' + esc(side.label) + '</small><div class="flow">' + side.items.map(function (x) { return '<span class="flow__step">' + esc(x) + '</span>'; }).join('<span class="flow__arrow" aria-hidden="true">→</span>') + '</div></div>'; };
+          return '<div class="b">' + lab(b.title) + '<div class="cmp">' + col(b.before, 'cmp__col--before') + '<span class="arrow" aria-hidden="true">→</span>' + col(b.after, 'cmp__col--after') + '</div>' + note(b.note) + '</div>';
+        case 'table': return '<div class="b">' + lab(b.title) + '<div class="tbl-wrap"><table class="dtable"><thead><tr>' + b.head.map(function (h) { return '<th scope="col">' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+          b.rows.map(function (r) { return '<tr>' + r.map(function (c, i) { return i === 0 ? '<th scope="row">' + esc(c) + '</th>' : '<td>' + esc(c) + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>' + note(b.note) + '</div>';
+        case 'gallery': var gset = gallery.push(b.items) - 1; return '<div class="b gal' + (b.grid ? ' gal--grid' : '') + '">' + b.items.map(function (it, gi) {
+            return '<figure><button type="button" class="g-open" data-g="' + gset + ':' + gi + '" aria-label="' + esc(it.cap) + ' 크게 보기"><img loading="lazy" src="' + esc(it.thumb || it.src) + '" alt="' + esc(it.cap) + '"></button><figcaption>' + esc(it.cap) + '</figcaption></figure>';
+          }).join('') + '</div>';
+        case 'decision': return '<div class="b">' + lab(b.label) + '<div class="decision">' +
+          '<div><small>처음 판단</small><p>' + esc(b.steps[0]) + '</p></div><span class="arrow" aria-hidden="true">→</span>' +
+          '<div><small>확인한 근거</small><p>' + esc(b.steps[1]) + '</p></div><span class="arrow" aria-hidden="true">→</span>' +
+          '<div><small>바꾼 방향</small><p>' + esc(b.steps[2]) + '</p></div></div></div>';
+        case 'bars':
+          var row = function (r, tot) { return '<div class="sbar' + (tot ? ' sbar--tot' : '') + '"><span class="sbar__name">' + esc(r[0]) + '</span>' +
+            '<span class="sbar__track" aria-hidden="true"><i class="sbar__goal" style="width:' + (r[3] / r[1] * 100) + '%"></i><i class="sbar__now" style="width:' + (r[2] / r[1] * 100) + '%"></i></span>' +
+            '<span class="sbar__val"><b>' + r[2] + '</b> → <b>' + r[3] + '</b> <em>/ ' + r[1] + '</em></span></div>'; };
+          return '<div class="b">' + lab(b.title) + '<div class="sbars"><p class="sbars__legend"><span><i class="sbar__now"></i>보완 전</span><span><i class="sbar__goal"></i>보완 후 목표</span><span>배점 대비 길이</span></p>' + b.rows.map(function (r) { return row(r); }).join('') + (b.total ? row(b.total, true) : '') + '</div>' + note(b.note) + '</div>';
+        case 'retro': return '<div class="b retro"><small>' + esc(b.title) + '</small><p>' + esc(b.text) + '</p></div>';
+        case 'learned': return '<div class="b learned"><small>LEARNED</small><p>' + esc(b.text) + '</p></div>';
+      }
+      return '';
+    }
+    var sections;
+    if (P.story) {
+      sections = P.story.map(function (sc, i) {
+        var no = two(i + 1);
+        if (sc.kind === 'core') return { id: sc.id, name: sc.name, html: '<section class="dsec" id="' + sc.id + '" data-scene="' + sc.name.toUpperCase() + '"><div class="cp"><p class="cp__label"><i class="dot" aria-hidden="true"></i>' + no + ' · CORE PROBLEM</p>' +
+          '<h2 class="cp__line"><s>' + esc(sc.phen) + '</s><span class="arr" aria-hidden="true">→</span>' + esc(sc.core) + '</h2><p class="cp__next">' + esc(sc.next) + '</p>' +
+          '<p class="cp__go">↓ ' + two(i + 2) + ' ' + esc(P.story[i + 1] ? P.story[i + 1].name : '') + '으로 이어짐</p></div></section>' };
+        return { id: sc.id, name: sc.name, html: '<section class="dsec" id="' + sc.id + '" data-scene="' + sc.name.toUpperCase() + '">' + head(no, sc.title, sc.lead) +
+          '<div class="dsec__content dsec__stack">' + sc.blocks.map(block).join('') + '</div></section>' };
+      });
+    } else {
+      var r = P.research, s = P.solution;
+      sections = [
+        { id: 'bg', name: 'Background', html: '<section class="dsec" id="bg" data-scene="BACKGROUND">' + head('01', 'Background', P.background.lead) +
+          '<div class="dsec__content bg-grid"><div class="bg-text">' + P.background.body.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '</div>' + stats(P.background.stats) + '</div></section>' },
+        { id: 'research', name: 'Research', html: '<section class="dsec" id="research" data-scene="RESEARCH">' + head('02', 'Research &amp; Insight', r.lead) +
+          '<div class="dsec__content"><div class="methods">' + r.methods.map(function (m) { return '<span class="chip">' + esc(m) + '</span>'; }).join('') + '</div>' +
+          '<div class="r-grid"><div class="r-visual">' + visual(r.visual) + '</div>' +
+          '<figure class="quote"><small>' + esc(r.quote.label) + '</small><blockquote>“' + esc(r.quote.text) + '”</blockquote><cite>— ' + esc(r.quote.by) + '</cite></figure></div>' +
+          '<div class="findings">' + r.findings.map(function (f, i) { return '<div class="finding"><small>FINDING ' + two(i + 1) + '</small><p>' + esc(f) + '</p></div>'; }).join('') + '</div></div></section>' },
+        { id: 'core', name: 'Core Problem', html: '<section class="dsec" id="core" data-scene="CORE PROBLEM"><div class="cp"><p class="cp__label"><i class="dot" aria-hidden="true"></i>03 · CORE PROBLEM</p>' +
+          '<h2 class="cp__line"><s>' + esc(P.coreProblem.phen) + '</s><span class="arr" aria-hidden="true">→</span>' + esc(P.coreProblem.core) + '</h2>' +
+          '<p class="cp__next">' + esc(P.coreProblem.next) + '</p><p class="cp__go">↓ 04 Solution으로 이어짐</p></div></section>' },
+        { id: 'solution', name: 'Solution', html: '<section class="dsec" id="solution" data-scene="SOLUTION">' + head('04', 'Solution', s.lead) +
+          '<div class="dsec__content"><div class="s-visual">' + visual(s.visual) + '</div>' +
+          '<div class="scards">' + s.cards.map(function (c, i) { return '<div class="scard"><small>' + two(i + 1) + '</small><h4>' + esc(c[0]) + '</h4><p>' + esc(c[1]) + '</p></div>'; }).join('') + '</div></div></section>' },
+        { id: 'decision', name: 'Decision', html: '<section class="dsec" id="decision" data-scene="DECISION">' + head('05', 'Decision', '처음 판단 → 확인한 근거 → 바꾼 방향') +
+          '<div class="dsec__content decision">' +
+          '<div><small>처음 판단</small><p>' + esc(P.decision[0]) + '</p></div><span class="arrow" aria-hidden="true">→</span>' +
+          '<div><small>확인한 근거</small><p>' + esc(P.decision[1]) + '</p></div><span class="arrow" aria-hidden="true">→</span>' +
+          '<div><small>바꾼 방향</small><p>' + esc(P.decision[2]) + '</p></div></div></section>' },
+        { id: 'result', name: 'Result', html: '<section class="dsec" id="result" data-scene="RESULT">' + head('06', 'Result', '') +
+          '<div class="dsec__content res-grid">' + stats(P.result.stats) + '<div class="learned"><small>LEARNED</small><p>' + esc(P.result.learned) + '</p></div></div></section>' }
+      ];
+    }
+    var tail = '<nav class="pager" aria-label="이전 · 다음 프로젝트"><a href="project.html?id=' + prevId + '"><small>← PREVIOUS PROJECT</small><span>' + esc(D.projects[prevId].title) + '</span></a>' +
+      '<a href="project.html?id=' + nextId + '"><small>NEXT PROJECT →</small><span>' + esc(D.projects[nextId].title) + '</span></a></nav>' +
+      '<p class="back-list"><a class="tlink" href="works.html">프로젝트 목록으로 돌아가기</a></p>';
+
+    root.innerHTML = topHtml +
       '<div class="wrap"><div class="d-body">' +
         '<nav class="pindex" aria-label="PROJECT INDEX"><h2>PROJECT INDEX</h2><ol>' +
-          [['bg', 'Background'], ['research', 'Research'], ['core', 'Core Problem'], ['solution', 'Solution'], ['decision', 'Decision'], ['result', 'Result']].map(function (x, i) { return '<li><a href="#' + x[0] + '" data-sec="' + x[0] + '"><b>' + two(i + 1) + '</b>' + x[1] + '<i class="dot" aria-hidden="true"></i></a></li>'; }).join('') +
+          sections.map(function (x, i) { return '<li><a href="#' + x.id + '" data-sec="' + x.id + '"><b>' + two(i + 1) + '</b>' + x.name + '<i class="dot" aria-hidden="true"></i></a></li>'; }).join('') +
         '</ol></nav>' +
-        '<div class="d-main">' +
-          '<section class="dsec" id="bg" data-scene="BACKGROUND">' + head('01', 'Background', P.background.lead) +
-            '<div class="dsec__content bg-grid"><div class="bg-text">' + P.background.body.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '</div>' + stats(P.background.stats) + '</div></section>' +
-          '<section class="dsec" id="research" data-scene="RESEARCH">' + head('02', 'Research &amp; Insight', r.lead) +
-            '<div class="dsec__content"><div class="methods">' + r.methods.map(function (m) { return '<span class="chip">' + esc(m) + '</span>'; }).join('') + '</div>' +
-            '<div class="r-grid"><div class="r-visual">' + visual(r.visual) + '</div>' +
-            '<figure class="quote"><small>' + esc(r.quote.label) + '</small><blockquote>“' + esc(r.quote.text) + '”</blockquote><cite>— ' + esc(r.quote.by) + '</cite></figure></div>' +
-            '<div class="findings">' + r.findings.map(function (f, i) { return '<div class="finding"><small>FINDING ' + two(i + 1) + '</small><p>' + esc(f) + '</p></div>'; }).join('') + '</div></div></section>' +
-          '<section class="dsec" id="core" data-scene="CORE PROBLEM"><div class="cp"><p class="cp__label"><i class="dot" aria-hidden="true"></i>03 · CORE PROBLEM</p>' +
-            '<h2 class="cp__line"><s>' + esc(P.coreProblem.phen) + '</s><span class="arr" aria-hidden="true">→</span>' + esc(P.coreProblem.core) + '</h2>' +
-            '<p class="cp__next">' + esc(P.coreProblem.next) + '</p><p class="cp__go">↓ 04 Solution으로 이어짐</p></div></section>' +
-          '<section class="dsec" id="solution" data-scene="SOLUTION">' + head('04', 'Solution', s.lead) +
-            '<div class="dsec__content"><div class="s-visual">' + visual(s.visual) + '</div>' +
-            '<div class="scards">' + s.cards.map(function (c, i) { return '<div class="scard"><small>' + two(i + 1) + '</small><h4>' + esc(c[0]) + '</h4><p>' + esc(c[1]) + '</p></div>'; }).join('') + '</div></div></section>' +
-          '<section class="dsec" id="decision" data-scene="DECISION">' + head('05', 'Decision', '처음 판단 → 확인한 근거 → 바꾼 방향') +
-            '<div class="dsec__content decision">' +
-              '<div><small>처음 판단</small><p>' + esc(P.decision[0]) + '</p></div><span class="arrow" aria-hidden="true">→</span>' +
-              '<div><small>확인한 근거</small><p>' + esc(P.decision[1]) + '</p></div><span class="arrow" aria-hidden="true">→</span>' +
-              '<div><small>바꾼 방향</small><p>' + esc(P.decision[2]) + '</p></div></div></section>' +
-          '<section class="dsec" id="result" data-scene="RESULT">' + head('06', 'Result', '') +
-            '<div class="dsec__content res-grid">' + stats(P.result.stats) + '<div class="learned"><small>LEARNED</small><p>' + esc(P.result.learned) + '</p></div></div>' +
-            '<nav class="pager" aria-label="이전 · 다음 프로젝트"><a href="project.html?id=' + prevId + '"><small>← PREVIOUS PROJECT</small><span>' + esc(D.projects[prevId].title) + '</span></a>' +
-            '<a href="project.html?id=' + nextId + '"><small>NEXT PROJECT →</small><span>' + esc(D.projects[nextId].title) + '</span></a></nav>' +
-            '<p class="back-list"><a class="tlink" href="works.html">프로젝트 목록으로 돌아가기</a></p></section>' +
-        '</div></div></div>';
+        '<div class="d-main">' + sections.map(function (x) { return x.html; }).join('') + tail + '</div>' +
+      '</div></div>';
+
+    /* 이미지 크게 보기 */
+    root.addEventListener('click', function (e) {
+      var b = e.target.closest('.g-open'); if (!b) return;
+      var k = b.getAttribute('data-g');
+      if (k === 'cover') openGallery([gallery.cover], 0); else { var kk = k.split(':'); openGallery(gallery[+kk[0]], +kk[1]); }
+    });
 
     /* PROJECT INDEX 스크롤 스파이 */
     var links = $$('.pindex a'), secs = links.map(function (a) { return document.getElementById(a.getAttribute('data-sec')); });
