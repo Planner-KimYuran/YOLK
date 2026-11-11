@@ -161,23 +161,27 @@
      ========================================================= */
   if (page === 'home') {
     var now = new Date(), nowYM = now.getFullYear() * 100 + now.getMonth() + 1;
-    var fc = $('#fcards');
-    if (fc) fc.innerHTML = D.mainOrder.map(function (id) {
-      var p = D.projects[id], pm = String(p.period).match(/(\d{4})\.(\d{2})(?:\s*[—–-]\s*(\d{2}))?/), live = pm ? (+pm[1] * 100 + +(pm[3] || pm[2])) > nowYM : false;
+    var yl = $('#ylist');
+    if (yl) yl.innerHTML = D.mainOrder.map(function (id, i) {
+      var p = D.projects[id], pm = String(p.period).match(/(\d{4})\.(\d{2})(?:\s*[—–-]\s*(\d{2}))?/);
+      var live = pm ? (+pm[1] * 100 + +(pm[3] || pm[2])) > nowYM : false;
       var award = (D.awards || []).filter(function (a) { return a[2] === id; })[0];
-      var meta = ['대표'].concat(docsSorted(p)).concat(award ? [award[1].split(' · ')[0]] : []);
-      return '<li><a class="fcard" href="project.html?id=' + id + '">' +
-        '<div class="fcard__img">' + thumb(p) + (live ? '<span class="fcard__badge">진행 중</span>' : '') + '</div>' +
-        '<h3 class="fcard__title">' + esc(p.cardTitle) + '</h3>' +
-        '<p class="fcard__sum">' + esc(p.summary || p.homeSummary) + '</p>' +
-        '<p class="fcard__meta">' + meta.map(esc).join(' <span aria-hidden="true">|</span> ') + '</p>' +
-        '<p class="fcard__date">' + esc(String(p.period).replace(/\s*—\s*/, '–')) + (live ? ' · 진행 중' : '') + '</p></a></li>';
+      return '<li><a class="yl__row" href="project.html?id=' + id + '">' +
+        '<span class="yl__no">#' + two(i + 1) + '</span>' +
+        '<div class="yl__text">' +
+          '<p class="yl__tags">' + (p.homeTags || p.tags).map(esc).join(' ') + (live ? ' <span class="yl__live"><i class="dot" aria-hidden="true"></i>진행 중</span>' : '') + '</p>' +
+          '<h3 class="yl__title">' + esc(p.cardTitle) + '</h3>' +
+          '<p class="core-line"><span class="core-label"><i class="dot" aria-hidden="true"></i>CORE</span><span>' + esc(p.core) + '</span></p>' +
+          '<p class="yl__meta">' + esc(String(p.period).replace(/\s*—\s*/, ' — ')) + ' · ' + esc(p.role) + ' · ' + docsSorted(p).map(esc).join(' · ') + (award ? ' · ' + esc(award[1].split(' · ')[0]) : '') + '</p>' +
+          '<span class="yl__go">VIEW PROJECT →</span>' +
+        '</div>' +
+        '<div class="yl__img">' + thumb(p) + '</div></a></li>';
     }).join('');
-    var bt = $('.backtop__btn');
-    if (bt) bt.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
-      var l = $('.gnb__logo'); if (l) l.focus({ preventScroll: true });
-    });
+    var cs = $('#contact');
+    if (cs) {
+      var spy = function () { setActive(cs.getBoundingClientRect().top < window.innerHeight * 0.5 ? 'contact' : ''); };
+      window.addEventListener('scroll', spy, { passive: true }); spy();
+    }
   }
 
   if (page === 'about') {

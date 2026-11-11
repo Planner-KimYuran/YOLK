@@ -9,91 +9,104 @@
 <meta property="og:description" content="판을 계획하고, 핵심만 남기는 노른자 같은 기획자">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="style.css?v=10">
+<link rel="stylesheet" href="style.css?v=11">
 </head>
 <body data-page="home">
 <a class="skip" href="#main">본문 바로가기</a>
 
 <header class="gnb">
   <div class="wrap gnb__inner">
-    <a class="gnb__logo" href="index.html" aria-label="김유란 — 처음으로">김유란<span>Kim Yuran</span></a>
+    <a class="gnb__logo" href="index.html" aria-label="김유란 — 처음으로">김유란<i class="dot" aria-hidden="true"></i></a>
     <nav aria-label="주요 메뉴">
       <ul class="gnb__menu">
-        <li><a href="works.html" data-nav="works">프로젝트</a></li>
-        <li><a href="about.html" data-nav="about">프로필</a></li>
+        <li><a href="works.html" data-nav="works">(CORE WORKS)</a></li>
+        <li><a href="about.html" data-nav="about">(PROFILE)</a></li>
+        <li><a href="index.html#contact" data-nav="contact">(CONTACT)</a></li>
       </ul>
     </nav>
   </div>
 </header>
 
 <main id="main">
-  <!-- HOME-01 Hero -->
-  <section class="wrap hh" id="top" aria-labelledby="hh-title">
-    <div class="hh__grid">
-      <h1 class="hh__title" id="hh-title">판을 계획하고, 핵심만 남기는<br>노른자 같은 기획자 김유란입니다.</h1>
-      <div class="ph hh__visual" aria-hidden="true"><span class="ph__label">HERO VISUAL<span class="ph__sub">이미지 · 추후 제공</span></span></div>
-      <div class="hh__docs">
-        <button type="button" class="docbtn" data-pdf="김유란 · 이력서" data-file="resume.pdf" data-pages="img/doc-resume-1.jpg,img/doc-resume-2.jpg">이력서 · 흰자의 기록 펼쳐 보기<i aria-hidden="true">↗</i></button>
-        <button type="button" class="docbtn" data-pdf="김유란 · 자기소개서" data-file="cover-letter.pdf" data-pages="img/doc-cover-letter-1.jpg,img/doc-cover-letter-2.jpg">자기소개서 · 노른자의 생각 펼쳐 보기<i aria-hidden="true">↗</i></button>
-      </div>
+  <!-- HOME-01 Hero — 이름 타이포 -->
+  <section class="wrap yh" id="top" aria-labelledby="yh-name">
+    <p class="yh__role">(UX/UI · SERVICE PLANNER)</p>
+    <h1 class="yh__name" id="yh-name">김유란<i class="dot" aria-hidden="true"></i></h1>
+    <div class="yh__row">
+      <p class="yh__slogan">판을 계획하고, 핵심만 남기는<br><b>노른자</b> 같은 기획자</p>
+      <ul class="yh__docs" aria-label="문서 보기">
+        <li><button type="button" class="yh__doc" data-pdf="김유란 · 이력서" data-file="resume.pdf" data-pages="img/doc-resume-1.jpg,img/doc-resume-2.jpg"><em>01</em><span>RESUME</span><small>이력서</small><i aria-hidden="true">↗</i></button></li>
+        <li><button type="button" class="yh__doc" data-pdf="김유란 · 자기소개서" data-file="cover-letter.pdf" data-pages="img/doc-cover-letter-1.jpg,img/doc-cover-letter-2.jpg"><em>02</em><span>SELF-INTRO</span><small>자기소개서</small><i aria-hidden="true">↗</i></button></li>
+      </ul>
     </div>
-    <a class="hh__explore" href="#works">대표 프로젝트 보러 가기<i aria-hidden="true">↓</i></a>
+    <div class="metarow yh__meta"><p>PORTFOLIO 2026<br>KIM YURAN · 金有蘭</p><span class="cross" aria-hidden="true"></span><a class="yh__scroll" href="#works">SCROLL<br>(CORE WORKS) ↓</a></div>
   </section>
 
-  <!-- HOME-02 대표 프로젝트 -->
-  <section class="wrap hs" id="works" aria-labelledby="works-title">
-    <div class="hs__head">
-      <h2 id="works-title">노른자를 찾아낸 프로젝트</h2>
-      <p>겉으로 드러난 현상에서 진짜 문제(CORE)를 찾아 해결로 이어간 대표 프로젝트</p>
+  <!-- HOME-02 대표 프로젝트 — 번호 목록 -->
+  <section class="wrap ys" id="works" aria-labelledby="works-title">
+    <div class="ys__head">
+      <p class="eyebrow">(01 / CORE WORKS)</p>
+      <h2 id="works-title">노른자를 찾아낸<br>세 개의 프로젝트</h2>
+      <a class="tlink ys__all" href="works.html">전체 프로젝트 (08) →</a>
     </div>
-    <ul class="fcards" id="fcards"></ul>
-    <div class="hs__more"><a href="works.html">전체 프로젝트 둘러보기<i aria-hidden="true">↗</i></a></div>
+    <ol class="yl" id="ylist"></ol>
   </section>
 
   <!-- HOME-03 프로필 -->
-  <section class="wrap hs" id="profile" aria-labelledby="profile-title">
-    <div class="hs__head">
-      <h2 id="profile-title">흰자의 기록</h2>
-      <p>노른자를 지탱하는 중요한 이력 사항 묶어서 보기</p>
+  <section class="wrap ys" id="profile" aria-labelledby="profile-title">
+    <div class="ys__head">
+      <p class="eyebrow">(02 / PROFILE)</p>
+      <h2 id="profile-title">노른자를 지탱하는<br>흰자의 기록</h2>
+      <a class="tlink ys__all" href="about.html">이력 전체 보기 →</a>
     </div>
-    <div class="hp">
-      <figure class="hp__photo"><img src="img/profile.jpg" alt="김유란 프로필 사진" width="600" height="750"></figure>
-      <div class="hp__body">
-        <h3 class="hp__title">판을 계획하고, 핵심만 남기는 노른자 같은 기획자 김유란입니다.</h3>
-        <p class="hp__desc">겉으로 드러난 현상보다 그 안의 진짜 문제를 먼저 찾습니다.<br>근거로 방향을 세우고, 핵심만 남겨 서비스의 구조를 설계합니다.<br>팀원 각자의 강점을 찾아 역할을 맡기고, 반복할수록 정확해집니다.</p>
-        <dl class="hp__info">
-          <div><dt>전공</dt><dd>계원예술대학교<small>디지털미디어디자인과 기획 세부전공<br>2027.02 졸업 예정</small></dd></div>
-          <div><dt>직무</dt><dd>UX/UI · Service Planner</dd></div>
-          <div><dt>전화</dt><dd><a href="tel:+821034526632">010.3452.6632</a></dd></div>
-          <div><dt>이메일</dt><dd><a href="mailto:kimyuran36@gmail.com">kimyuran36@gmail.com</a></dd></div>
+    <div class="yp">
+      <div class="yp__text">
+        <p class="yp__lead">겉으로 드러난 현상보다 그 안의 <b>진짜 문제</b>를 먼저 찾습니다. 근거로 방향을 세우고, 핵심만 남겨 서비스의 구조를 설계합니다.</p>
+        <dl class="yp__info">
+          <div><dt>MAJOR</dt><dd>계원예술대학교 디지털미디어디자인과 · 기획 세부전공<small>2027.02 졸업 예정</small></dd></div>
+          <div><dt>ROLE</dt><dd>UX/UI · Service Planner</dd></div>
+          <div><dt>PHONE</dt><dd><a href="tel:+821034526632">010.3452.6632</a></dd></div>
+          <div><dt>EMAIL</dt><dd><a href="mailto:kimyuran36@gmail.com">kimyuran36@gmail.com</a></dd></div>
+          <div><dt>INSTAGRAM</dt><dd><a href="https://www.instagram.com/nwrnnyo/" target="_blank" rel="noopener">@nwrnnyo ↗</a></dd></div>
         </dl>
-        <div class="hp__steps">
-          <p class="hp__steps-h">노른자를<br>찾는 방식</p>
-          <ol>
-            <li><b>01 PLAN</b><strong>판을 계획합니다.</strong><span>목표와 범위부터 그리고 움직입니다. 쿠팡 로켓프레시 — 사용자 50명 설문으로 방향 설정</span></li>
-            <li><b>02 FIND</b><strong>핵심을 짚습니다.</strong><span>현상을 여러 겹 벗겨 진짜 문제를 찾습니다. Arc.Dot — 문제를 '정보의 사각지대'로 재정의</span></li>
-            <li><b>03 KEEP</b><strong>핵심만 남깁니다.</strong><span>덜어낸 뒤 남은 핵심으로 구조를 짭니다. HAELON — 탐지부터 대응까지 한 흐름으로</span></li>
-            <li><b>04 TOGETHER</b><strong>함께 꾸준히 합니다.</strong><span>강점을 나누고, 반복할수록 정확해집니다. 의왕 ESG 카드뉴스팀 팀장 · 결과발표회</span></li>
-          </ol>
-        </div>
-        <div class="hs__more"><a href="about.html">흰자의 기록 전부 보기<i aria-hidden="true">↗</i></a></div>
+      </div>
+      <figure class="yp__photo"><img src="img/profile.jpg" alt="김유란 프로필 사진" width="600" height="750"><figcaption>KIM YURAN · 金有蘭</figcaption></figure>
+    </div>
+    <ol class="yw" aria-label="노른자를 찾는 네 가지 방식">
+      <li><span class="yw__no">01</span><p class="yw__key"><i class="dot" aria-hidden="true"></i>PLAN</p><h3>판을 계획한다</h3><p>목표와 범위부터 그리고 움직입니다.</p><small>쿠팡 로켓프레시 — 사용자 50명 설문</small></li>
+      <li><span class="yw__no">02</span><p class="yw__key"><i class="dot" aria-hidden="true"></i>FIND</p><h3>핵심을 짚는다</h3><p>현상을 여러 겹 벗겨 진짜 문제를 찾습니다.</p><small>Arc.Dot — '정보의 사각지대'로 재정의</small></li>
+      <li><span class="yw__no">03</span><p class="yw__key"><i class="dot" aria-hidden="true"></i>KEEP</p><h3>핵심만 남긴다</h3><p>덜어낸 뒤 남은 핵심으로 구조를 짭니다.</p><small>HAELON — 탐지부터 대응까지 한 흐름</small></li>
+      <li><span class="yw__no">04</span><p class="yw__key"><i class="dot" aria-hidden="true"></i>TOGETHER</p><h3>함께 꾸준히한다</h3><p>강점을 나누고, 반복할수록 정확해집니다.</p><small>의왕 ESG 카드뉴스팀 팀장 · 결과발표회</small></li>
+    </ol>
+  </section>
+
+  <!-- HOME-04 Contact -->
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap contact__inner">
+      <div>
+        <p class="eyebrow">(03 / CONTACT)</p>
+        <h2 id="contact-title">이 달걀을<br>수집할 팀에게</h2>
+        <p class="contact__sub">함께 핵심을 찾을 팀을 기다립니다.</p>
+      </div>
+      <div>
+        <dl class="contact__list">
+          <div class="contact__row"><dt>EMAIL</dt><dd id="c-email">kimyuran36@gmail.com</dd><button type="button" class="copy-btn" data-copy="c-email" data-msg="이메일 주소가 복사되었습니다.">COPY</button></div>
+          <div class="contact__row"><dt>PHONE</dt><dd id="c-phone">010.3452.6632</dd><button type="button" class="copy-btn" data-copy="c-phone" data-msg="전화번호가 복사되었습니다.">COPY</button></div>
+        </dl>
+        <div class="contact__acts"><a class="btn" href="mailto:kimyuran36@gmail.com">메일 보내기 ↗</a></div>
       </div>
     </div>
   </section>
-
-  <div class="backtop"><button type="button" class="backtop__btn"><i aria-hidden="true">↑</i>상단으로</button></div>
 </main>
 
 <footer class="footer">
   <div class="wrap footer__inner">
-    <p class="footer__who">김유란<span>Kim Yuran</span></p>
-    <div class="footer__cols">
-      <div><p class="footer__h">Quick Links</p><ul><li><a href="works.html">프로젝트</a></li><li><a href="about.html">프로필</a></li></ul></div>
-      <div><p class="footer__h">Contact</p><ul><li><a href="tel:+821034526632">+82 10 3452 6632</a></li><li><a href="mailto:kimyuran36@gmail.com">kimyuran36@gmail.com</a></li><li><a href="https://www.instagram.com/nwrnnyo/" target="_blank" rel="noopener">@nwrnnyo ↗</a></li></ul></div>
-    </div>
+    <p class="footer__copy">© 2026 김유란 — Yolk Planner</p>
+    <p class="footer__slogan">판을 계획하고, 핵심만 남기는 노른자 같은 기획자</p>
   </div>
 </footer>
 
+<button type="button" class="to-top" aria-label="맨 위로">TOP<br>↑</button>
 <div class="toast" role="status" aria-live="polite"><i class="dot" aria-hidden="true"></i><span></span></div>
 
 <div class="modal" id="pdf" hidden role="dialog" aria-modal="true" aria-labelledby="pdf-title">
@@ -108,8 +121,8 @@
   </div>
 </div>
 
-<script src="data.js?v=10"></script>
-<script src="story.js?v=10"></script>
-<script src="app.js?v=10"></script>
+<script src="data.js?v=11"></script>
+<script src="story.js?v=11"></script>
+<script src="app.js?v=11"></script>
 </body>
 </html>
