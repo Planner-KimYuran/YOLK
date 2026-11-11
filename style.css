@@ -1160,3 +1160,4 @@ main { padding-top: var(--gnb-h); }
 /* 이력서 · 자기소개서 — 쪽 이미지 보기 (세로로 길게, 스크롤) */
 .modal.is-doc .modal__view { place-items: start center; height: min(82vh, 1100px); }
 .modal.is-doc .modal__img { width: min(100%, 860px); max-height: none; height: auto; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.modal.is-doc .modal__ext { display: none !important; }
