@@ -14,8 +14,8 @@ window.YOLK = {
     instagram: '@nwrnnyo',
     instagramUrl: 'https://www.instagram.com/nwrnnyo/',
     location: '—',
-    resumeFile: null,
-    coverLetterFile: null
+    resumeFile: 'resume.pdf',
+    coverLetterFile: 'cover-letter.pdf'
   },
 
   /* 사이트 공통 문서 유형 순서 */
