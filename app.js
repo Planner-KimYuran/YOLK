@@ -86,8 +86,8 @@
   function galShow() {
     var it = galList[galIdx];
     $('.modal__title', modal).textContent = it.cap;
-    $('.modal__view', modal).innerHTML = '<img class="modal__img" src="' + esc(it.src) + '" alt="' + esc(it.cap) + '">';
-    var ext = $('.modal__ext', modal); ext.href = it.src; ext.removeAttribute('aria-disabled'); ext.tabIndex = 0;
+    var mv = $('.modal__view', modal); mv.innerHTML = '<img class="modal__img" src="' + esc(it.src) + '" alt="' + esc(it.cap) + '">'; mv.scrollTop = 0;
+    var ext = $('.modal__ext', modal); ext.href = it.file || it.src; ext.removeAttribute('aria-disabled'); ext.tabIndex = 0;
     $('.modal__page', modal).textContent = two(galIdx + 1) + ' / ' + two(galList.length);
     var btns = $$('.modal__foot button', modal);
     btns[0].disabled = galIdx === 0; btns[1].disabled = galIdx === galList.length - 1;
@@ -111,7 +111,7 @@
   }
   function closePdf() {
     if (!modal || modal.hidden) return;
-    modal.hidden = true; document.body.classList.remove('is-locked'); galList = null;
+    modal.hidden = true; modal.classList.remove('is-doc'); document.body.classList.remove('is-locked'); galList = null;
     $('.modal__view', modal).innerHTML = '';
     if (lastFocus) lastFocus.focus();
   }
@@ -131,6 +131,14 @@
     var b = e.target.closest('[data-pdf]');
     if (!b) return;
     e.preventDefault();
+    var pages = b.getAttribute('data-pages');
+    if (pages && modal) {
+      var t = b.getAttribute('data-pdf'), f = b.getAttribute('data-file'), list = pages.split(',');
+      modal.classList.add('is-doc');
+      openGallery(list.map(function (src, i) { return { src: src, file: f, cap: t + ' · ' + (i + 1) + '쪽' }; }), 0);
+      return;
+    }
+    modal && modal.classList.remove('is-doc');
     openPdf(b.getAttribute('data-pdf'), b.getAttribute('data-file') || null);
   });
   function shortName(p) { return p.cardTitle; }
