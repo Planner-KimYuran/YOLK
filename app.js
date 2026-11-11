@@ -27,7 +27,7 @@
   function setActive(key) {
     $$('[data-nav]').forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('data-nav') === key ? 'true' : 'false'); });
   }
-  setActive(page === 'home' ? 'home' : 'works');
+  setActive(page === 'about' ? 'about' : page === 'home' ? '' : 'works');
 
   /* 모바일 전체 화면 메뉴 */
   var mm = $('.mmenu'), mmOpen = $('.gnb__toggle'), mmClose = $('.mmenu__close');
@@ -148,17 +148,31 @@
   /* =========================================================
      HOME
      ========================================================= */
+  /* =========================================================
+     HOME — 히어로 · 대표 프로젝트 카드 · 프로필 요약
+     ========================================================= */
   if (page === 'home') {
-    /* 스크롤 스파이 — PLANNER(#about) · CONTACT(#contact) */
-    var spy = [['home', $('#top')], ['planner', $('#about')], ['home', $('#works')], ['contact', $('#contact')]];
-    function spyRun() {
-      var y = window.scrollY + window.innerHeight * 0.35, cur = 'home';
-      spy.forEach(function (s) { if (s[1] && s[1].getBoundingClientRect().top + window.scrollY <= y) cur = s[0]; });
-      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) cur = 'contact';
-      setActive(cur);
-    }
-    window.addEventListener('scroll', spyRun, { passive: true }); spyRun();
+    var now = new Date(), nowYM = now.getFullYear() * 100 + now.getMonth() + 1;
+    var fc = $('#fcards');
+    if (fc) fc.innerHTML = D.mainOrder.map(function (id) {
+      var p = D.projects[id], pm = String(p.period).match(/(\d{4})\.(\d{2})(?:\s*[—–-]\s*(\d{2}))?/), live = pm ? (+pm[1] * 100 + +(pm[3] || pm[2])) > nowYM : false;
+      var award = (D.awards || []).filter(function (a) { return a[2] === id; })[0];
+      var meta = ['대표'].concat(docsSorted(p)).concat(award ? [award[1].split(' · ')[0]] : []);
+      return '<li><a class="fcard" href="project.html?id=' + id + '">' +
+        '<div class="fcard__img">' + thumb(p) + (live ? '<span class="fcard__badge">진행 중</span>' : '') + '</div>' +
+        '<h3 class="fcard__title">' + esc(p.cardTitle) + '</h3>' +
+        '<p class="fcard__sum">' + esc(p.summary || p.homeSummary) + '</p>' +
+        '<p class="fcard__meta">' + meta.map(esc).join(' <span aria-hidden="true">|</span> ') + '</p>' +
+        '<p class="fcard__date">' + esc(String(p.period).replace(/\s*—\s*/, '–')) + (live ? ' · 진행 중' : '') + '</p></a></li>';
+    }).join('');
+    var bt = $('.backtop__btn');
+    if (bt) bt.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      var l = $('.gnb__logo'); if (l) l.focus({ preventScroll: true });
+    });
+  }
 
+  if (page === 'about') {
     /* ABOUT-02 Experience */
     var expList = $('#exp-list'), expFilter = 'ALL';
     function renderExp() {
@@ -183,38 +197,6 @@
         $$('[data-exp]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
         renderExp();
       });
-    });
-
-    /* HOME-02 대표 프로젝트 */
-    var slist = $('#slist'), spanel = $('#spanel');
-    slist.innerHTML = D.mainOrder.map(function (id, i) {
-      var p = D.projects[id];
-      return '<li><a href="project.html?id=' + id + '" data-id="' + id + '" class="' + (i === 0 ? 'is-active' : '') + '">' +
-        '<span class="slist__no">#' + two(i + 1) + '</span><span class="slist__name">' + esc(p.title) + '</span><span class="slist__arrow" aria-hidden="true">→</span>' +
-        '<span class="slist__tags">' + p.homeTags.map(esc).join(' ') + '</span>' +
-        '<span class="slist__mobile"><p>' + esc(p.homeSummary) + '</p><span class="core-line"><span class="core-label"><i class="dot"></i>CORE</span><span>' + esc(p.core) + '</span></span></span></a></li>';
-    }).join('');
-    function panel(id) {
-      var p = D.projects[id], info = p.homeInfo || { period: p.period, role: p.role, team: p.team };
-      return thumb(p, 'spanel__thumb') +
-        '<p class="spanel__tags">' + p.homeTags.map(esc).join(' ') + '</p>' +
-        '<h3 class="spanel__title">' + esc(p.title) + '</h3><p class="spanel__sum">' + esc(p.homeSummary) + '</p>' +
-        '<p class="core-line"><span class="core-label"><i class="dot" aria-hidden="true"></i>CORE</span><span>' + esc(p.core) + '</span></p>' +
-        '<dl class="spanel__meta"><div><dt>PERIOD</dt><dd>' + esc(info.period) + '</dd></div><div><dt>MY ROLE</dt><dd>' + esc(info.role) + '</dd></div><div><dt>TEAM</dt><dd>' + esc(info.team) + '</dd></div></dl>' +
-        '<div class="spanel__foot"><span class="spanel__docs">' + docsSorted(p).map(function (t) { return '<span class="tag-doc">' + t + '</span>'; }).join('') + '</span>' +
-        '<a class="tlink" href="project.html?id=' + id + '">프로젝트 자세히 보기 →</a></div>';
-    }
-    var body = $('.spanel__body', spanel), curId = D.mainOrder[0], swapT;
-    body.innerHTML = panel(curId);
-    function show(id) {
-      if (id === curId) return; curId = id;
-      $$('a', slist).forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('data-id') === id); });
-      body.classList.add('is-swapping'); clearTimeout(swapT);
-      swapT = setTimeout(function () { body.innerHTML = panel(id); body.classList.remove('is-swapping'); }, reduce ? 0 : 120);
-    }
-    $$('a', slist).forEach(function (a) {
-      a.addEventListener('mouseenter', function () { show(a.getAttribute('data-id')); });
-      a.addEventListener('focus', function () { show(a.getAttribute('data-id')); });
     });
 
     /* HOME-03 문서 미리보기 */

@@ -1044,3 +1044,115 @@ main { padding-top: var(--gnb-h); }
 .dtable tbody tr:last-child th { border-bottom: 0; }
 .fchip, .sort__btn { border-color: transparent; background: var(--soft); }
 .fchip[aria-pressed="true"], .fchip[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
+
+/* =========================================================
+   MAIN v4 — 메인 구조 재정리
+   헤더(이름 / 프로젝트 · 프로필) → 히어로 한 줄 + 문서 버튼 → 대표 프로젝트 카드 3
+   → 프로필 요약(사진 · 소개 · 정보 · 방식) → 상단으로 → 푸터(Quick Links · Contact)
+   ========================================================= */
+
+/* 헤더 — 이름 + 메뉴 두 개 */
+.gnb__logo { display: inline-flex; align-items: baseline; gap: 12px; font-size: 16px; font-weight: 600; letter-spacing: -0.02em; }
+.gnb__logo span { font-size: 15px; font-weight: 400; letter-spacing: 0; color: var(--ink-3); }
+.gnb__menu, .gnb__menu { display: flex !important; gap: clamp(20px, 3vw, 44px); }
+.gnb__menu a { font-size: 15px; font-weight: 500; letter-spacing: 0; color: var(--ink-3); padding-block: 8px; }
+.gnb__menu a[aria-current="true"] { color: var(--ink); font-weight: 700; }
+.gnb__menu a[aria-current="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: 2px; height: 2px; background: var(--ink); }
+.gnb__pct, .gnb__toggle { display: none !important; }
+@media (max-width: 480px) { .gnb__logo span { display: none; } }
+
+/* HOME-01 히어로 */
+.hh { min-height: calc(100svh - var(--gnb-h)); display: flex; flex-direction: column; justify-content: center; padding-block: clamp(40px, 6vw, 88px) 32px; }
+.hh__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: 1fr auto; column-gap: clamp(32px, 5vw, 80px); row-gap: 28px; align-items: center; }
+.hh__title { grid-column: 1; grid-row: 1; align-self: end; margin: 0; font-size: clamp(26px, 2.5vw, 36px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.42; text-wrap: balance; }
+.hh__visual { grid-column: 2; grid-row: 1 / 3; width: 100%; aspect-ratio: 4 / 3; }
+.hh__docs { grid-column: 1; grid-row: 2; align-self: start; display: flex; flex-wrap: wrap; gap: 10px; }
+.docbtn { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; font-size: 14px; font-weight: 500; color: var(--ink); background: #fff; border: 1px solid var(--hair); transition: border-color .2s, background .2s; }
+.docbtn i { font-style: normal; color: var(--muted); }
+.docbtn:hover { border-color: var(--ink); }
+.hh__explore { align-self: center; margin-top: clamp(40px, 6vw, 80px); display: grid; justify-items: center; gap: 4px; font-size: 13px; color: var(--ink-3); }
+.hh__explore i { font-style: normal; font-size: 18px; color: var(--ink); animation: bob 1.8s ease-in-out infinite; }
+@media (max-width: 860px) {
+  .hh { min-height: 0; }
+  .hh__grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  .hh__title, .hh__visual, .hh__docs { grid-column: 1; grid-row: auto; }
+  .hh__title { align-self: start; }
+}
+
+/* HOME 공통 섹션 머리 */
+.hs { padding-top: var(--sec-gap); }
+.hs__head h2 { margin: 0; font-size: clamp(26px, 2.4vw, 34px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.3; }
+.hs__head p { margin-top: 10px; font-size: 15px; color: var(--ink-3); }
+.hs__more { margin-top: 36px; display: flex; justify-content: flex-end; }
+.hs__more a { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; }
+.hs__more a i { font-style: normal; font-size: 18px; transition: transform .2s var(--ease); }
+.hs__more a:hover i { transform: translate(2px, -2px); }
+
+/* HOME-02 대표 프로젝트 카드 3 */
+.fcards { margin-top: 36px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.2vw, 32px); }
+.fcard { display: block; }
+.fcard__img { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--surface); }
+.fcard__img > .ph { width: 100%; height: 100%; }
+.fcard__img img { transition: transform .4s var(--ease); }
+.fcard:hover .fcard__img img { transform: scale(1.03); }
+.fcard__badge { position: absolute; top: 14px; right: 14px; padding: 5px 10px; font-size: 12px; font-weight: 600; background: var(--yolk); color: var(--ink); }
+.fcard__title { margin-top: 18px; font-size: 18px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.45; }
+.fcard__sum { margin-top: 8px; font-size: 14px; color: var(--ink-3); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.fcard__meta { margin-top: 12px; font-size: 13px; color: var(--ink-3); }
+.fcard__meta span { color: var(--line); margin-inline: 2px; }
+.fcard__date { margin-top: 2px; font-size: 13px; color: var(--muted); }
+.fcard:hover .fcard__title { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+@media (max-width: 960px) { .fcards { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
+
+/* HOME-03 프로필 요약 */
+.hp { margin-top: 36px; display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: clamp(32px, 4.4vw, 72px); align-items: start; }
+.hp__photo { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; background: var(--surface); }
+.hp__photo img, .profile__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hp__body { min-width: 0; }
+.hp__title { margin: 8px 0 0; font-size: clamp(22px, 1.9vw, 28px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.4; }
+.hp__desc { margin-top: 18px; font-size: 15px; color: var(--ink-3); line-height: 1.85; }
+.hp__info { margin: 32px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; }
+.hp__info > div { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 16px; padding-block: 16px; border-top: 1px solid var(--hair); }
+.hp__info dt { font-size: 13px; color: var(--muted); }
+.hp__info dd { margin: 0; font-size: 15px; font-weight: 500; overflow-wrap: anywhere; }
+.hp__info small { display: block; margin-top: 4px; font-size: 13px; font-weight: 400; color: var(--ink-3); line-height: 1.6; }
+.hp__info a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.hp__steps { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; padding-block: 22px; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+.hp__steps-h { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.hp__steps ol { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.hp__steps li { display: grid; align-content: start; gap: 4px; }
+.hp__steps b { font-size: 13px; font-weight: 700; letter-spacing: .04em; }
+.hp__steps strong { font-size: 14px; font-weight: 600; }
+.hp__steps span { margin-top: 6px; font-size: 13px; color: var(--ink-3); line-height: 1.6; }
+@media (max-width: 1100px) { .hp__steps ol { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 860px) {
+  .hp { grid-template-columns: minmax(0, 1fr); }
+  .hp__photo { max-width: 360px; }
+  .hp__info { grid-template-columns: minmax(0, 1fr); }
+  .hp__steps { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 520px) { .hp__steps ol { grid-template-columns: minmax(0, 1fr); } }
+
+/* 상단으로 */
+.backtop { display: grid; place-items: center; padding-block: clamp(96px, 12vw, 180px); }
+.backtop__btn { display: grid; justify-items: center; gap: 6px; font-size: 13px; color: var(--ink-3); }
+.backtop__btn i { font-style: normal; font-size: 20px; color: var(--ink); transition: transform .2s var(--ease); }
+.backtop__btn:hover i { transform: translateY(-3px); }
+
+/* 푸터 — 이름 / Quick Links / Contact */
+.footer { border-top: 1px solid var(--hair); background: transparent; color: var(--ink); }
+.footer__inner { min-height: 0; padding-block: 44px 64px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px 64px; align-items: start; }
+.footer__who { display: inline-flex; align-items: baseline; gap: 12px; font-size: 16px; font-weight: 600; }
+.footer__who span { font-size: 15px; font-weight: 400; color: var(--ink-3); }
+.footer__cols { display: grid; grid-template-columns: auto auto; gap: 72px; }
+.footer__h { font-size: 13px; color: var(--muted); }
+.footer__cols ul { margin-top: 12px; display: grid; gap: 6px; font-size: 14px; }
+.footer__cols a:hover { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 640px) { .footer__inner { grid-template-columns: minmax(0, 1fr); } .footer__cols { gap: 40px; } }
+
+/* 프로필 페이지 */
+.about-h1 { margin: 0; font-size: clamp(30px, 3vw, 44px); font-weight: 600; letter-spacing: -0.04em; line-height: 1.3; }
+.profile__photo { margin: 0; overflow: hidden; background: var(--surface); }
+.gnb__inner { display: flex !important; justify-content: space-between; align-items: center; grid-template-columns: none; }
+.gnb__inner > nav { margin-left: auto; }
+.gnb__inner > nav { display: block !important; }
