@@ -1811,3 +1811,8 @@ img { transition: transform .9s var(--ease-soft), filter .6s var(--ease-soft); }
 .card:hover .card__thumb img, .card:hover .ph--img img, .pcard:hover .pcard__img img, .gal .g-open:hover img, .yl__row:hover .yl__img img, .fcard:hover .fcard__img img { transform: none; }
 .pcard:hover, .card:hover { box-shadow: none; border-color: #CFCFCA; }
 .pcard:hover .pcard__title, .card:hover .card__title { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; text-decoration-color: #BDBDB8; }
+
+/* v6.9 — 모든 섹션 내용 폭을 헤더 · 히어로와 같은 좌우 여백에 맞춤 */
+#experience > .wrap { max-width: calc(var(--max) + var(--gutter) * 2); }
+.kcard, .kai, .kstats, .cgrid { max-width: none; }
+@media (min-width: 1281px) { .xb { gap: clamp(20px, 2.2vw, 40px); grid-template-columns: minmax(0, 220px) minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr); } }
