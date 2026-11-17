@@ -790,46 +790,13 @@ document.addEventListener('click', function (e) {
   document.addEventListener('keydown', function (e) { if (!box) return; if (e.key === 'Escape') end(); if (e.key === 'ArrowRight' && i < steps.length - 1) { i++; show(); } if (e.key === 'ArrowLeft' && i > 0) { i--; show(); } });
 })();
 
-/* 메인 첫 화면 — 노른자가 떨어져 '핵심' 위에서 통, 통 두 번 튀고 데구르르 굴러간다 */
+/* 메인 첫 화면 — '핵심'에 얇은 밑줄이 그어지는 모션 */
 (function () {
-  var core = document.getElementById('hx-core'), endEl = document.getElementById('hx-end'), title = document.getElementById('hx-title');
-  if (!core || !endEl) return;
-  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var played = false;
-  function play() {
-    if (played || reduce || !core.animate) return; played = true;
-    var r = core.getBoundingClientRect(), e = endEl.getBoundingClientRect(), tr = title ? title.getBoundingClientRect() : e;
-    var size = Math.round(Math.max(18, Math.min(26, r.height * 0.5)));
-    var ball = document.createElement('span'); ball.className = 'yolk-ball'; ball.setAttribute('aria-hidden', 'true');
-    ball.style.width = ball.style.height = size + 'px';
-    /* 글자와 겹치지 않도록 '핵심' 글자 상자 위쪽에 착지 */
-    var floor = r.top + scrollY - size - 2;
-    ball.style.left = (r.left + r.width / 2 - size / 2 + scrollX) + 'px'; ball.style.top = floor + 'px';
-    ball.style.transformOrigin = '50% 100%';
-    document.body.appendChild(ball);
-    var drop = -(r.top + size + 40), h1 = Math.round(size * 6.5), h2 = Math.round(size * 2.2);
-    var fallE = 'cubic-bezier(.5,0,1,.6)', riseE = 'cubic-bezier(0,.45,.5,1)';
-    ball.animate([
-      { transform: 'translateY(' + drop + 'px)', easing: fallE },
-      { transform: 'translateY(0) scale(1.2,.82)', offset: .36, easing: 'linear' },     /* 통 */
-      { transform: 'translateY(0) scale(1,1)', offset: .4, easing: riseE },
-      { transform: 'translateY(-' + h1 + 'px)', offset: .64, easing: fallE },
-      { transform: 'translateY(0) scale(1.12,.88)', offset: .92, easing: 'linear' },    /* 통 */
-      { transform: 'translateY(0) scale(1,1)' }
-    ], { duration: 1500, fill: 'forwards' }).onfinish = function () {
-      ball.style.transformOrigin = '50% 50%';
-      var dist = Math.max(80, Math.min(e.right + 220, innerWidth - 40) - (r.left + r.width / 2));
-      var turns = dist / (Math.PI * size) * 360;
-      ball.animate([
-        { transform: 'translateX(0) rotate(0deg)' },
-        { transform: 'translateX(' + dist + 'px) rotate(' + turns + 'deg)' }
-      ], { duration: Math.min(2200, 900 + dist * 2.6), easing: 'cubic-bezier(.15,.6,.25,1)', fill: 'forwards' });
-    };
-    var kill = function () { if (ball.parentNode) ball.parentNode.removeChild(ball); removeEventListener('resize', kill); };
-    addEventListener('resize', kill);
-  }
-  document.addEventListener('yolk:ready', play);
+  var core = document.getElementById('hx-core'); if (!core) return;
+  var done = false;
+  function go() { if (done) return; done = true; core.classList.add('is-drawn'); }
+  document.addEventListener('yolk:ready', function () { setTimeout(go, 150); });
   if (!document.getElementById('loader')) {
-    if (document.readyState === 'complete') setTimeout(play, 350); else addEventListener('load', function () { setTimeout(play, 350); });
+    if (document.readyState === 'complete') setTimeout(go, 400); else addEventListener('load', function () { setTimeout(go, 400); });
   }
 })();

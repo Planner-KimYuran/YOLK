@@ -2412,3 +2412,11 @@ body { letter-spacing: -0.012em; }
 .card__thumb .ph--img, .pcard__img .ph--img { position: relative; }
 .card__thumb .ph--img::after, .pcard__img .ph--img::after, .gal .g-open::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(0,0,0,.08); border-radius: inherit; pointer-events: none; }
 .gal .g-open { position: relative; }
+
+/* '핵심' 밑줄 모션 (노른자 공 제거) */
+.yolk-ball { display: none !important; }
+.hx__core { position: relative; display: inline-block; }
+.hx__core::after { content: ''; position: absolute; left: 0; right: 0; bottom: -0.06em; height: 1.5px; background: currentColor; transform: scaleX(0); transform-origin: left center; transition: transform .9s cubic-bezier(.65, 0, .35, 1); }
+.hx__core.is-drawn::after { transform: scaleX(1); }
+[data-accent="yolk"] .hx__core::after { background: var(--pt); height: 2px; }
+@media (prefers-reduced-motion: reduce) { .hx__core::after { transition: none; transform: scaleX(1); } }
