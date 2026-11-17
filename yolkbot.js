@@ -104,7 +104,7 @@
     { id: 'contact', label: '연락하고 싶어', keys: ['연락', '메일', '이메일', '전화', '번호', '인스타', '이력서', '자기소개서', '자소서', '채용', '면접', '제안'],
       a: ['언제든 환영이에요!',
           '<ul><li>메일 — ' + L('mailto:knewrun25@gmail.com', 'knewrun25@gmail.com') + '</li><li>전화 — ' + L('tel:+821034526632', '010.3452.6632') + '</li><li>인스타그램 — <a href="https://www.instagram.com/nwrnnyo/" target="_blank" rel="noopener">@nwrnnyo ↗</a></li></ul>',
-          '이력서는 ' + L('resume.pdf?v=6', '여기서 바로 받을 수 있어요 ↓') + ''],
+          '이력서는 ' + L('resume.pdf?v=7', '여기서 바로 받을 수 있어요 ↓') + ''],
       next: ['who', 'projects'] }
   ];
   var byId = {}; KB.forEach(function (k) { byId[k.id] = k; });
