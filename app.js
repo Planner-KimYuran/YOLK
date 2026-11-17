@@ -190,32 +190,15 @@
         '</div></a></li>';
     }).join('');
 
-    /* 나의 이력 — 경험 카드 */
-    var xc = $('#xcards');
-    if (xc) xc.innerHTML = D.experience.map(function (e) {
-      return '<li class="xcard"><div class="xcard__head"><div><h3>' + esc(e.name) + '</h3><p class="xcard__role">' + esc(e.role) + '</p></div>' +
-        '<span class="xcard__when">' + esc(e.when.split(' · ')[0].replace(/\s*—\s*/g, ' - ')) + '</span></div>' +
-        '<p class="xcard__text">' + esc(e.text) + '</p>' +
-        '<p class="xcard__type"><span class="en">' + esc(e.type) + '</span>' + (e.lead ? ' · 리드 경험' : '') + (e.when.indexOf(' · ') > 0 ? ' · ' + esc(e.when.split(' · ').slice(1).join(' · ')) : '') + '</p></li>';
-    }).join('');
-    /* 학력 · 수상 · 자격 */
-    var xe = $('#xedu');
-    if (xe) {
-      var block = function (t, rows) { return '<div class="xcard xlist"><h3>' + t + '</h3><ul>' + rows.map(function (r) { return '<li><span class="xlist__d">' + esc(r[0]) + '</span><span>' + esc(r[1]) + (r[2] && !/^\d+$/.test(r[2]) ? ' · ' + esc(r[2]) : '') + '</span></li>'; }).join('') + '</ul></div>'; };
-      xe.innerHTML = block('학력', D.education) + block('수상 · 장학', D.awards) + block('자격', D.certificates);
-    }
-    /* 탭 */
-    var tabs = $$('.xtabs [role="tab"]');
-    var selTab = function (t) {
-      tabs.forEach(function (b) { var on = b === t; b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; document.getElementById(b.getAttribute('aria-controls')).hidden = !on; });
+    /* 나의 이력 — 한 화면 요약 */
+    var row = function (d, t, sub, lead) {
+      return '<li><span class="xb__d en">' + esc(d) + '</span><span class="xb__t">' + esc(t) + (lead ? '<i class="xb__lead">리드</i>' : '') + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span></li>';
     };
-    tabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { selTab(t); });
-      t.addEventListener('keydown', function (e) {
-        var k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!k) return;
-        var n = tabs[(i + k + tabs.length) % tabs.length]; selTab(n); n.focus(); e.preventDefault();
-      });
-    });
+    var fill = function (sel, html) { var el = $(sel); if (el) el.innerHTML = html; };
+    fill('#xb-exp', D.experience.map(function (e) { return row(e.when.split(' · ')[0].replace(/\s*—\s*/g, '–'), e.name, e.role, e.lead); }).join(''));
+    fill('#xb-edu', D.education.map(function (r) { return row(r[0], r[1]); }).join(''));
+    fill('#xb-award', D.awards.map(function (r) { var t = r[1].split(' · '); return row(r[0], t[0], t.slice(1).join(' · ')); }).join(''));
+    fill('#xb-cert', D.certificates.map(function (r) { return row(r[0], r[1], r[2]); }).join(''));
 
     /* 나의 역량 */
     var kc = $('#kcard');

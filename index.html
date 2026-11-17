@@ -12,7 +12,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="style.css?v=15">
+<link rel="stylesheet" href="style.css?v=16">
 </head>
 <body data-page="home">
 <a class="skip" href="#main">본문 바로가기</a>
@@ -72,12 +72,32 @@
       <h2 class="sh__title en" id="t-exp">Experience</h2>
       <p class="sh__sub">팀 프로젝트에서는 <b>핵심을 짚는 기획력</b>을,<br>팀장 경험에서는 <b>함께 끝까지 가는 리더십</b>을,<br>강사 · 매장 근무에서는 <b>사람을 읽는 대응력</b>을 길렀습니다.</p>
     </div>
-      <div class="xtabs" role="tablist" aria-label="이력 구분">
-        <button type="button" role="tab" id="xt-1" aria-controls="xp-1" aria-selected="true"><span class="en">01</span>경험</button>
-        <button type="button" role="tab" id="xt-2" aria-controls="xp-2" aria-selected="false" tabindex="-1"><span class="en">02</span>학력 · 수상</button>
+      <div class="xb">
+        <aside class="xb__me">
+          <figure class="xb__photo"><img src="img/profile.jpg" alt="김유란 프로필 사진" width="600" height="750"></figure>
+          <p class="xb__name">김유란 <span class="en">KIM YURAN</span></p>
+          <p class="xb__role">UX/UI · Service Planner</p>
+          <dl class="xb__facts">
+            <div><dt>전공</dt><dd>계원예술대학교 디지털미디어디자인과<br>기획 세부전공 · 2027.02 졸업 예정</dd></div>
+            <div><dt>이메일</dt><dd>kimyuran36@gmail.com</dd></div>
+            <div><dt>전화</dt><dd>010.3452.6632</dd></div>
+          </dl>
+        </aside>
+        <div class="xb__col">
+          <h3 class="xb__h"><span class="en">01</span>경험 · 활동</h3>
+          <ul class="xb__list" id="xb-exp"></ul>
+        </div>
+        <div class="xb__col">
+          <h3 class="xb__h"><span class="en">02</span>학력</h3>
+          <ul class="xb__list" id="xb-edu"></ul>
+          <h3 class="xb__h"><span class="en">03</span>자격</h3>
+          <ul class="xb__list" id="xb-cert"></ul>
+        </div>
+        <div class="xb__col">
+          <h3 class="xb__h"><span class="en">04</span>수상 · 장학</h3>
+          <ul class="xb__list" id="xb-award"></ul>
+        </div>
       </div>
-      <div class="xpanel" role="tabpanel" id="xp-1" aria-labelledby="xt-1"><ul class="xcards" id="xcards"></ul></div>
-      <div class="xpanel" role="tabpanel" id="xp-2" aria-labelledby="xt-2" hidden><div class="xedu" id="xedu"></div></div>
     </div>
   </section>
 
@@ -153,8 +173,8 @@
   </div>
 </div>
 
-<script src="data.js?v=15"></script>
-<script src="story.js?v=15"></script>
-<script src="app.js?v=15"></script>
+<script src="data.js?v=16"></script>
+<script src="story.js?v=16"></script>
+<script src="app.js?v=16"></script>
 </body>
 </html>

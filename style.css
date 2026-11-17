@@ -1612,3 +1612,61 @@ img { transition: transform .9s var(--ease-soft), filter .6s var(--ease-soft); }
   a, button, .pcard, .xcard, .card, img { transition-duration: .01s !important; }
   .pcard:hover, .card:hover, .btn-y:hover, .btn-line:hover, .to-top:hover { transform: none; }
 }
+
+/* =========================================================
+   v6.4 — 나의 이력: 1920×1080 한 화면에 얼굴 · 이력 전부
+   ========================================================= */
+#experience { min-height: 100svh; display: flex; align-items: center; padding-block: calc(var(--gnb-h) + 36px) 56px; }
+#experience > .wrap { width: 100%; max-width: 1520px; }
+#experience .sh__title { margin-top: 10px; font-size: clamp(24px, 2.2vw, 34px); }
+#experience .sh__sub { margin-top: 8px; font-size: 13.5px; line-height: 1.7; }
+.xb { margin-top: clamp(28px, 3vw, 44px); display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(28px, 3.2vw, 64px); align-items: start; text-align: left; }
+.xb__photo { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--r); background: #F1F1EE; }
+.xb__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.xb__name { margin-top: 18px; font-size: 20px; font-weight: 600; letter-spacing: -0.03em; }
+.xb__name .en { margin-left: 6px; font-size: 11px; font-weight: 500; letter-spacing: .12em; color: #8a8a8a; }
+.xb__role { margin-top: 4px; font-size: 13px; color: var(--accent-ink); font-weight: 500; }
+.xb__facts { margin: 16px 0 0; border-top: 1px solid #ECECEC; }
+.xb__facts > div { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 10px; padding-block: 9px; border-bottom: 1px solid #F2F2F2; font-size: 12.5px; line-height: 1.6; }
+.xb__facts dt { color: #999; }
+.xb__facts dd { margin: 0; color: var(--ink-2); overflow-wrap: anywhere; }
+.xb__h { display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--ink); font-size: 15px; font-weight: 600; letter-spacing: -0.02em; }
+.xb__h .en { font-size: 10px; font-weight: 600; color: var(--accent-ink); }
+.xb__list + .xb__h { margin-top: 26px; }
+.xb__list li { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 14px; padding-block: 10px; border-bottom: 1px solid #F2F2F2; align-items: baseline; }
+.xb__d { font-size: 10.5px; font-weight: 500; color: #8a8a8a; letter-spacing: .02em; white-space: nowrap; }
+.xb__t { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.5; }
+.xb__t small { display: block; margin-top: 1px; font-size: 12.5px; font-weight: 400; color: #8a8a8a; }
+.xb__lead { display: inline-block; margin-left: 8px; padding: 1px 6px; border-radius: var(--r-s); background: var(--yolk-soft); font-style: normal; font-size: 10.5px; font-weight: 600; color: var(--accent-ink); vertical-align: 1px; }
+.xb__list li { transition: background-color var(--t) var(--ease-soft), padding var(--t) var(--ease-soft); }
+.xb__list li:hover { background: #FAFAF6; padding-inline: 8px; }
+@media (max-width: 1180px) {
+  #experience { min-height: 0; padding-block: clamp(88px, 10vw, 140px); }
+  .xb { grid-template-columns: minmax(0, 260px) minmax(0, 1fr); }
+  .xb__col:last-child { grid-column: 2; }
+}
+@media (max-width: 760px) {
+  .xb { grid-template-columns: minmax(0, 1fr); }
+  .xb__col:last-child { grid-column: auto; }
+  .xb__me { display: grid; grid-template-columns: 120px minmax(0, 1fr); column-gap: 18px; align-items: start; }
+  .xb__photo { grid-row: span 3; }
+  .xb__name { margin-top: 0; }
+  .xb__facts { grid-column: 1 / -1; }
+  .xb__list li { grid-template-columns: 92px minmax(0, 1fr); }
+}
+/* 이력 4열: 사진 | 경험 | 학력 · 자격 | 수상 */
+#experience { padding-block: calc(var(--gnb-h) + 24px) 40px; border-top: 0; }
+.xb { grid-template-columns: minmax(0, 260px) minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 2.6vw, 52px); }
+.xb__list li { grid-template-columns: 84px minmax(0, 1fr); gap: 12px; padding-block: 9px; }
+.xb__t { font-size: 13.5px; }
+@media (max-width: 1280px) {
+  #experience { min-height: 0; padding-block: clamp(88px, 10vw, 140px); }
+  .xb { grid-template-columns: minmax(0, 240px) minmax(0, 1fr) minmax(0, 1fr); }
+  .xb__col:nth-child(2) { grid-column: 2 / 4; }
+  .xb__col:nth-child(3) { grid-column: 2; } .xb__col:nth-child(4) { grid-column: 3; }
+}
+@media (max-width: 860px) {
+  .xb { grid-template-columns: minmax(0, 1fr); }
+  .xb__col:nth-child(n) { grid-column: auto; }
+}
+#experience { padding-block: calc(var(--gnb-h) + 8px) 24px; }
