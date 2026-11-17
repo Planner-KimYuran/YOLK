@@ -832,7 +832,7 @@
     blocks: [
       { t: 'proto', items: [
         { name: '보안요원 디바이스', kicker: 'PROTOTYPE 01 · 현장 보안요원', src: 'haelon-security.html', img: 'img/hl-proto-sec.jpg', desc: '보안 · 통신 · 보고 · 미디어 · 알림 5개 화면을 오가며, 대응 단계 링 · 빠른 답장 · 3D 드론 확인까지 직접 눌러 볼 수 있습니다. 다크 · 화이트 모드도 바꿀 수 있어요.', note: '용량이 커서 처음 열 때 몇 초 걸릴 수 있어요.' },
-        { name: '통합 관제 키오스크', kicker: 'PROTOTYPE 02 · 관제사', src: 'haelon-control-kiosk.html', img: 'img/hl-proto-kiosk.jpg', desc: '인천공항 3D 맵 위에서 상황판 · 운항 현황 · 기장 통신 · CCTV · 기상 · 통합 대응 · 기관 통신 · 기록을 오가며 관제 흐름을 체험합니다. 새벽부터 밤까지 시간대도 바꿀 수 있어요.', note: '3D 화면이라 컴퓨터 브라우저에서 가장 잘 동작해요.' }
+        { name: '통합 관제 키오스크', kicker: 'PROTOTYPE 02 · 관제사', src: 'haelon-control-kiosk.html', img: 'img/hl-proto-kiosk.jpg?v=2', desc: '인천공항 3D 맵 위에서 상황판 · 운항 현황 · 기장 통신 · CCTV · 기상 · 통합 대응 · 기관 통신 · 기록을 오가며 관제 흐름을 체험합니다. 새벽부터 밤까지 시간대도 바꿀 수 있어요.', note: '3D 화면이라 컴퓨터 브라우저에서 가장 잘 동작해요.' }
       ] },
       { t: 'video', title: 'SERVICE FILM — 최종 서비스 소개 영상 (1분 37초)', src: 'haelon-intro.mp4', poster: 'img/hl-video-poster.jpg', cap: '공항의 하루에서 드론 위협, HAELON의 탐지 · 지휘 · 대응까지' }
     ]
