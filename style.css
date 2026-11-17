@@ -2372,3 +2372,4 @@ body { letter-spacing: -0.012em; }
 .tour-lit { outline: 1.5px solid rgba(255, 194, 26, .9) !important; outline-offset: 4px !important; }
 @media (max-width: 640px) { .tour { left: 10px !important; right: auto !important; width: calc(100vw - 96px) !important; bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important; } .tour p { font-size: 11.5px !important; } }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .tour { background: rgba(255, 255, 255, .88) !important; } }
+.count[hidden] { display: none !important; } .sort__btn, .sort__list button { letter-spacing: -0.01em !important; }

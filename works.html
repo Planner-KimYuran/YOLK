@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap">
 <script>try{localStorage.removeItem("yolk-theme");if(localStorage.getItem("yolk-accent")==="on")document.documentElement.setAttribute("data-accent","yolk");}catch(e){}</script>
-<link rel="stylesheet" href="style.css?v=45">
+<link rel="stylesheet" href="style.css?v=46">
 </head>
 <body data-page="works">
 <a class="skip" href="#main">본문 바로가기</a>
@@ -41,7 +41,6 @@
   <section class="wrap page-head" aria-labelledby="works-h">
     <h1 class="page-title page-title--ko" id="works-h">핵심이 담긴 프로젝트</h1>
     <div class="metarow"><p>핵심 한 줄로 시작하는 모든 프로젝트<br>문서는 모두 직접 열어 보고 내려받을 수 있습니다</p><span class="cross" aria-hidden="true"></span><p>DOCUMENTS<br>(ALL WORKS)</p></div>
-    <p class="doc-sum" id="doc-sum" aria-label="문서 유형별 개수"></p>
     <div class="toolbar">
       <div class="filters" role="group" aria-label="문서 유형 필터">
         <button type="button" class="fchip" data-type="ALL" aria-pressed="true">ALL</button>
@@ -52,13 +51,13 @@
         <button type="button" class="fchip" data-type="발표자료" aria-pressed="false">발표자료</button>
       </div>
       <div class="toolbar__right">
-        <p class="count" id="count" aria-live="polite">08 PROJECTS</p>
+        <p class="count" id="count" aria-live="polite" hidden></p>
         <div class="sort">
-          <button type="button" class="sort__btn" id="sort-btn" aria-haspopup="true" aria-expanded="false" aria-controls="sort-list"><span class="sort__cur">NEWEST</span><span class="sort__arr" aria-hidden="true">∨</span></button>
+          <button type="button" class="sort__btn" id="sort-btn" aria-haspopup="true" aria-expanded="false" aria-controls="sort-list"><span class="sort__cur">최신순</span><span class="sort__arr" aria-hidden="true">∨</span></button>
           <div class="sort__list" id="sort-list" hidden role="menu" aria-label="정렬">
-            <button type="button" role="menuitemradio" data-sort="NEWEST" aria-checked="true">NEWEST<i aria-hidden="true"></i></button>
-            <button type="button" role="menuitemradio" data-sort="OLDEST" aria-checked="false">OLDEST<i aria-hidden="true"></i></button>
-            <button type="button" role="menuitemradio" data-sort="NAME" aria-checked="false">NAME 가–하<i aria-hidden="true"></i></button>
+            <button type="button" role="menuitemradio" data-sort="NEWEST" aria-checked="true">최신순<i aria-hidden="true"></i></button>
+            <button type="button" role="menuitemradio" data-sort="OLDEST" aria-checked="false">오래된순<i aria-hidden="true"></i></button>
+            <button type="button" role="menuitemradio" data-sort="NAME" aria-checked="false">이름순<i aria-hidden="true"></i></button>
           </div>
         </div>
       </div>
@@ -121,9 +120,9 @@
   </div>
 </div>
 
-<script src="data.js?v=45"></script>
-<script src="story.js?v=45"></script>
-<script src="app.js?v=45"></script>
-<script src="yolkbot.js?v=45"></script>
+<script src="data.js?v=46"></script>
+<script src="story.js?v=46"></script>
+<script src="app.js?v=46"></script>
+<script src="yolkbot.js?v=46"></script>
 </body>
 </html>

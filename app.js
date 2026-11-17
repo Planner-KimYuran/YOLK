@@ -411,7 +411,7 @@
     var state = { type: typeCodes[q.get('type')] || (q.get('type') ? 'ALL' : saved.type) || 'ALL', sort: saved.sort || 'NEWEST' };
     var ids = Object.keys(D.projects);
     var gridEl = $('#grid'), countEl = $('#count');
-    var sortLabels = { NEWEST: 'NEWEST', OLDEST: 'OLDEST', NAME: 'NAME 가–하' };
+    var sortLabels = { NEWEST: '최신순', OLDEST: '오래된순', NAME: '이름순' };
     function ordered() {
       var cur = D.curatedOrder;
       var list = ids.filter(function (id) { return state.type === 'ALL' || D.projects[id].docs.some(function (d) { return d.type === state.type; }); });
