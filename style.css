@@ -1532,3 +1532,19 @@ body { font-weight: 400; }
 .d-title { font-size: clamp(24px, 2.1vw, 38px); font-weight: 500; }
 .dsec__title { font-size: clamp(26px, 2.3vw, 40px); font-weight: 600; }
 .sec-head h2 { font-size: clamp(26px, 2.6vw, 42px); }
+
+/* =========================================================
+   v6.2 — 네모 박스 라운딩 아주 조금 (6px · 안쪽 4px)
+   ========================================================= */
+:root { --r: 6px; --r-s: 4px; }
+/* 홈 */
+.pcard, .xcard, .kcard, .kstats li, .cform, .cinfo > div, .xtabs { border-radius: var(--r); }
+.pcard__img { border-radius: 0; }
+.xtabs button, .cform input, .cform textarea, .xcard__when, .chips li, .kcard__ic, .kai .en, .cinfo .copy-btn, .pcard__badge { border-radius: var(--r-s); }
+/* 전체 프로젝트 · 상세 */
+.card__thumb, .ph, .d-cover, .d-cover--img, .d-cover--img img, .gal img, .gal button, .gal .ph,
+.box, .scard, .finding, .decision, .quote, .the-core, .cmp__col, .station, .frames img, .s-visual, .r-visual,
+.flow__step, .ba__row, .tbl-wrap, .modal__box, .modal__img, .sort__btn, .yl__img, .fcard__img, .hp__photo, .profile__photo { border-radius: var(--r); }
+.card__thumb, .d-cover--img, .gal button, .tbl-wrap, .modal__box { overflow: hidden; }
+.chip, .tag-doc, .lead-badge, .d-badge, .bar__track, .bar__fill, .sbar__track { border-radius: var(--r-s); }
+.fchip, .sort__list, .sort__menu { border-radius: var(--r-s); }
