@@ -12,7 +12,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="style.css?v=16">
+<link rel="stylesheet" href="style.css?v=17">
 </head>
 <body data-page="home">
 <a class="skip" href="#main">본문 바로가기</a>
@@ -44,8 +44,14 @@
       <p class="hx__q">김유란은 어떤 기획자인가?</p>
       <h1 class="hx__title" id="hx-title">판을 계획하고, 핵심만 남기는<br><b>노른자</b> 같은 기획자입니다.</h1>
       <div class="hx__docs">
-        <button type="button" class="btn-y" data-pdf="김유란 · 이력서" data-file="resume.pdf" data-pages="img/doc-resume-1.jpg,img/doc-resume-2.jpg">이력서 보기</button>
-        <button type="button" class="btn-line" data-pdf="김유란 · 자기소개서" data-file="cover-letter.pdf" data-pages="img/doc-cover-letter-1.jpg,img/doc-cover-letter-2.jpg">자기소개서 보기</button>
+        <div class="docpair">
+          <button type="button" class="btn-y docpair__view" data-pdf="김유란 · 이력서" data-file="resume.pdf" data-dl="김유란_이력서.pdf" data-pages="img/doc-resume-1.jpg,img/doc-resume-2.jpg">이력서 보기</button>
+          <a class="docpair__dl docpair__dl--y" href="resume.pdf" download="김유란_이력서.pdf" aria-label="이력서 PDF 다운로드" title="이력서 PDF 다운로드">↓</a>
+        </div>
+        <div class="docpair">
+          <button type="button" class="btn-line docpair__view" data-pdf="김유란 · 자기소개서" data-file="cover-letter.pdf" data-dl="김유란_자기소개서.pdf" data-pages="img/doc-cover-letter-1.jpg,img/doc-cover-letter-2.jpg">자기소개서 보기</button>
+          <a class="docpair__dl" href="cover-letter.pdf" download="김유란_자기소개서.pdf" aria-label="자기소개서 PDF 다운로드" title="자기소개서 PDF 다운로드">↓</a>
+        </div>
       </div>
     </div>
     <a class="hx__scroll en" href="#projects">SCROLL<i aria-hidden="true"></i></a>
@@ -173,8 +179,8 @@
   </div>
 </div>
 
-<script src="data.js?v=16"></script>
-<script src="story.js?v=16"></script>
-<script src="app.js?v=16"></script>
+<script src="data.js?v=17"></script>
+<script src="story.js?v=17"></script>
+<script src="app.js?v=17"></script>
 </body>
 </html>

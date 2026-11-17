@@ -78,6 +78,7 @@
   var modal = $('#pdf'), lastFocus = null;
   function openPdf(title, file) {
     if (!modal) return;
+    modal.classList.remove('is-doc');
     galList = null;
     lastFocus = document.activeElement;
     $('.modal__title', modal).textContent = title;
@@ -106,7 +107,7 @@
   }
   function openGallery(list, i) {
     if (!modal) return;
-    lastFocus = document.activeElement;
+    if (!modal.classList.contains('is-doc')) lastFocus = document.activeElement;
     galList = list; galIdx = i; galShow();
     modal.hidden = false; document.body.classList.add('is-locked');
     $('.modal__close', modal).focus();
@@ -120,6 +121,43 @@
       if (e.key === 'ArrowLeft') fb[0].click();
       if (e.key === 'ArrowRight') fb[1].click();
     });
+  }
+  /* 이력서 · 자기소개서 — 문서 보기 (쪽을 이어서 스크롤 · 탭 전환 · 바로 다운로드) */
+  var DOCS = $$('[data-pages]').reduce(function (acc, b) {
+    var f = b.getAttribute('data-file');
+    if (!acc.some(function (d) { return d.file === f; })) acc.push({ title: b.getAttribute('data-pdf'), file: f, name: b.getAttribute('data-dl') || f, pages: b.getAttribute('data-pages').split(',') });
+    return acc;
+  }, []);
+  function openDoc(b) {
+    if (!modal) return;
+    lastFocus = document.activeElement;
+    galList = null;
+    modal.classList.add('is-doc');
+    showDoc(b.getAttribute('data-file'));
+    modal.hidden = false; document.body.classList.add('is-locked');
+    $('.modal__close', modal).focus();
+  }
+  function showDoc(file) {
+    var d = DOCS.filter(function (x) { return x.file === file; })[0]; if (!d) return;
+    var head = $('.modal__head', modal), bar = $('.modal__docbar', modal);
+    if (!bar) {
+      bar = document.createElement('div'); bar.className = 'modal__docbar';
+      head.insertBefore(bar, $('.modal__acts', modal));
+      var dl = document.createElement('a'); dl.className = 'modal__dl'; dl.innerHTML = '<span aria-hidden="true">↓</span> PDF<span class="modal__dl-t"> 다운로드</span>'; dl.setAttribute('aria-label', 'PDF 다운로드');
+      $('.modal__acts', modal).insertBefore(dl, $('.modal__close', modal));
+    }
+    bar.innerHTML = '<div class="modal__tabs" role="tablist" aria-label="문서 선택">' + DOCS.map(function (x) {
+      var on = x.file === d.file;
+      return '<button type="button" role="tab" aria-selected="' + on + '" data-doc="' + esc(x.file) + '">' + esc(x.title.replace(/^김유란 · /, '')) + '</button>';
+    }).join('') + '</div><span class="modal__count">' + d.pages.length + '쪽</span>';
+    $$('[data-doc]', bar).forEach(function (t) { t.addEventListener('click', function () { showDoc(t.getAttribute('data-doc')); }); });
+    $('.modal__title', modal).textContent = d.title;
+    var dla = $('.modal__dl', modal); dla.href = d.file; dla.setAttribute('download', d.name);
+    var mv = $('.modal__view', modal);
+    mv.innerHTML = '<div class="docpages">' + d.pages.map(function (src, i) {
+      return '<figure class="docpage"><img src="' + esc(src) + '" alt="' + esc(d.title) + ' ' + (i + 1) + '쪽" loading="' + (i ? 'lazy' : 'eager') + '"><figcaption class="en">' + two(i + 1) + ' / ' + two(d.pages.length) + '</figcaption></figure>';
+    }).join('') + '</div>';
+    mv.scrollTop = 0;
   }
   function closePdf() {
     if (!modal || modal.hidden) return;
@@ -144,12 +182,7 @@
     if (!b) return;
     e.preventDefault();
     var pages = b.getAttribute('data-pages');
-    if (pages && modal) {
-      var t = b.getAttribute('data-pdf'), f = b.getAttribute('data-file'), list = pages.split(',');
-      modal.classList.add('is-doc');
-      openGallery(list.map(function (src, i) { return { src: src, file: f, cap: t + ' · ' + (i + 1) + '쪽' }; }), 0);
-      return;
-    }
+    if (pages && modal) { openDoc(b); return; }
     modal && modal.classList.remove('is-doc');
     openPdf(b.getAttribute('data-pdf'), b.getAttribute('data-file') || null);
   });
