@@ -1723,3 +1723,62 @@ img { transition: transform .9s var(--ease-soft), filter .6s var(--ease-soft); }
   .modal__tabs button { padding: 0 10px; font-size: 13px; }
   .modal__dl-t { display: none; }
 }
+
+/* =========================================================
+   v6.6 — 노랑 전부 제거 · 무채색(차콜 · 웜그레이)으로 통일
+   ========================================================= */
+:root {
+  --yolk: #E9E9E5;        /* 예전 노랑 자리 → 연한 웜그레이 */
+  --yolk-soft: #F3F3F0;
+  --yolk-line: #E3E3DE;
+  --accent-ink: #555555;
+}
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; box-shadow: none; }
+::selection { background: #E3E3DE; color: var(--ink); }
+
+/* 하이라이트 밑줄 · 장식 제거 */
+.hx::before { display: none; }
+.hx__title b, .yh__slogan b, .yp__lead b, .d-q__line em { background: none; }
+.gnb__logo .dot, .kstats b::after, .yh__name .dot { display: none; }
+.dot { background: #BDBDB8; box-shadow: none; }
+.core-label .dot, .yw__key .dot { background: #BDBDB8; }
+
+/* 히어로 문장 — 더 작고 얇게 */
+.hx__title { font-size: clamp(22px, 2.3vw, 34px); font-weight: 400; letter-spacing: -0.035em; line-height: 1.5; }
+.hx__title b { font-weight: 400; }
+.hx__q { font-size: 14px; }
+
+/* 진행 막대 · 메뉴 */
+.gnb__bar i { background: var(--ink); }
+.gnb__links a[aria-current="true"], .gnb__links a[aria-current="true"]:hover { background: #F1F1EE; color: var(--ink); }
+
+/* 주요 버튼 — 차콜 */
+.btn-y { background: var(--ink); color: #fff; box-shadow: none; }
+.btn-y:hover { background: #4a4a4a; box-shadow: none; }
+.docpair__dl--y { background: var(--ink); border-color: var(--ink); color: #fff; box-shadow: inset 1px 0 0 rgba(255,255,255,.2); }
+.docpair__dl--y:hover { background: #4a4a4a; border-color: #4a4a4a; }
+.modal.is-doc .modal__dl { background: var(--ink); color: #fff; }
+.modal.is-doc .modal__dl:hover { background: #4a4a4a; }
+.to-top { background: #fff; color: var(--ink); border: 1px solid #DDDDD8; box-shadow: 0 6px 18px -10px rgba(51,51,51,.35); }
+.to-top:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+/* 알약 · 칩 · 표시 */
+.pill { background: #fff; border-color: #DDDDD8; color: #666; }
+.xtabs button[aria-selected="true"], .modal__tabs button[aria-selected="true"] { background: #fff; }
+.xcard__when, .xb__lead { background: #F1F1EE; color: #555; }
+.kcard__ic { background: var(--ink); color: #fff; }
+.kai .en { background: #F1F1EE; color: var(--ink); }
+.cinfo .copy-btn:hover { background: #F1F1EE; border-color: #CFCFCA; }
+.cform label b { color: #888; }
+.cinfo dt, .xb__h .en, .xb__role, .xlist__d, .pcard__core, #projects .sh__sub { color: #6b6b6b; }
+.fcard__badge, .yl__live { background: #F1F1EE; color: var(--ink); }
+.yl__live .dot { background: var(--ink); }
+.yh__doc:hover { background: #F4F4F1; }
+
+/* 상세 페이지 강조 상자 · 막대 */
+.decision > div:last-child { background: #F1F1EE; border-color: var(--ink); }
+.decision > div:last-child small { color: #555; }
+.scene__no { color: #9a9a9a; }
+.sbar__goal { background: #CFCFCA; }
+.station.is-hi i, .stations:not([style]) .station:nth-child(4) i, .station:nth-child(4) i { background: var(--ink); }
+.jny__col.is-cut .jny__dot { background: var(--ink); }
