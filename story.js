@@ -789,3 +789,178 @@
     ]
   });
 })();
+
+/* =========================================================
+   11. 18. 업데이트 — HAELON 필드리서치 · 영상 · 체험형 산출물 · 화면설계서
+   위버스 보고서 원문 기준 재구성 · 화면설계서 문서 분리 · 계원예대 제외
+   ========================================================= */
+(function () {
+  var P = window.YOLK.projects;
+  var pad = function (n) { return ('00' + n).slice(-3); };
+  var pg = function (slug, n, cap) { return { src: 'img/' + slug + '-p-' + pad(n) + '.jpg', thumb: 'img/' + slug + '-t-' + pad(n) + '.jpg', cap: cap }; };
+  var doc = function (type, label, file, slug, start, n, dl) { return { type: type, label: label, file: file, dl: dl, pages: { prefix: 'img/' + slug + '-p-', start: start, count: n } }; };
+
+  delete P['09'];
+
+  /* ---------- 01 · HAELON ---------- */
+  var H = P['01'];
+  H.thumb = null;
+  H.cover = 'HAELON 대표 이미지 — 준비 중';
+  H.deliverable = '기획서 · 화면설계서 · 인터랙티브 프로토타입 2종 · 서비스 소개 영상';
+  H.docs = [
+    doc('화면설계서', '보안요원 디바이스 화면설계서', 'haelon-screen-spec.pdf', 'hs', 1, 8, '김유란_HAELON_보안요원_화면설계서.pdf'),
+    doc('발표자료', '발표 웹사이트', 'haelon-presentation.pdf', 'hl', 1, 19, '김유란_HAELON_발표자료.pdf')
+  ];
+  var field = {
+    id: 'field', name: 'Field Research', title: 'Field Research',
+    lead: '화면을 그리기 전에, 공항과 조종석부터 직접 봤다',
+    blocks: [
+      { t: 'text', paras: ['관제 화면과 조종석 알림을 설계하려면 공항이 어떻게 생겼고, 기장이 실제로 어떤 화면을 보며 일하는지부터 알아야 했습니다. 공항 전체 배치와 실제 여객기 조종석을 직접 확인하며 기록했습니다.'] },
+      { t: 'gallery', items: [
+        { src: 'img/hl-field-1.jpg', thumb: 'img/hl-field-1-t.jpg', cap: '인천공항 제2여객터미널 모형 — 터미널 · 관제탑 · 계류장 배치' },
+        { src: 'img/hl-field-2.jpg', thumb: 'img/hl-field-2-t.jpg', cap: '여객기 조종석 — 계기 화면(PFD · ND)과 태블릿(EFB)' }
+      ] },
+      { t: 'cards', label: '현장에서 확인한 것', items: [
+        ['공항은 넓고 흩어져 있다', '관제탑 · 터미널 · 활주로가 멀리 떨어져 있어, 정보가 사람을 거쳐 한 명씩 전달되면 그만큼 늦어진다.'],
+        ['조종석엔 이미 화면이 많다', '계기 화면과 태블릿이 이미 가득하다. 새 알림은 많은 정보가 아니라 짧고 분명한 한 줄이어야 했다.']
+      ] }
+    ]
+  };
+  var proto = {
+    id: 'prototype', name: 'Prototype', title: '최종 산출물 — 직접 체험',
+    lead: '설계한 화면을 실제로 눌러 볼 수 있는 프로토타입으로 만들었다',
+    blocks: [
+      { t: 'proto', items: [
+        { name: '보안요원 디바이스', kicker: 'PROTOTYPE 01 · 현장 보안요원', src: 'haelon-security.html', img: 'img/hl-proto-sec.jpg', desc: '보안 · 통신 · 보고 · 미디어 · 알림 5개 화면을 오가며, 대응 단계 링 · 빠른 답장 · 3D 드론 확인까지 직접 눌러 볼 수 있습니다. 다크 · 화이트 모드도 바꿀 수 있어요.', note: '용량이 커서 처음 열 때 몇 초 걸릴 수 있어요.' },
+        { name: '통합 관제 키오스크', kicker: 'PROTOTYPE 02 · 관제사', src: 'haelon-control-kiosk.html', img: 'img/hl-proto-kiosk.jpg', desc: '인천공항 3D 맵 위에서 상황판 · 운항 현황 · 기장 통신 · CCTV · 기상 · 통합 대응 · 기관 통신 · 기록을 오가며 관제 흐름을 체험합니다. 새벽부터 밤까지 시간대도 바꿀 수 있어요.', note: '3D 화면이라 컴퓨터 브라우저에서 가장 잘 동작해요.' }
+      ] },
+      { t: 'video', title: 'SERVICE FILM — 최종 서비스 소개 영상 (1분 37초)', src: 'haelon-intro.mp4', poster: 'img/hl-video-poster.jpg', cap: '공항의 하루에서 드론 위협, HAELON의 탐지 · 지휘 · 대응까지' }
+    ]
+  };
+  var specSec = {
+    id: 'spec', name: '화면설계서', title: '화면설계서',
+    lead: '보안요원 디바이스 5개 화면 — 화면마다 번호와 설명을 붙였다',
+    blocks: [ { t: 'gallery', items: [pg('hs', 2, '공통 UI 정의'), pg('hs', 4, 'HL-SEC-01 보안 홈'), pg('hs', 5, 'HL-SEC-02 통신'), pg('hs', 8, 'HL-SEC-05 알림')] } ]
+  };
+  var at = function (id) { return H.story.findIndex(function (s) { return s.id === id; }); };
+  H.story.splice(at('research'), 0, field);
+  H.story.splice(at('decision'), 0, proto, specSec);
+
+  /* ---------- 04 · 이음선 — 썸네일은 발표 문서 첫 페이지 ---------- */
+  P['04'].cover = pg('il', 1, '이음선 중간발표 표지');
+  P['04'].thumb = P['04'].cover;
+
+  /* ---------- 화면설계서 문서 추가 ---------- */
+  P['02'].docs.push(doc('화면설계서', '와이어프레임 · 화면 설계', 'arcdot-screen-design.pdf', 'ad', 41, 12, '김유란_ArcDot_화면설계.pdf'));
+  P['03'].docs.push(
+    doc('화면설계서', '화면설계서 PC', 'coupang-screen-spec-pc.pdf', 'cp', 38, 14, '김유란_쿠팡_화면설계서_PC.pdf'),
+    doc('화면설계서', '화면설계서 태블릿', 'coupang-screen-spec-tablet.pdf', 'cp', 52, 6, '김유란_쿠팡_화면설계서_태블릿.pdf'),
+    doc('화면설계서', '화면설계서 모바일', 'coupang-screen-spec-mobile.pdf', 'cp', 58, 5, '김유란_쿠팡_화면설계서_모바일.pdf'));
+  P['05'].docs.push(doc('화면설계서', '화면설계서 (모바일)', 'bluedog-screen-spec.pdf', 'bd', 98, 44, '블루독_화면설계서.pdf'));
+
+  /* ---------- 07 · 위버스 — 보고서 원문 기준 ---------- */
+  var W = P['07'];
+  Object.assign(W, {
+    title: '사용성 평가를 통한 위버스 미디어 탐색 경로 개선 보고서',
+    cardTitle: '사용성 평가를 통한 위버스 미디어 탐색 경로 개선 보고서',
+    team: '3인 팀 (한수현 · 김유란 · 정유민)',
+    deliverable: '보고서 16p · 화면설계서 · 페이퍼 · 디지털 프로토타입',
+    tags: ['#사용성평가', '#아이트래킹', '#정보구조'], homeTags: ['#사용성평가', '#아이트래킹', '#정보구조'],
+    tagline: '탐색의 깊이는 최소한으로, 즐거움의 깊이는 무한대로.',
+    question: ['보고 싶은 영상은 분명 있는데,', '왜 <em>카테고리에서 멈출까?</em>'],
+    core: "영상을 못 찾는 건 콘텐츠가 많아서가 아니라, '기준이 불분명한 카테고리 · 필터' 때문",
+    summary: '위버스 미디어 탭에서 원하는 콘텐츠를 찾기 어려운 문제를 사용자 5명의 아이트래킹 · 사용성 테스트로 직접 검증하고, 카테고리 · 필터 구조를 다시 설계한 뒤 2차 평가로 효과를 확인했습니다.',
+    homeSummary: '사용자 5명의 1차 사용성 평가로 문제를 검증하고, 카테고리 · 필터를 다시 설계해 2차 평가에서 과업 성공률을 55% → 92%로 높인 보고서',
+    pao: ['카테고리 · 필터의 분류 기준이 불분명해 원하는 미디어를 찾기까지 반복 탐색이 일어남', '사용자 5명 아이트래킹 · 사용성 테스트(1차) → 벤치마킹 6개사 → 개선안 → 같은 과업으로 2차 평가', '과업 성공률 55% → 92% · 과업 시간 단축 · 카테고리 3가지 유형으로 압축'],
+    cover: pg('wv', 1, '보고서 표지'),
+    docs: [
+      doc('보고서', '사용성 평가 보고서', 'weverse-usability-report.pdf', 'wv', 1, 16, '김유란_위버스_사용성평가_보고서.pdf'),
+      doc('화면설계서', '화면설계서 (AS-IS → TO-BE)', 'weverse-screen-spec.pdf', 'wv', 11, 4, '김유란_위버스_화면설계서.pdf')
+    ],
+    story: [
+      { id: 'overview', name: 'Overview', title: 'Overview', lead: '글로벌 팬덤을 하나로 연결하는 올인원 플랫폼, 위버스',
+        blocks: [
+          { t: 'text', paras: ['위버스는 아티스트와 팬이 소통하고, 미디어를 보고, 굿즈 구매와 멤버십 활동까지 이어가는 팬덤 플랫폼입니다. 그중 미디어 탭은 팬들이 영상 · 사진 · 비하인드를 반복해서 찾아보는 곳입니다.'] },
+          { t: 'callout', text: '카테고리와 필터 구조를 직관적으로 바꿔, 원하는 콘텐츠를 더 빠르고 쉽게 찾게 한다.', sub: 'PROJECT GOAL' },
+          { t: 'gallery', items: [pg('wv', 3, '앱 서비스 소개'), pg('wv', 4, '문제 인식 · 개선 목표')] }
+        ] },
+      { id: 'problem', name: 'Problem', title: 'Problem', lead: '이해하기 어렵고 사용하기 복잡한 카테고리 · 필터',
+        blocks: [
+          { t: 'cards', items: [
+            ['분류 기준이 불분명하다', '콘텐츠 성격과 프로그램명이 같은 위치에 섞여 있어, 카테고리명만 보고 어떤 콘텐츠가 들었는지 예측하기 어렵다.'],
+            ['탐색 흐름이 자주 끊긴다', '카테고리 · 필터 선택과 결과 확인이 한 화면에서 이어지지 않아, 지금 어느 단계인지 헷갈린다.'],
+            ['거쳐야 할 단계가 많다', '원하는 콘텐츠에 닿기까지 선택과 확인을 여러 번 반복해야 한다.']
+          ] }
+        ] },
+      { id: 'test', name: 'Test Design', title: '사용성 평가 설계', lead: '느낌이 아니라, 사용자의 실제 시선과 행동으로 검증한다',
+        blocks: [
+          { t: 'table', title: '평가 설계', head: ['항목', '내용'], rows: [
+            ['참가자', '5명 — 위버스로 게시물을 탐색해 본 미디엄 · 헤비 유저, 카테고리 · 필터를 직접 써 본 20대 iOS 사용자'],
+            ['방법', '아이트래킹(Heatmap · Gaze Plot · Cluster) + 과업 기반 사용성 테스트'],
+            ['과업', '세븐틴 미디어 탭에서 ‘2024 Lollapalooza 리허설 포토’를 찾아 첫 번째 이미지를 저장하기'],
+            ['측정', '과업 성공률 · 과업 수행 시간 · 시선 집중 영역 · 혼란 지점'],
+            ['비교', '같은 과업으로 1차(기존 화면)와 2차(개선안)를 비교']
+          ] },
+          { t: 'gallery', items: [pg('wv', 5, '사용성 평가 설계 · 시나리오')] }
+        ] },
+      { id: 'round1', name: '1차 평가', title: '1차 사용성 평가 — 문제를 검증하다', lead: '사용자는 콘텐츠를 보기보다, 메뉴를 고르는 데 시간을 썼다',
+        blocks: [
+          { t: 'stats', label: '1차 결과 (기존 화면)', items: [['55%', '전체 과업 성공률'], ['2 / 5명', '완전 성공'], ['40%+', '상단 카테고리 영역 체류 비율']] },
+          { t: 'cards', label: '아이트래킹으로 본 것', items: [
+            ['Gaze Plot', '카테고리 탭 사이를 잇는 길고 빠른 선이 반복된다. 검색 후 바로 행동하지 못하고 상단 탭 사이를 수차례 왕복한다.'],
+            ['Heatmap', '핫스팟이 상단 카테고리 선택 영역에만 집중된다. 시선이 콘텐츠 목록까지 내려가지 못한다.'],
+            ['Cluster', '특정 영역에 시선이 묶이는 ‘고립 현상’. 썸네일 같은 다른 정보로 시선이 넓어지지 못한다.']
+          ] },
+          { t: 'callout', text: '카테고리를 골랐다 취소하고, 다시 확인하는 인지 부담이 반복됐다.', sub: '절반 가까운 사용자가 목표 콘텐츠에 닿지 못했다 — 문제는 콘텐츠 양이 아니라 탐색 구조였다.' },
+          { t: 'gallery', items: [pg('wv', 6, '1차 평가 — 아이트래킹 분석'), pg('wv', 7, '1차 평가 — 소결 · 개선 방향')] }
+        ] },
+      { id: 'bench', name: 'Benchmark', title: '벤치마킹', lead: '6개 서비스에서 ‘덜 헤매게 하는’ 원칙을 찾았다',
+        blocks: [
+          { t: 'table', title: '6개사 · 6개 지표 비교', head: ['서비스', '참고한 강점'], rows: [
+            ['유튜브', '미디어 유형별(쇼츠 · 라이브 · 긴 영상) 분류'],
+            ['SBS PLAY', '명확한 카테고리 분류와 다양한 세부 필터'],
+            ['픽사베이', '유형별로 세분화된 필터'],
+            ['무신사', '한 화면에서 끝나는 카테고리 · 필터 적용'],
+            ['에어비앤비', '단계별 입력 가이드'],
+            ['알바몬', '맞춤 조건 필터 설정']
+          ] },
+          { t: 'cards', label: '도출한 설계 원칙', items: [
+            ['한눈에 보이는 필터', '직관적 탐색 구조'],
+            ['모호한 카테고리를 체계적으로', '검색 결과 가독성'],
+            ['페이지 이동 없이 결과가 바뀐다', '조작의 신속성'],
+            ['클릭 수를 최소로', '정보의 일관성 · 오류 회복']
+          ] },
+          { t: 'gallery', items: [pg('wv', 8, '벤치마킹 결과')] }
+        ] },
+      { id: 'solution', name: 'Solution', title: '개선안 · AS-IS → TO-BE', lead: '필터 창을 오가지 않고, 탭 하나로 끝내는 미디어 탐색',
+        blocks: [
+          { t: 'compare', title: '01 진입 경로', before: { label: 'AS-IS', items: ['카테고리 항목 과다', '분류 기준 파편화'] }, after: { label: 'TO-BE', items: ['기존 탭 + 신규 카테고리 탭 한 화면', '핵심 3가지 유형으로 압축'] } },
+          { t: 'compare', title: '02 미디어 탭 구조', before: { label: 'AS-IS', items: ['텍스트 나열 · 무한 스크롤', '카테고리 선택과 결과 화면 분리'] }, after: { label: 'TO-BE', items: ['형식 · 테마별 탭', '카테고리-게시물 통합 뷰'] } },
+          { t: 'compare', title: '03 상세 필터', before: { label: 'AS-IS', items: ['날짜 · 형식 중심의 제한된 필터'] }, after: { label: 'TO-BE', items: ['멤버 · 유닛 · 이벤트 조합 필터', '‘N개 표시’ 실시간 결과 안내'] } },
+          { t: 'gallery', items: [pg('wv', 12, 'AS-IS → TO-BE · 진입 경로'), pg('wv', 13, 'AS-IS → TO-BE · 탭 구조'), pg('wv', 14, 'AS-IS → TO-BE · 상세 필터'), pg('wv', 9, '페이퍼 → 디지털 프로토타이핑')] }
+        ] },
+      { id: 'round2', name: '1차 vs 2차', title: '2차 사용성 평가 — 1차와 비교하다', lead: '같은 사용자, 같은 과업. 개선안을 적용하자 결과가 달라졌다',
+        blocks: [
+          { t: 'kpi', label: '1차 → 2차', items: [['과업 성공률', '55%', '92%', '+37%p'], ['평균 과업 시간', '약 118초', '약 54초', '절반 이하로 단축'], ['시선 흐름', '상단 탭 왕복', '중앙 · 주요 영역 집중', '병목 해소']], note: '과업 시간은 보고서 그래프에서 읽은 근삿값 · 참가자 2는 이상치로 제외' },
+          { t: 'versus', title: '참가자별 과업 수행 시간 (초)', a: '1차 사용성 평가', b: '2차 사용성 평가', unit: '초', max: 160, rows: [['참가자 1', 137, 63], ['참가자 3', 114, 45], ['참가자 4', 100, 66], ['참가자 5', 122, 40]], note: '보고서 Task Time 그래프 기준 근삿값' },
+          { t: 'compare', title: '시선은 이렇게 바뀌었다', before: { label: '1차 · 기존 화면', items: ['상단 탭 사이 반복 왕복', '카테고리 영역에 시선 고립', '콘텐츠 목록까지 못 내려감'] }, after: { label: '2차 · 개선안', items: ['화면 중앙 · 주요 선택 영역에 집중', '카테고리 · 필터 기준을 빠르게 파악', '목표 콘텐츠로 직진'] } },
+          { t: 'callout', text: '카테고리 · 필터 구조를 바꾸자, 성공률은 55% → 92%로 오르고 탐색 시간은 줄었다.', sub: '문제를 내 눈으로 검증하고, 고친 뒤 같은 방법으로 다시 확인했다.' },
+          { t: 'gallery', items: [pg('wv', 10, '사용성 평가 결과 — 1차 vs 2차'), pg('wv', 9, '2차 평가 — 아이트래킹')] }
+        ] },
+      { id: 'result', name: 'Result', title: '결론 · 기대효과', lead: '원하는 미디어에 단번에 닿는 탐색',
+        blocks: [
+          { t: 'cards', items: [
+            ['시각적 피로도 감소', '방대한 미디어 속에서도 눈의 피로를 줄인다.'],
+            ['자연스러운 탐색 흐름', '화면 전환을 줄여 끊김 없이 맥락을 유지한다.'],
+            ['실시간 결과 확인', '필터를 적용하는 즉시 결과 수로 반응한다.']
+          ] },
+          { t: 'learned', text: '"어렵다"는 느낌을 성공률 · 시간 · 시선 데이터로 바꾸자, 무엇을 고칠지가 분명해졌고 고친 효과도 숫자로 증명할 수 있었다.' },
+          { t: 'gallery', items: [pg('wv', 15, '결론 및 기대효과')] }
+        ] },
+      { id: 'slides', name: 'Slides', title: 'Slides', lead: '보고서 16장 (크게 보기는 보고서 보기에서)',
+        blocks: [{ t: 'gallery', grid: true, items: Array.apply(null, { length: 16 }).map(function (_, i) { return pg('wv', i + 1, (i < 9 ? '0' : '') + (i + 1) + ' / 16'); }) }] }
+    ]
+  });
+  W.thumb = W.cover;
+  W.role = '팀장 · 발표 · 평가 설계 · 분석';
+})();

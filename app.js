@@ -48,11 +48,11 @@
   function setYolk(on, save) {
     var root = document.documentElement;
     if (on) root.setAttribute('data-accent', 'yolk'); else root.removeAttribute('data-accent');
-    if (egg) { egg.setAttribute('aria-checked', on ? 'true' : 'false'); egg.setAttribute('aria-label', on ? '노른자 포인트 컬러 끄기' : '노른자 포인트 컬러 켜기'); }
+    if (egg) { egg.setAttribute('aria-checked', on ? 'true' : 'false'); egg.setAttribute('aria-label', on ? '제작 과정 보기 끄기' : '이 웹사이트를 만든 과정 보기'); }
     if (save) { try { localStorage.setItem('yolk-accent', on ? 'on' : 'off'); } catch (e) {} }
   }
   setYolk(document.documentElement.getAttribute('data-accent') === 'yolk', false);
-  if (egg) egg.addEventListener('click', function () { setYolk(document.documentElement.getAttribute('data-accent') !== 'yolk', true); });
+  if (egg) egg.addEventListener('click', function () { var on = document.documentElement.getAttribute('data-accent') !== 'yolk'; setYolk(on, true); document.dispatchEvent(new CustomEvent(on ? 'yolk:tour' : 'yolk:tour-off')); });
 
   /* 모바일 메뉴 (햄버거) */
   var burger = $('.gnb__burger'), navEl = $('#gnb-links');
@@ -215,11 +215,12 @@
   });
   function shortName(p) { return p.cardTitle; }
   function pdfBtn(p, type, cls) {
-    var doc = p.docs.filter(function (d) { return d.type === type; })[0] || {};
+    var doc = typeof type === 'object' ? type : (p.docs.filter(function (d) { return d.type === type; })[0] || {});
+    if (typeof type === 'object') type = doc.type;
     var lab = doc.label || type;
     var attrs = ' data-pdf="' + esc(shortName(p) + ' · ' + lab) + '"' + (doc.file ? ' data-file="' + esc(doc.file) + '"' : '');
     if (doc.file && doc.pages) {
-      var list = []; for (var i = 1; i <= doc.pages.count; i++) list.push(doc.pages.prefix + ('00' + i).slice(-3) + '.jpg');
+      var list = [], st = doc.pages.start || 1; for (var i = st; i < st + doc.pages.count; i++) list.push(doc.pages.prefix + ('00' + i).slice(-3) + '.jpg');
       attrs += ' data-dl="' + esc(doc.dl || doc.file) + '" data-pages="' + esc(list.join(',')) + '"';
     }
     return '<button type="button" class="' + cls + '"' + attrs + '>' + esc(lab) + ' 보기 ↗</button>' +
@@ -438,7 +439,7 @@
             '<div class="card__thumb">' + thumb(p, 'ph--fill') + '<span class="card__bar" aria-hidden="true">VIEW PROJECT ↗</span></div>' +
             '<div class="card__body"><span class="card__no">#' + two(i + 1) + '</span><h2 class="card__title">' + esc(p.cardTitle) + '</h2>' +
             '<p class="core-line"><span class="core-label"><i class="dot" aria-hidden="true"></i>CORE</span><span>' + esc(p.core) + '</span></p>' +
-            '<span class="card__docs">' + docsSorted(p).map(function (t) { return '<span class="tag-doc">' + t + '</span>'; }).join('') + '</span>' +
+            '<span class="card__docs">' + docsSorted(p).map(function (t) { var n = p.docs.filter(function (d) { return d.type === t && d.file; }).length; return '<span class="tag-doc">' + t + (n > 1 ? ' <b>' + n + '</b>' : '') + '</span>'; }).join('') + '</span>' +
             '<span class="card__meta">' + esc(p.cardMeta) + '</span></div></a>';
         }).join('');
       }
@@ -450,6 +451,11 @@
       if (state.type === 'ALL') u.searchParams.delete('type'); else u.searchParams.set('type', typeCode(state.type));
       history.replaceState(null, '', u.pathname + u.search);
     }
+    (function () {
+      var cnt = {}, all = 0; ids.forEach(function (id) { D.projects[id].docs.forEach(function (d) { if (!d.file) return; cnt[d.type] = (cnt[d.type] || 0) + 1; all++; }); });
+      $$('.fchip[data-type]').forEach(function (b) { var t = b.getAttribute('data-type'); var n = t === 'ALL' ? all : (cnt[t] || 0); if (!n) { b.hidden = true; return; } b.insertAdjacentHTML('beforeend', ' <em class="fchip__n">' + n + '</em>'); });
+      var sum = $('#doc-sum'); if (sum) sum.innerHTML = D.docTypes.filter(function (t) { return cnt[t]; }).map(function (t) { return '<span><b>' + cnt[t] + '</b>' + t + '</span>'; }).join('');
+    })();
     $$('[data-type]').forEach(function (b) { b.addEventListener('click', function () { state.type = b.getAttribute('data-type'); render(); }); });
     gridEl.addEventListener('click', function (e) { if (e.target.closest('[data-reset]')) { state.type = 'ALL'; render(); } });
     var sBtn = $('#sort-btn'), sList = $('#sort-list');
@@ -511,7 +517,7 @@
         '<div class="the-core"><i class="dot" aria-hidden="true"></i><div><small>THE CORE · 이 프로젝트에서 찾아낸 핵심</small><p>' + esc(P.core) + '</p></div></div>' +
         '<dl class="d-info"><div><dt>PERIOD</dt><dd>' + esc(P.period) + '</dd></div><div><dt>TEAM</dt><dd>' + esc(P.team) + '</dd></div><div><dt>MY ROLE</dt><dd>' + esc(P.role) + '</dd></div><div><dt>DELIVERABLE</dt><dd>' + esc(P.deliverable) + '</dd></div>' +
           (P.course ? '<div><dt>COURSE</dt><dd>' + esc(P.course) + '</dd></div>' : '') + '</dl>' +
-        '<div class="d-docs">' + docs.map(function (t, i) { return pdfBtn(P, t, 'btn' + (i ? ' btn--line' : '')); }).join('') + '</div>' +
+        '<div class="d-docs">' + P.docs.filter(function (d) { return d.file; }).map(function (d, i) { return '<span class="d-doc">' + pdfBtn(P, d, 'btn' + (i ? ' btn--line' : '')) + '</span>'; }).join('') + '</div>' +
         '<dl class="pao"><div><dt>PROBLEM</dt><dd>' + esc(P.pao[0]) + '</dd></div><div><dt>APPROACH</dt><dd>' + esc(P.pao[1]) + '</dd></div><div><dt>OUTCOME</dt><dd>' + esc(P.pao[2]) + '</dd></div></dl>' +
         '<p class="d-scroll" aria-hidden="true">SCROLL ↓</p>' +
       '</section>';
@@ -556,6 +562,19 @@
             return '<div class="clr__item"><span class="clr__sw" style="background:' + bg + '"></span><h4>' + esc(c[0]) + (c[1] ? ' <code>' + esc(c[1]) + '</code>' : '') + '</h4><p>' + esc(c[2]) + '</p></div>';
           }).join('') + '</div></div>';
         case 'learned': return '<div class="b learned"><small>LEARNED</small><p>' + esc(b.text) + '</p></div>';
+        case 'video': return '<div class="b">' + lab(b.title) + '<figure class="vid"><video controls playsinline preload="none" poster="' + esc(b.poster) + '"><source src="' + esc(b.src) + '" type="video/mp4"></video>' + (b.cap ? '<figcaption>' + esc(b.cap) + '</figcaption>' : '') + '</figure></div>';
+        case 'proto': return '<div class="b">' + lab(b.title) + '<div class="protos">' + b.items.map(function (it) {
+            return '<article class="proto"><button type="button" class="proto__shot" data-proto="' + esc(it.src) + '" data-title="' + esc(it.name) + '" aria-label="' + esc(it.name) + ' 직접 체험하기"><img loading="lazy" src="' + esc(it.img) + '" alt=""><span class="proto__play">▶ 직접 체험하기</span></button>' +
+              '<div class="proto__body"><small>' + esc(it.kicker) + '</small><h4>' + esc(it.name) + '</h4><p>' + esc(it.desc) + '</p>' +
+              '<div class="proto__acts"><button type="button" class="btn btn--sm" data-proto="' + esc(it.src) + '" data-title="' + esc(it.name) + '">체험하기 ▶</button><a class="btn btn--sm btn--line" href="' + esc(it.src) + '" target="_blank" rel="noopener">새 창에서 크게 ↗</a></div>' +
+              (it.note ? '<p class="proto__note">' + esc(it.note) + '</p>' : '') + '</div></article>';
+          }).join('') + '</div>' + note(b.note) + '</div>';
+        case 'versus':
+          var mx = b.max || Math.max.apply(null, b.rows.map(function (r) { return Math.max(r[1], r[2]); }));
+          return '<div class="b">' + lab(b.title) + '<div class="vs"><p class="vs__legend"><span><i class="vs__a"></i>' + esc(b.a || '1차') + '</span><span><i class="vs__b"></i>' + esc(b.b || '2차') + '</span></p>' +
+            b.rows.map(function (r) { return '<div class="vs__row"><span class="vs__name">' + esc(r[0]) + '</span><div class="vs__bars"><span class="vs__bar vs__bar--a" style="width:' + (r[1] / mx * 100) + '%"><em>' + r[1] + (b.unit || '') + '</em></span><span class="vs__bar vs__bar--b" style="width:' + (r[2] / mx * 100) + '%"><em>' + r[2] + (b.unit || '') + '</em></span></div></div>'; }).join('') +
+            '</div>' + note(b.note) + '</div>';
+        case 'kpi': return '<div class="b">' + lab(b.label) + '<div class="kpis">' + b.items.map(function (k) { return '<div class="kpi"><small>' + esc(k[0]) + '</small><p><span class="kpi__a">' + esc(k[1]) + '</span><span class="kpi__arr" aria-hidden="true">→</span><b class="kpi__b">' + esc(k[2]) + '</b></p><span class="kpi__d">' + esc(k[3] || '') + '</span></div>'; }).join('') + '</div>' + note(b.note) + '</div>';
       }
       return '';
     }
@@ -670,3 +689,92 @@ document.addEventListener('click', function (e) {
   var a = e.target.closest && e.target.closest('.ft__top');
   if (!a) return; e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+/* 프로토타입 직접 체험 (전체 화면) */
+(function () {
+  var box = null;
+  function close() { if (!box) return; box.remove(); box = null; document.documentElement.style.overflow = ''; }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-proto]'); if (!b) return;
+    e.preventDefault();
+    var src = b.getAttribute('data-proto'), title = b.getAttribute('data-title') || '';
+    box = document.createElement('div'); box.className = 'pmodal'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', title + ' 프로토타입');
+    box.innerHTML = '<div class="pmodal__bar"><b>' + title.replace(/</g, '&lt;') + '</b><span class="pmodal__hint">화면 안을 직접 눌러 보세요</span><a href="' + src + '" target="_blank" rel="noopener">새 창 ↗</a><button type="button" class="pmodal__x" aria-label="닫기">✕</button></div>' +
+      '<div class="pmodal__load">프로토타입을 불러오는 중…</div><iframe src="' + src + '" title="' + title.replace(/"/g, '') + '" allow="fullscreen; autoplay" allowfullscreen></iframe>';
+    document.body.appendChild(box); document.documentElement.style.overflow = 'hidden';
+    box.querySelector('iframe').addEventListener('load', function () { var l = box && box.querySelector('.pmodal__load'); if (l) l.remove(); });
+    box.querySelector('.pmodal__x').addEventListener('click', close); box.querySelector('.pmodal__x').focus();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+})();
+
+/* 문서 유형별 개수 (홈 · 프로젝트) */
+(function () {
+  var D = window.YOLK; if (!D) return;
+  var cnt = {}, pj = 0;
+  Object.keys(D.projects).forEach(function (id) { pj++; D.projects[id].docs.forEach(function (d) { if (d.file) cnt[d.type] = (cnt[d.type] || 0) + 1; }); });
+  var html = '<span class="doc-sum__pj"><b>' + pj + '</b>프로젝트</span>' + D.docTypes.filter(function (t) { return cnt[t]; }).map(function (t) { return '<a href="works.html?type=' + ({ '기획서': 'plan', '보고서': 'report', '화면설계서': 'wire', '제안서': 'proposal', '발표자료': 'deck' })[t] + '"><b>' + cnt[t] + '</b>' + t + '</a>'; }).join('');
+  document.querySelectorAll('[data-doc-sum], #doc-sum').forEach(function (el) { el.innerHTML = html; });
+})();
+
+/* 제작 과정 투어 — 노른자 토글을 켜면 시작 */
+(function () {
+  var page = document.body.getAttribute('data-page');
+  var STEPS = {
+    home: [
+      ['#home', '판부터 짰습니다', '컨셉은 \u2018노른자\u2019. 겉으로 드러난 현상이 아니라 핵심을 찾는 기획자라는 한 문장을 먼저 정하고, 색 · 폰트 · 문구를 모두 그 문장에 맞췄어요. 흰 바탕에 노른자 포인트, 폰트는 Orbitron과 Pretendard 두 가지만.'],
+      ['#experience', '이력은 한 화면에', '1920×1080 한 화면에 사진과 경력이 다 보이도록 텍스트만으로 정리했어요. 날짜는 연 · 월만, 숫자는 점으로 통일했습니다.'],
+      ['#projects', '핵심부터 보여줍니다', '프로젝트 중 문제를 가장 깊게 판 3개만 메인에 두고, 직접 만든 문서 수를 함께 보여줘요. 상세 페이지는 배경 → 문제 → 과정 → 결과 순서의 장면으로 구성했습니다.'],
+      ['#skills', '역량은 증거와 함께', '할 줄 아는 것을 나열하지 않고, 어떤 프로젝트에서 썼는지로 연결했어요.'],
+      ['#ai-intro', 'AI와 함께 만들었습니다', '정보구조도 · 화면설계서는 직접 쓰고, 구현은 Claude Code에 맡겼어요. 결과는 실제 화면을 보며 행간 · 여백 · 색까지 수십 번 작게 고쳤습니다.'],
+      ['.yb-launch', '노른자 봇', '서버 없이 동작하는 챗봇이에요. 이력서 · 자기소개서 · 프로젝트 데이터에 있는 내용으로만 답하도록 만들었어요.'],
+      ['#contact', '끝까지 핵심만', '연락처와 이력서 · 자기소개서 다운로드를 한곳에 모았어요. 다시 토글을 누르면 원래 화면으로 돌아갑니다.']
+    ],
+    works: [
+      ['.page-head', '문서로 증명합니다', '프로젝트마다 기획서 · 보고서 · 화면설계서 · 발표자료 원본을 그대로 열고 내려받을 수 있게 했어요. 문서 수도 숫자로 보여줍니다.'],
+      ['.filters', '찾기 쉽게', '문서 종류로 거르고, 최신순 · 이름순으로 정렬할 수 있어요. 선택은 다음 방문에도 기억합니다.'],
+      ['#grid', '카드 한 장에 핵심 한 줄', '썸네일은 1920×1080 장표가 잘리지 않게 16:9로 맞췄고, 카드마다 이 프로젝트에서 찾은 핵심을 한 줄로 적었어요.']
+    ],
+    detail: [
+      ['.d-top', '질문으로 시작합니다', '모든 상세 페이지는 이 프로젝트가 던진 질문 하나로 시작하고, 기간 · 팀 · 역할 · 산출물을 바로 아래에 둡니다.'],
+      ['.d-docs', '원본 문서', '문서는 페이지를 넘겨 보거나 PDF로 바로 받을 수 있어요.'],
+      ['.dsec', '장면으로 읽히게', '배경 → 리서치 → 핵심 문제 → 해결 → 결정 → 결과 순서로, 숫자와 원문 이미지를 함께 놓았습니다.']
+    ],
+    ai: [
+      ['.ai-hero', 'AI 활용 페이지', '이 페이지 자체가 기록이에요. 무엇을 직접 하고 무엇을 AI에 맡겼는지 단계별로 나눴습니다.'],
+      ['.ai-prompt, .ai-sec', '프롬프트와 토큰', '실제로 쓰는 프롬프트 구조와 토큰을 아끼는 규칙을 그대로 옮겼어요.']
+    ]
+  };
+  var steps = STEPS[page] || STEPS.home, i = 0, box = null, lit = null;
+  function q(sel) { var list = sel.split(',').map(function (x) { return document.querySelector(x.trim()); }).filter(Boolean); return list[0] || null; }
+  function clear() { if (lit) lit.classList.remove('tour-lit'); lit = null; }
+  function show() {
+    clear();
+    var st = steps[i], el = q(st[0]);
+    if (el) { el.classList.add('tour-lit'); lit = el; if (el.getBoundingClientRect().height < innerHeight * 1.5) el.scrollIntoView({ behavior: 'smooth', block: el.classList.contains('yb-launch') ? 'nearest' : 'start' }); else el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    box.querySelector('.tour__n').textContent = ('0' + (i + 1)).slice(-2) + ' / ' + ('0' + steps.length).slice(-2);
+    box.querySelector('h3').textContent = st[1];
+    box.querySelector('p').textContent = st[2];
+    box.querySelector('[data-t="prev"]').disabled = i === 0;
+    box.querySelector('[data-t="next"]').textContent = i === steps.length - 1 ? '끝내기' : '다음 →';
+    box.querySelector('.tour__bar i').style.width = ((i + 1) / steps.length * 100) + '%';
+  }
+  function end() { clear(); if (box) { box.remove(); box = null; } }
+  function start() {
+    end(); i = 0;
+    box = document.createElement('section'); box.className = 'tour'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', '이 웹사이트를 만든 과정');
+    box.innerHTML = '<div class="tour__top"><span class="tour__k">MAKING OF · 이 웹을 만든 과정</span><button type="button" class="tour__x" data-t="close" aria-label="닫기">✕</button></div><span class="tour__n"></span><h3></h3><p></p><div class="tour__bar" aria-hidden="true"><i></i></div><div class="tour__acts"><button type="button" data-t="prev">← 이전</button><button type="button" data-t="next" class="tour__next">다음 →</button></div>';
+    document.body.appendChild(box);
+    box.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-t]'); if (!t) return;
+      var a = t.getAttribute('data-t');
+      if (a === 'close') end();
+      if (a === 'prev' && i > 0) { i--; show(); }
+      if (a === 'next') { if (i < steps.length - 1) { i++; show(); } else end(); }
+    });
+    show(); box.querySelector('[data-t="next"]').focus();
+  }
+  document.addEventListener('yolk:tour', start);
+  document.addEventListener('yolk:tour-off', end);
+  document.addEventListener('keydown', function (e) { if (!box) return; if (e.key === 'Escape') end(); if (e.key === 'ArrowRight' && i < steps.length - 1) { i++; show(); } if (e.key === 'ArrowLeft' && i > 0) { i--; show(); } });
+})();
