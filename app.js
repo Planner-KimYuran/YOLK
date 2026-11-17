@@ -29,6 +29,17 @@
   }
   setActive(page === 'home' ? '' : 'works');
 
+  /* 라이트 · 다크 모드 — 노른자 토글 */
+  var egg = $('.egg');
+  function setTheme(dark, save) {
+    var root = document.documentElement;
+    if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+    if (egg) { egg.setAttribute('aria-checked', dark ? 'true' : 'false'); egg.setAttribute('aria-label', dark ? '라이트 모드로 바꾸기' : '다크 모드로 바꾸기'); }
+    if (save) { try { localStorage.setItem('yolk-theme', dark ? 'dark' : 'light'); } catch (e) {} }
+  }
+  setTheme(document.documentElement.getAttribute('data-theme') === 'dark', false);
+  if (egg) egg.addEventListener('click', function () { setTheme(document.documentElement.getAttribute('data-theme') !== 'dark', true); });
+
   /* 모바일 메뉴 (햄버거) */
   var burger = $('.gnb__burger'), navEl = $('#gnb-links');
   function setMenu(open) {
@@ -228,7 +239,7 @@
       return '<li><span class="xb__d en">' + esc(d) + '</span><span class="xb__t">' + esc(t) + (lead ? '<i class="xb__lead">리드</i>' : '') + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span></li>';
     };
     var fill = function (sel, html) { var el = $(sel); if (el) el.innerHTML = html; };
-    fill('#xb-exp', D.experience.map(function (e) { return row(e.when.split(' · ')[0].replace(/\s*—\s*/g, '.'), e.name, e.role, e.lead); }).join(''));
+    fill('#xb-exp', D.experience.map(function (e) { return row(e.when.split(' · ')[0].split(/\s*—\s*/)[0], e.name, e.role, e.lead); }).join(''));
     fill('#xb-edu', D.education.map(function (r) { return row(r[0], r[1]); }).join(''));
     fill('#xb-award', D.awards.map(function (r) { var t = r[1].split(' · '); return row(r[0], t[0], t.slice(1).join(' · ')); }).join(''));
     fill('#xb-cert', D.certificates.map(function (r) { return row(r[0], r[1], r[2]); }).join(''));
