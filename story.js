@@ -716,7 +716,7 @@
   /* ---------- 08 · 크리에이티브X성수 ---------- */
   var rt = function (n, cap) { return pg('rt', n, cap); };
   P['08'].docs = [
-    doc('발표자료', '제안 발표 자료', 'creativex-seongsu-presentation.pdf', 'cs', 15, '김유란_크리에이티브X성수_제안발표.pdf'),
+    doc('제안서', '제안서', 'creativex-seongsu-presentation.pdf', 'cs', 15, '김유란_크리에이티브X성수_제안서.pdf'),
     doc('보고서', '레드팀 보고서', 'creativex-seongsu-redteam.pdf', 'rt', 10, '김유란_크리에이티브X성수_레드팀보고서.pdf')
   ];
   P['08'].story.forEach(function (sc) {
@@ -777,9 +777,9 @@
   H.award = 'ESG 우수작 · 장학금 50만원';
   H.story.splice(H.story.findIndex(function (s) { return s.id === 'result'; }), 0, {
     id: 'esg', name: 'ESG', title: 'ESG 우수작',
-    lead: '공항 보안을, 사람을 지키는 일로 다시 보다 — ESG 우수작 선정 · 장학금 50만원',
+    lead: '공항 보안을, 사람을 지키는 일로 다시 보다 — 2026년 11월 ESG 우수작 선정 · 장학금 50만원',
     blocks: [
-      { t: 'stats', label: 'AWARD', items: [['우수작', 'ESG 우수작 선정'], ['50만원', '장학금']] },
+      { t: 'stats', label: 'AWARD · 2026.11', items: [['우수작', 'ESG 우수작 선정'], ['50만원', '장학금']] },
       { t: 'cards', label: 'HAELON × ESG', items: [
         ['S · 사람을 지킨다', '이유도 모른 채 기다리던 승객 · 시민에게 경보 · 대피 · 운영 중단을 색과 문장만으로 바로 알린다. 현장 보안요원은 두 손과 시선을 현장에 둔 채 정보를 받는다.'],
         ['G · 결정은 사람이, 기록은 시스템이', '확정 권한은 관제사에게 두고, 상황 · 읽음 확인 · 조치 진행을 남겨 누가 언제 무엇을 했는지 추적할 수 있게 했다. AI가 맡은 일과 팀이 직접 한 일도 구분해 기록했다.'],

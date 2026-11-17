@@ -2347,3 +2347,28 @@ body { letter-spacing: -0.012em; }
 .d-doc { flex-wrap: wrap; max-width: 100%; }
 .d-doc .btn { white-space: normal; text-align: center; }
 @media (max-width: 900px) { .pindex { max-width: 100%; min-width: 0; overflow: hidden; } .pindex ul, .pindex ol { overflow-x: auto; scrollbar-width: none; } .pindex ul::-webkit-scrollbar, .pindex ol::-webkit-scrollbar { display: none; } }
+
+/* v8.1 — 간격 · 반투명 투어 */
+#experience .xb { margin-top: clamp(52px, 5.4vw, 84px); }
+.ai-sec { padding-top: clamp(72px, 8vw, 120px); }
+.ai-sec + .ai-sec { margin-top: clamp(8px, 1vw, 16px); }
+.ai-hero { padding-bottom: clamp(24px, 3vw, 40px); }
+
+.tour { width: min(300px, calc(100vw - 32px)) !important; padding: 12px 14px 12px !important; gap: 5px !important;
+  background: rgba(255, 255, 255, .42) !important; border: 1px solid rgba(255, 255, 255, .55) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(160%); backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: 0 10px 30px -14px rgba(0, 0, 0, .25) !important; left: calc(16px + env(safe-area-inset-left, 0px)) !important; bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important; }
+.tour__top { gap: 8px; }
+.tour__k { font-size: 8.5px !important; }
+.tour__n { display: none; }
+.tour h3 { font-size: 14px !important; }
+.tour p { font-size: 12px !important; line-height: 1.6 !important; color: #3f3f3f !important; }
+.tour__bar { height: 2px !important; background: rgba(0, 0, 0, .08) !important; margin-top: 2px !important; }
+.tour__bar i { transition: none !important; }
+.tour__acts { margin-top: 2px !important; align-items: center; gap: 6px; }
+.tour__acts button { height: 26px !important; padding: 0 9px !important; font-size: 11px !important; background: rgba(255,255,255,.6) !important; border-color: rgba(0,0,0,.08) !important; color: #333 !important; }
+.tour__acts .tour__step { margin-right: auto; font-family: var(--en); font-size: 10px; color: #777; }
+.tour__x { width: 22px !important; height: 22px !important; font-size: 11px; }
+.tour-lit { outline: 1.5px solid rgba(255, 194, 26, .9) !important; outline-offset: 4px !important; }
+@media (max-width: 640px) { .tour { left: 10px !important; right: auto !important; width: calc(100vw - 96px) !important; bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important; } .tour p { font-size: 11.5px !important; } }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .tour { background: rgba(255, 255, 255, .88) !important; } }

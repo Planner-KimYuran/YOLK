@@ -82,7 +82,7 @@
       next: ['je', 'awards', 'projects'] },
 
     { id: 'awards', label: '수상 경력은?', keys: ['수상', '어워드', '상 받', '장학', '성적', '입선', '대회'],
-      a: ['<ul><li><b>ESG 우수작 · 장학금 50만원</b> — HAELON (2026)</li><li><b>제32회 커뮤니케이션디자인 국제 어워드 입선</b> — Arc.Dot (2026.07)</li><li>성적 우수 장학금 — 1학년 1학기 · 2학년 1학기</li><li>수원대 전국 학생 미술 실기대회 <b>최우수상</b> · 건국대 · 경희대 실기대회 <b>본상</b></li></ul>',
+      a: ['<ul><li><b>ESG 우수작 · 장학금 50만원</b> — HAELON (2026.11)</li><li><b>제32회 커뮤니케이션디자인 국제 어워드 입선</b> — Arc.Dot (2026.07)</li><li>성적 우수 장학금 — 1학년 1학기 · 2학년 1학기</li><li>수원대 전국 학생 미술 실기대회 <b>최우수상</b> · 건국대 · 경희대 실기대회 <b>본상</b></li></ul>',
           '매 과제마다 부족한 부분을 돌아보고 다음에 반영해 온 결과예요. 유란은 <b>반복할수록 더 정확해지는 사람</b>이에요.'],
       next: ['projects', 'skills', 'lead'] },
 
@@ -104,7 +104,7 @@
     { id: 'contact', label: '연락하고 싶어', keys: ['연락', '메일', '이메일', '전화', '번호', '인스타', '이력서', '자기소개서', '자소서', '채용', '면접', '제안'],
       a: ['언제든 환영이에요!',
           '<ul><li>메일 — ' + L('mailto:knewrun25@gmail.com', 'knewrun25@gmail.com') + '</li><li>전화 — ' + L('tel:+821034526632', '010.3452.6632') + '</li><li>인스타그램 — <a href="https://www.instagram.com/nwrnnyo/" target="_blank" rel="noopener">@nwrnnyo ↗</a></li></ul>',
-          '이력서는 ' + L('resume.pdf?v=7', '여기서 바로 받을 수 있어요 ↓') + ''],
+          '이력서는 ' + L('resume.pdf?v=8', '여기서 바로 받을 수 있어요 ↓') + ''],
       next: ['who', 'projects'] }
   ];
   var byId = {}; KB.forEach(function (k) { byId[k.id] = k; });

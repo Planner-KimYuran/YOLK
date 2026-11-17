@@ -717,62 +717,71 @@ document.addEventListener('click', function (e) {
   document.querySelectorAll('[data-doc-sum], #doc-sum').forEach(function (el) { el.innerHTML = html; });
 })();
 
-/* 제작 과정 투어 — 노른자 토글을 켜면 시작 */
+/* 제작 과정 투어 — 노른자 토글을 켜면 시작 · 반투명 · 자동 진행 */
 (function () {
   var page = document.body.getAttribute('data-page');
   var STEPS = {
     home: [
-      ['#home', '판부터 짰습니다', '컨셉은 \u2018노른자\u2019. 겉으로 드러난 현상이 아니라 핵심을 찾는 기획자라는 한 문장을 먼저 정하고, 색 · 폰트 · 문구를 모두 그 문장에 맞췄어요. 흰 바탕에 노른자 포인트, 폰트는 Orbitron과 Pretendard 두 가지만.'],
-      ['#experience', '이력은 한 화면에', '1920×1080 한 화면에 사진과 경력이 다 보이도록 텍스트만으로 정리했어요. 날짜는 연 · 월만, 숫자는 점으로 통일했습니다.'],
-      ['#projects', '핵심부터 보여줍니다', '프로젝트 중 문제를 가장 깊게 판 3개만 메인에 두고, 직접 만든 문서 수를 함께 보여줘요. 상세 페이지는 배경 → 문제 → 과정 → 결과 순서의 장면으로 구성했습니다.'],
-      ['#skills', '역량은 증거와 함께', '할 줄 아는 것을 나열하지 않고, 어떤 프로젝트에서 썼는지로 연결했어요.'],
-      ['#ai-intro', 'AI와 함께 만들었습니다', '정보구조도 · 화면설계서는 직접 쓰고, 구현은 Claude Code에 맡겼어요. 결과는 실제 화면을 보며 행간 · 여백 · 색까지 수십 번 작게 고쳤습니다.'],
-      ['.yb-launch', '노른자 봇', '서버 없이 동작하는 챗봇이에요. 이력서 · 자기소개서 · 프로젝트 데이터에 있는 내용으로만 답하도록 만들었어요.'],
-      ['#contact', '끝까지 핵심만', '연락처와 이력서 · 자기소개서 다운로드를 한곳에 모았어요. 다시 토글을 누르면 원래 화면으로 돌아갑니다.']
+      ['#home', '한 문장으로 나를 정의했어요', '‘판을 계획하고, 핵심만 남기는 노른자 같은 기획자’. 첫 화면엔 이 한 문장만 두어, 처음 보는 사람도 몇 초 안에 저를 기억하게 했어요.'],
+      ['#experience', '많이보다, 한눈에', '이력을 길게 늘어놓지 않고 한 화면에 담았어요. 많이 담기보다 핵심만 남기는 제 방식을 이력 구성 자체로 보여주고 싶었어요.'],
+      ['#projects', '결과보다 판단의 과정', '프로젝트마다 ‘제가 찾은 핵심’ 한 줄과 원본 문서를 붙였어요. 예쁜 결과물보다 어떻게 판단했는지를 보여주는 기획자이고 싶어서요.'],
+      ['#skills', '증거로 말하기', '할 줄 아는 것을 나열하지 않고, 실제로 어디에 썼는지로 연결했어요.'],
+      ['#ai-intro', 'AI와 함께, 판단은 제가', '기획 문서는 직접 쓰고 구현은 AI와 함께했어요. 무엇을 맡기고 무엇을 지켰는지까지 저를 설명하는 일부라고 생각했어요.'],
+      ['.yb-launch', '저를 대신 소개하는 노른자', '궁금한 것부터 물어볼 수 있게 노른자 봇을 만들었어요. 제 이력서 · 자기소개서 · 프로젝트에 있는 내용으로만 답해요.'],
+      ['#contact', '흰 바탕, 노른자 하나', '색은 흰 바탕과 노른자 포인트만 썼어요. 군더더기 없는 화면 자체가 ‘핵심만 남긴다’는 제 태도예요.']
     ],
     works: [
-      ['.page-head', '문서로 증명합니다', '프로젝트마다 기획서 · 보고서 · 화면설계서 · 발표자료 원본을 그대로 열고 내려받을 수 있게 했어요. 문서 수도 숫자로 보여줍니다.'],
-      ['.filters', '찾기 쉽게', '문서 종류로 거르고, 최신순 · 이름순으로 정렬할 수 있어요. 선택은 다음 방문에도 기억합니다.'],
-      ['#grid', '카드 한 장에 핵심 한 줄', '썸네일은 1920×1080 장표가 잘리지 않게 16:9로 맞췄고, 카드마다 이 프로젝트에서 찾은 핵심을 한 줄로 적었어요.']
+      ['.page-head', '문서로 증명하는 사람', '말보다 문서로 보여주고 싶었어요. 기획서 · 보고서 · 화면설계서 원본을 그대로 열고 받을 수 있게 했어요.'],
+      ['#grid', '카드마다 핵심 한 줄', '프로젝트를 고를 때도 제가 찾은 핵심이 먼저 보이도록 카드마다 한 줄을 적었어요.']
     ],
     detail: [
-      ['.d-top', '질문으로 시작합니다', '모든 상세 페이지는 이 프로젝트가 던진 질문 하나로 시작하고, 기간 · 팀 · 역할 · 산출물을 바로 아래에 둡니다.'],
-      ['.d-docs', '원본 문서', '문서는 페이지를 넘겨 보거나 PDF로 바로 받을 수 있어요.'],
-      ['.dsec', '장면으로 읽히게', '배경 → 리서치 → 핵심 문제 → 해결 → 결정 → 결과 순서로, 숫자와 원문 이미지를 함께 놓았습니다.']
+      ['.d-top', '질문에서 시작하는 기획자', '모든 프로젝트를 제가 던진 질문 하나로 시작했어요. 저는 답보다 좋은 질문을 먼저 찾는 사람이에요.'],
+      ['.d-docs', '과정을 숨기지 않기', '완성본만이 아니라 기획서 · 화면설계서 원본을 함께 열어 두었어요.'],
+      ['.dsec', '현상 → 핵심 → 해결', '배경에서 핵심 문제를 거쳐 결과까지, 제가 생각하는 순서 그대로 읽히게 구성했어요.']
     ],
     ai: [
-      ['.ai-hero', 'AI 활용 페이지', '이 페이지 자체가 기록이에요. 무엇을 직접 하고 무엇을 AI에 맡겼는지 단계별로 나눴습니다.'],
-      ['.ai-prompt, .ai-sec', '프롬프트와 토큰', '실제로 쓰는 프롬프트 구조와 토큰을 아끼는 규칙을 그대로 옮겼어요.']
+      ['.ai-hero', 'AI를 다루는 방식도 나', 'AI에게 맡기지 않고 AI와 판을 짠다 — 이 페이지는 제 일하는 방식을 그대로 보여주는 기록이에요.'],
+      ['.ai-sec', '맡기는 것과 지키는 것', '단계마다 제가 하는 일과 AI에게 맡기는 일을 나눠, 판단은 끝까지 제가 한다는 걸 보여주고 싶었어요.']
     ]
   };
-  var steps = STEPS[page] || STEPS.home, i = 0, box = null, lit = null;
-  function q(sel) { var list = sel.split(',').map(function (x) { return document.querySelector(x.trim()); }).filter(Boolean); return list[0] || null; }
+  var steps = STEPS[page] || STEPS.home, i = 0, box = null, lit = null, timer = null, t0 = 0, paused = false, DUR = 6500, raf = 0;
+  function q(sel) { return document.querySelector(sel); }
   function clear() { if (lit) lit.classList.remove('tour-lit'); lit = null; }
+  function tick() {
+    if (!box) return;
+    var el = box.querySelector('.tour__bar i');
+    if (!paused) { var p = Math.min(1, (Date.now() - t0) / DUR); el.style.width = (p * 100) + '%'; if (p >= 1) { if (i < steps.length - 1) { i++; show(); } else { paused = true; setPlay(); } } }
+    else t0 = Date.now() - (parseFloat(el.style.width) || 0) / 100 * DUR;
+    raf = requestAnimationFrame(tick);
+  }
+  function setPlay() { var b = box && box.querySelector('[data-t="play"]'); if (b) { b.textContent = paused ? '▶' : '❚❚'; b.setAttribute('aria-label', paused ? '자동 진행 재생' : '자동 진행 일시정지'); } }
   function show() {
     clear();
     var st = steps[i], el = q(st[0]);
-    if (el) { el.classList.add('tour-lit'); lit = el; if (el.getBoundingClientRect().height < innerHeight * 1.5) el.scrollIntoView({ behavior: 'smooth', block: el.classList.contains('yb-launch') ? 'nearest' : 'start' }); else el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-    box.querySelector('.tour__n').textContent = ('0' + (i + 1)).slice(-2) + ' / ' + ('0' + steps.length).slice(-2);
+    if (el) { el.classList.add('tour-lit'); lit = el; el.scrollIntoView({ behavior: 'smooth', block: el.classList.contains('yb-launch') ? 'nearest' : 'start' }); }
     box.querySelector('h3').textContent = st[1];
     box.querySelector('p').textContent = st[2];
-    box.querySelector('[data-t="prev"]').disabled = i === 0;
-    box.querySelector('[data-t="next"]').textContent = i === steps.length - 1 ? '끝내기' : '다음 →';
-    box.querySelector('.tour__bar i').style.width = ((i + 1) / steps.length * 100) + '%';
+    box.querySelector('.tour__step').textContent = ('0' + (i + 1)).slice(-2) + ' / ' + ('0' + steps.length).slice(-2);
+    box.querySelector('.tour__bar i').style.width = '0%';
+    t0 = Date.now();
   }
-  function end() { clear(); if (box) { box.remove(); box = null; } }
+  function end() { clear(); cancelAnimationFrame(raf); if (box) { box.remove(); box = null; } }
   function start() {
-    end(); i = 0;
-    box = document.createElement('section'); box.className = 'tour'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', '이 웹사이트를 만든 과정');
-    box.innerHTML = '<div class="tour__top"><span class="tour__k">MAKING OF · 이 웹을 만든 과정</span><button type="button" class="tour__x" data-t="close" aria-label="닫기">✕</button></div><span class="tour__n"></span><h3></h3><p></p><div class="tour__bar" aria-hidden="true"><i></i></div><div class="tour__acts"><button type="button" data-t="prev">← 이전</button><button type="button" data-t="next" class="tour__next">다음 →</button></div>';
-    document.body.appendChild(box);
+    end(); i = 0; paused = false;
+    box = document.createElement('section'); box.className = 'tour'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', '이 웹사이트로 나를 표현한 방식');
+    box.innerHTML = '<div class="tour__top"><span class="tour__k">MAKING OF · 나를 표현한 방식</span><button type="button" class="tour__x" data-t="close" aria-label="닫기">✕</button></div><h3></h3><p aria-live="polite"></p><div class="tour__bar" aria-hidden="true"><i></i></div><div class="tour__acts"><span class="tour__step"></span><button type="button" data-t="prev" aria-label="이전">←</button><button type="button" data-t="play"></button><button type="button" data-t="next" aria-label="다음">→</button></div>';
+    document.body.appendChild(box); setPlay();
+    box.addEventListener('mouseenter', function () { box.dataset.hover = '1'; paused = true; });
+    box.addEventListener('mouseleave', function () { if (box.dataset.hover) { delete box.dataset.hover; if (!box.dataset.user) paused = false; } });
     box.addEventListener('click', function (e) {
       var t = e.target.closest('[data-t]'); if (!t) return;
       var a = t.getAttribute('data-t');
-      if (a === 'close') end();
+      if (a === 'close') { end(); return; }
       if (a === 'prev' && i > 0) { i--; show(); }
-      if (a === 'next') { if (i < steps.length - 1) { i++; show(); } else end(); }
+      if (a === 'next') { if (i < steps.length - 1) { i++; show(); } }
+      if (a === 'play') { paused = !paused; if (paused) box.dataset.user = '1'; else { delete box.dataset.user; if (i === steps.length - 1 && box.querySelector('.tour__bar i').style.width === '100%') { i = 0; show(); } } setPlay(); }
     });
-    show(); box.querySelector('[data-t="next"]').focus();
+    show(); raf = requestAnimationFrame(tick);
   }
   document.addEventListener('yolk:tour', start);
   document.addEventListener('yolk:tour-off', end);
