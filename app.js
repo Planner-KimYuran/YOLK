@@ -36,6 +36,7 @@
     var hide = function () {
       setTimeout(function () {
         loader.classList.add('is-done');
+        setTimeout(function () { document.dispatchEvent(new Event('yolk:ready')); }, 380);
         try { sessionStorage.setItem('yolk-onboard', '1'); } catch (e) {}
         setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 700);
       }, Math.max(0, 1600 - (Date.now() - t0)));
@@ -700,7 +701,7 @@ document.addEventListener('click', function (e) {
     var src = b.getAttribute('data-proto'), title = b.getAttribute('data-title') || '';
     box = document.createElement('div'); box.className = 'pmodal'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', title + ' 프로토타입');
     box.innerHTML = '<div class="pmodal__bar"><b>' + title.replace(/</g, '&lt;') + '</b><span class="pmodal__hint">화면 안을 직접 눌러 보세요</span><a href="' + src + '" target="_blank" rel="noopener">새 창 ↗</a><button type="button" class="pmodal__x" aria-label="닫기">✕</button></div>' +
-      '<div class="pmodal__load">프로토타입을 불러오는 중…</div><iframe src="' + src + '" title="' + title.replace(/"/g, '') + '" allow="fullscreen; autoplay" allowfullscreen></iframe>';
+      '<div class="pmodal__load">프로토타입을 불러오는 중…</div><iframe src="' + src + '" title="' + title.replace(/"/g, '') + '" allow="fullscreen" allowfullscreen></iframe>';
     document.body.appendChild(box); document.documentElement.style.overflow = 'hidden';
     box.querySelector('iframe').addEventListener('load', function () { var l = box && box.querySelector('.pmodal__load'); if (l) l.remove(); });
     box.querySelector('.pmodal__x').addEventListener('click', close); box.querySelector('.pmodal__x').focus();
@@ -786,4 +787,47 @@ document.addEventListener('click', function (e) {
   document.addEventListener('yolk:tour', start);
   document.addEventListener('yolk:tour-off', end);
   document.addEventListener('keydown', function (e) { if (!box) return; if (e.key === 'Escape') end(); if (e.key === 'ArrowRight' && i < steps.length - 1) { i++; show(); } if (e.key === 'ArrowLeft' && i > 0) { i--; show(); } });
+})();
+
+/* 메인 첫 화면 — 노른자가 떨어져 '핵심'에 튕기고 굴러가는 모션 */
+(function () {
+  var core = document.getElementById('hx-core'), endEl = document.getElementById('hx-end');
+  if (!core || !endEl) return;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var played = false;
+  function play() {
+    if (played || reduce || !core.animate) return; played = true;
+    var r = core.getBoundingClientRect(), e = endEl.getBoundingClientRect();
+    var size = Math.max(12, Math.min(18, r.height * 0.32));
+    var ball = document.createElement('span'); ball.className = 'yolk-ball'; ball.setAttribute('aria-hidden', 'true');
+    ball.style.width = ball.style.height = size + 'px';
+    var x = r.left + r.width / 2 - size / 2 + scrollX, y = r.top + scrollY + r.height * 0.14 - size;
+    ball.style.left = x + 'px'; ball.style.top = y + 'px'; ball.style.transformOrigin = '50% 100%';
+    document.body.appendChild(ball);
+    var fall = -(r.top + size + 60);
+    ball.animate([
+      { transform: 'translateY(' + fall + 'px) scale(1,1)', easing: 'cubic-bezier(.55,0,1,.45)' },
+      { transform: 'translateY(0) scale(1.18,.78)', offset: .52, easing: 'cubic-bezier(0,.55,.45,1)' },
+      { transform: 'translateY(-' + (size * 2.6) + 'px) scale(.94,1.06)', offset: .7, easing: 'cubic-bezier(.55,0,1,.45)' },
+      { transform: 'translateY(0) scale(1.1,.88)', offset: .84, easing: 'cubic-bezier(0,.55,.45,1)' },
+      { transform: 'translateY(-' + (size * .6) + 'px) scale(1,1)', offset: .92, easing: 'cubic-bezier(.55,0,1,.45)' },
+      { transform: 'translateY(0) scale(1,1)' }
+    ], { duration: 1150, fill: 'forwards' }).onfinish = function () {
+      ball.style.transformOrigin = '50% 50%';
+      var dist = Math.max(40, e.right - r.left - r.width / 2 + size * .4);
+      var turns = dist / (Math.PI * size) * 360;
+      ball.animate([
+        { transform: 'translateX(0) rotate(0deg)' },
+        { transform: 'translateX(' + dist + 'px) rotate(' + turns + 'deg)' }
+      ], { duration: Math.min(1700, 600 + dist * 3), easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' }).onfinish = function () {
+        ball.classList.add('is-rest');
+      };
+    };
+    var kill = function () { if (ball.parentNode) ball.parentNode.removeChild(ball); removeEventListener('resize', kill); };
+    addEventListener('resize', kill);
+  }
+  document.addEventListener('yolk:ready', play);
+  if (!document.getElementById('loader')) {
+    if (document.readyState === 'complete') setTimeout(play, 350); else addEventListener('load', function () { setTimeout(play, 350); });
+  }
 })();

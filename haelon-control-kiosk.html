@@ -4119,7 +4119,7 @@ function incidentAudio(text){
  u.onerror=()=>{EM.audioStatus='음성 재생 불가 · 자막 안내';};speechSynthesis.speak(u);EM.audioStatus='안내방송 재생';}catch(e){EM.audioStatus='자막 안내';}
 }
 function unlockIncidentAudio(){
- EM.sound=true;
+ EM.sound=false;
  try{const AC=window.AudioContext||window.webkitAudioContext;if(AC){EM.audioCtx??=new AC();EM.audioCtx.resume().catch(()=>{});}}
  catch(e){}updateIncidentUI(true);
 }

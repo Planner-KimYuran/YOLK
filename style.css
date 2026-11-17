@@ -2373,3 +2373,11 @@ body { letter-spacing: -0.012em; }
 @media (max-width: 640px) { .tour { left: 10px !important; right: auto !important; width: calc(100vw - 96px) !important; bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important; } .tour p { font-size: 11.5px !important; } }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .tour { background: rgba(255, 255, 255, .88) !important; } }
 .count[hidden] { display: none !important; } .sort__btn, .sort__list button { letter-spacing: -0.01em !important; }
+
+/* 노른자 공 모션 */
+.yolk-ball { position: absolute; z-index: 40; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle at 34% 30%, #FFF6D0 0 12%, #FFC93C 42%, #F5A300 100%);
+  box-shadow: inset 0 -1.5px 2px rgba(170, 90, 0, .3), 0 2px 4px rgba(160, 100, 0, .25); will-change: transform; }
+.yolk-ball::after { content: ''; position: absolute; left: 22%; top: 20%; width: 26%; height: 26%; border-radius: 50%; background: rgba(255,255,255,.85); }
+.yolk-ball.is-rest { transition: opacity .6s; }
+.hx__core { position: relative; }
