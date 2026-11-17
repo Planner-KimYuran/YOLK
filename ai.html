@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI WORKFLOW — 김유란</title>
+<meta name="description" content="판을 계획하고, 핵심만 남기는 노른자 같은 기획자 김유란의 포트폴리오">
+<meta property="og:title" content="Yolk Planner_ 김유란">
+<meta property="og:description" content="판을 계획하고, 핵심만 남기는 노른자 같은 기획자">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap">
+<script>try{localStorage.removeItem("yolk-theme");if(localStorage.getItem("yolk-accent")==="on")document.documentElement.setAttribute("data-accent","yolk");}catch(e){}</script>
+<link rel="stylesheet" href="style.css?v=40">
+</head>
+<body data-page="ai">
+<a class="skip" href="#main">본문 바로가기</a>
+
+<header class="gnb">
+  <div class="gnb__bar" aria-hidden="true"><i></i></div>
+  <div class="wrap gnb__inner">
+    <a class="gnb__logo" href="index.html#home" aria-label="김유란 — 처음으로">KIM YURAN<i class="dot" aria-hidden="true"></i></a>
+    <div class="gnb__navwrap">
+      <nav aria-label="주요 메뉴" id="gnb-links" class="gnb__nav">
+        <ul class="gnb__links">
+          <li><a href="index.html#experience" data-nav="experience">나의 이력</a></li>
+          <li><a href="index.html#projects" data-nav="projects">프로젝트</a></li>
+          <li><a href="index.html#skills" data-nav="skills">나의 역량</a></li>
+          <li><a href="ai.html" data-nav="ai">AI</a></li>
+          <li><a href="index.html#contact" data-nav="contact">연락하기</a></li>
+        </ul>
+      </nav>
+      <button type="button" class="egg" role="switch" aria-checked="false" aria-label="노른자 포인트 컬러 켜기"><span class="egg__yolk" aria-hidden="true"></span></button>
+      <button type="button" class="gnb__burger" aria-expanded="false" aria-controls="gnb-links" aria-label="메뉴 열기"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="ai">
+  <!-- AI-01 한 줄 -->
+  <section class="wrap ai-hero" aria-labelledby="ai-title">
+    <p class="pill">AI 활용</p>
+    <h1 class="ai-hero__title en" id="ai-title">AI Workflow</h1>
+    <p class="ai-hero__lead">AI에게 <b>맡기지</b> 않고, AI와 <b>판을 짭니다.</b></p>
+    <p class="ai-hero__sub">문제 정의와 판단은 제가, 정리와 구현은 AI가. 결과는 다시 제가 검증합니다.</p>
+    <dl class="ai-stack">
+      <div><dt class="en">TOOL</dt><dd>Claude Code</dd></div>
+      <div><dt class="en">PLAN</dt><dd>Claude Pro</dd></div>
+      <div><dt class="en">MODEL</dt><dd>Fable · Opus</dd></div>
+      <div><dt class="en">RULE</dt><dd>근거는 내가, 정리는 AI가</dd></div>
+    </dl>
+    <p class="ai-hero__bot"><a class="btn-line btn-yb" href="#" data-yolkbot><i class="dot" aria-hidden="true"></i>노른자 봇에게 김유란에 대해 물어보기</a></p>
+  </section>
+
+  <!-- AI-02 단계별 -->
+  <section class="wrap ai-sec" aria-labelledby="ai-flow-t">
+    <div class="ai-sec__head"><p class="en">01</p><h2 id="ai-flow-t">단계마다 역할을 나눕니다</h2></div>
+    <div class="ai-steps" role="tablist" aria-label="기획 단계">
+      <button type="button" role="tab" aria-selected="true" aria-controls="st-1" id="tb-1"><span class="en">PLAN</span>판 짜기</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="st-2" id="tb-2" tabindex="-1"><span class="en">FIND</span>핵심 찾기</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="st-3" id="tb-3" tabindex="-1"><span class="en">KEEP</span>구조 · 구현</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="st-4" id="tb-4" tabindex="-1"><span class="en">CHECK</span>검증</button>
+    </div>
+    <div class="ai-panel" role="tabpanel" id="st-1" aria-labelledby="tb-1">
+      <div class="ai-split"><div><h3>내가 하는 일</h3><p>목표 · 범위 · 일정 · 산출물을 먼저 정합니다. 무엇을 확인해야 하는지가 정해져야 AI에게 줄 질문도 정해집니다.</p></div>
+      <div><h3>AI에게 맡기는 일</h3><p>정해진 범위 안에서 체크리스트 · 목차 · 일정표 초안. 빠진 항목이 없는지 반대로 질문하게 합니다.</p></div></div>
+      <p class="ai-model"><span class="en">MODEL</span>Opus — 짧은 정리와 반복 수정</p>
+    </div>
+    <div class="ai-panel" role="tabpanel" id="st-2" aria-labelledby="tb-2" hidden>
+      <div class="ai-split"><div><h3>내가 하는 일</h3><p>설문 설계, 현장 관찰, 출처 확인. 숫자는 원문에서 직접 확인하고, 문제를 다시 정의하는 판단은 제가 내립니다.</p></div>
+      <div><h3>AI에게 맡기는 일</h3><p>모은 자료의 분류 · 요약 · 비교표. 출처 없는 문장은 쓰지 않도록 조건을 걸고, 근거 문장을 함께 표시하게 합니다.</p></div></div>
+      <p class="ai-model"><span class="en">MODEL</span>Fable — 긴 자료를 한 번에 읽고 구조화</p>
+    </div>
+    <div class="ai-panel" role="tabpanel" id="st-3" aria-labelledby="tb-3" hidden>
+      <div class="ai-split"><div><h3>내가 하는 일</h3><p>정보구조도 · 화면설계서 · 문구. 화면에 무엇을 남기고 무엇을 덜어낼지 정합니다.</p></div>
+      <div><h3>AI에게 맡기는 일</h3><p>설계서대로의 HTML · CSS 구현, 문서 조판, 반복 작업. 한 번에 한 화면 · 한 가지 변경만 요청합니다.</p></div></div>
+      <p class="ai-model"><span class="en">MODEL</span>Fable — 구조 설계 · 큰 구현 / Opus — 작은 수정</p>
+    </div>
+    <div class="ai-panel" role="tabpanel" id="st-4" aria-labelledby="tb-4" hidden>
+      <div class="ai-split"><div><h3>내가 하는 일</h3><p>실제 화면을 직접 보고 어색한 곳을 짚습니다. 최종 결정과 사실 확인은 넘기지 않습니다.</p></div>
+      <div><h3>AI에게 맡기는 일</h3><p>스크린샷 · 오류 · 가로 넘침 자동 점검, 원본 문서와 글자 대조. "됐다"는 말 대신 확인한 근거를 보고하게 합니다.</p></div></div>
+      <p class="ai-model"><span class="en">MODEL</span>Opus — 체크리스트 대조</p>
+    </div>
+  </section>
+
+  <!-- AI-03 프롬프트 -->
+  <section class="wrap ai-sec" aria-labelledby="ai-pr-t">
+    <div class="ai-sec__head"><p class="en">02</p><h2 id="ai-pr-t">프롬프트는 짧게, 조건은 분명하게</h2></div>
+    <div class="ai-prompt">
+      <div class="ai-prompt__toggle" role="group" aria-label="프롬프트 비교">
+        <button type="button" aria-pressed="false" data-pr="bad">그냥 시키기</button>
+        <button type="button" aria-pressed="true" data-pr="good">제가 쓰는 방식</button>
+      </div>
+      <pre class="ai-code" data-pr-view="bad" hidden>포트폴리오 사이트 예쁘게 만들어줘.</pre>
+      <pre class="ai-code" data-pr-view="good"><span class="k">[목표]</span>  메인 '나의 이력'을 1920×1080 한 화면에 사진 · 경력이 다 보이게.
+<span class="k">[맥락]</span>  첨부한 화면설계서 p.12, 현재 사이트 링크.
+<span class="k">[제약]</span>  내용 수정 금지 · 일러스트 금지 · 폰트는 Pretendard / Orbitron만.
+<span class="k">[출력]</span>  바뀐 부분만, 이전으로 되돌릴 수 있게.
+<span class="k">[검증]</span>  1920×1080 스크린샷과 모바일 가로 넘침 여부를 함께 보고.</pre>
+      <ul class="ai-anatomy">
+        <li><b class="en">GOAL</b>무엇이 끝인지 한 문장</li>
+        <li><b class="en">CONTEXT</b>근거 자료를 직접 첨부</li>
+        <li><b class="en">LIMIT</b>하지 말 것을 먼저</li>
+        <li><b class="en">OUTPUT</b>바뀐 부분만, 되돌릴 수 있게</li>
+        <li><b class="en">CHECK</b>확인 방법까지 요청</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- AI-04 토큰 -->
+  <section class="wrap ai-sec" aria-labelledby="ai-tk-t">
+    <div class="ai-sec__head"><p class="en">03</p><h2 id="ai-tk-t">토큰은 아껴서, 필요한 곳에</h2></div>
+    <ol class="ai-rules">
+      <li><span class="en">01</span><h3>작게 쪼개기</h3><p>한 번에 하나의 화면, 하나의 변경. 긴 요청은 번호를 붙여 순서대로.</p></li>
+      <li><span class="en">02</span><h3>모델 나눠 쓰기</h3><p>설계 · 대량 정리는 Fable, 문구 · 간격 같은 작은 수정은 Opus.</p></li>
+      <li><span class="en">03</span><h3>다시 쓰지 않기</h3><p>전체 재작성 대신 바뀐 부분만. 결과물은 파일로 받고 대화에 붙여 넣지 않습니다.</p></li>
+      <li><span class="en">04</span><h3>맥락은 문서로</h3><p>화면설계서 · 데이터 파일을 기준점으로 두고, 대화가 길어지면 요약 후 새로 시작합니다.</p></li>
+    </ol>
+  </section>
+
+  <!-- AI-05 이 웹사이트 -->
+  <section class="wrap ai-sec" aria-labelledby="ai-case-t">
+    <div class="ai-sec__head"><p class="en">04</p><h2 id="ai-case-t">이 웹사이트도 이렇게 만들었습니다</h2></div>
+    <ol class="ai-case">
+      <li><span class="en">STEP 1</span><h3>기획은 직접</h3><p>정보구조도 · 화면설계서를 먼저 쓰고, 그 문서를 AI 작업의 기준으로 넘겼습니다.</p></li>
+      <li><span class="en">STEP 2</span><h3>구현은 Claude Code</h3><p>HTML · CSS · JS를 화면 단위로 구현하고, 데이터는 한 파일로 모아 문구를 한곳에서 고칩니다.</p></li>
+      <li><span class="en">STEP 3</span><h3>피드백은 화면으로</h3><p>실제 화면을 보고 행간 · 여백 · 색처럼 구체적으로 짚어 수십 번의 작은 수정을 반복했습니다.</p></li>
+      <li><span class="en">STEP 4</span><h3>배포와 검증</h3><p>GitHub Pages에 올린 뒤 실제 주소에서 다시 확인. 이력서 PDF는 원본과 글자를 대조해 내용이 바뀌지 않았음을 확인했습니다.</p></li>
+    </ol>
+  </section>
+
+  <!-- AI-06 맡기지 않는 것 -->
+  <section class="wrap ai-sec ai-sec--last" aria-labelledby="ai-no-t">
+    <div class="ai-sec__head"><p class="en">05</p><h2 id="ai-no-t">AI에게 맡기지 않는 것</h2></div>
+    <ul class="ai-no">
+      <li>무엇이 문제인지 정하는 일</li>
+      <li>숫자와 출처의 사실 확인</li>
+      <li>무엇을 남기고 덜어낼지의 결정</li>
+      <li>개인정보와 팀원의 기여 표기</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="footer ft">
+  <div class="wrap ft__wrap">
+    <div class="ft__hero">
+      <p class="pill">Thank You</p>
+      <p class="ft__thanks">끝까지 제 포트폴리오를 봐주셔서 감사합니다.</p>
+      <p class="ft__sub">여러분과 함께 프로젝트의 핵심을 찾으러 가겠습니다!</p>
+      <div class="ft__cta">
+        <a class="ft__btn ft__btn--fill" href="mailto:knewrun25@gmail.com">메일 보내기 →</a>
+        <a class="ft__btn" href="resume.pdf?v=6" download="김유란_이력서.pdf">이력서 PDF ↓</a>
+      </div>
+    </div>
+    <div class="ft__grid">
+      <div class="ft__brand">
+        <p class="ft__name"><span class="en">KIM YURAN</span> 김유란</p>
+        <p class="ft__role en">UX/UI · SERVICE PLANNER</p>
+        <p class="ft__slogan">판을 계획하고, 핵심만 남기는<br>노른자 같은 기획자입니다.</p>
+      </div>
+      <nav class="ft__col" aria-label="푸터 메뉴">
+        <p class="ft__h en">MENU</p>
+        <ul><li><a href="index.html#experience">나의 이력</a></li><li><a href="works.html">프로젝트</a></li><li><a href="index.html#skills">나의 역량</a></li><li><a href="ai.html">AI</a></li><li><a href="index.html#contact">연락하기</a></li></ul>
+      </nav>
+      <div class="ft__col">
+        <p class="ft__h en">CONTACT</p>
+        <ul><li><a href="mailto:knewrun25@gmail.com">knewrun25@gmail.com</a></li><li><a href="tel:+821034526632">010.3452.6632</a></li><li><a href="https://www.instagram.com/nwrnnyo/" target="_blank" rel="noopener">Instagram @nwrnnyo ↗</a></li><li>경기도 화성시</li></ul>
+      </div>
+      <div class="ft__col">
+        <p class="ft__h en">DOCUMENTS</p>
+        <ul><li><a href="resume.pdf?v=6" download="김유란_이력서.pdf">이력서 PDF ↓</a></li><li><a href="cover-letter.pdf?v=4" download="김유란_자기소개서.pdf">자기소개서 PDF ↓</a></li></ul>
+      </div>
+    </div>
+    <div class="ft__bar">
+      <p class="ft__copy"><span class="en">© 2026 KIM YURAN PORTFOLIO</span> · All rights reserved.</p>
+      <a class="ft__top en" href="#">BACK TO TOP ↑</a>
+    </div>
+  </div>
+</footer>
+
+<button type="button" class="to-top" aria-label="맨 위로">↑</button>
+<div class="toast" role="status" aria-live="polite"><i class="dot" aria-hidden="true"></i><span></span></div>
+
+<div class="modal" id="pdf" hidden role="dialog" aria-modal="true" aria-labelledby="pdf-title">
+  <div class="modal__dim"></div>
+  <div class="modal__box">
+    <div class="modal__head">
+      <h2 class="modal__title" id="pdf-title"></h2>
+      <div class="modal__acts"><a class="tlink modal__ext" target="_blank" rel="noopener">새 창에서 열기 ↗</a><button type="button" class="modal__close">CLOSE ×</button></div>
+    </div>
+    <div class="modal__view"></div>
+    <div class="modal__foot"><button type="button" aria-label="이전 페이지" disabled>‹</button><span class="modal__page">00 / 00</span><button type="button" aria-label="다음 페이지" disabled>›</button></div>
+  </div>
+</div>
+
+<script src="data.js?v=40"></script>
+<script src="story.js?v=40"></script>
+<script src="app.js?v=40"></script>
+<script src="yolkbot.js?v=40"></script>
+</body>
+</html>

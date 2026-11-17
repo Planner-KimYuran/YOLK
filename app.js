@@ -27,7 +27,7 @@
   function setActive(key) {
     $$('[data-nav]').forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('data-nav') === key ? 'true' : 'false'); });
   }
-  setActive(page === 'home' ? '' : 'projects');
+  setActive(page === 'home' ? '' : page === 'ai' ? 'ai' : 'projects');
 
   /* 온보딩 로딩 — 노른자 점 5개 (세션당 한 번) */
   var loader = document.getElementById('loader');
@@ -148,12 +148,14 @@
     });
   }
   /* 이력서 · 자기소개서 — 문서 보기 (쪽을 이어서 스크롤 · 탭 전환 · 바로 다운로드) */
-  var DOCS = $$('[data-pages]').reduce(function (acc, b) {
+  function collectDocs() { return $$('[data-pages]').reduce(function (acc, b) {
     var f = b.getAttribute('data-file');
     if (!acc.some(function (d) { return d.file === f; })) acc.push({ title: b.getAttribute('data-pdf'), file: f, name: b.getAttribute('data-dl') || f, pages: b.getAttribute('data-pages').split(',') });
     return acc;
-  }, []);
+  }, []); }
+  var DOCS = collectDocs();
   function openDoc(b) {
+    DOCS = collectDocs();
     if (!modal) return;
     lastFocus = document.activeElement;
     galList = null;
@@ -214,9 +216,16 @@
   function shortName(p) { return p.cardTitle; }
   function pdfBtn(p, type, cls) {
     var doc = p.docs.filter(function (d) { return d.type === type; })[0] || {};
-    return '<button type="button" class="' + cls + '" data-pdf="' + esc(shortName(p) + ' · ' + type + ' PDF') + '"' + (doc.file ? ' data-file="' + esc(doc.file) + '"' : '') + '>' + esc(type) + ' 보기 ↗</button>';
+    var lab = doc.label || type;
+    var attrs = ' data-pdf="' + esc(shortName(p) + ' · ' + lab) + '"' + (doc.file ? ' data-file="' + esc(doc.file) + '"' : '');
+    if (doc.file && doc.pages) {
+      var list = []; for (var i = 1; i <= doc.pages.count; i++) list.push(doc.pages.prefix + ('00' + i).slice(-3) + '.jpg');
+      attrs += ' data-dl="' + esc(doc.dl || doc.file) + '" data-pages="' + esc(list.join(',')) + '"';
+    }
+    return '<button type="button" class="' + cls + '"' + attrs + '>' + esc(lab) + ' 보기 ↗</button>' +
+      (doc.file ? '<a class="' + cls + ' btn--line d-dl" href="' + esc(doc.file) + '" download="' + esc(doc.dl || doc.file) + '">' + esc(lab) + ' PDF ↓</a>' : '');
   }
-  function docsSorted(p) { return D.docTypes.filter(function (t) { return p.docs.some(function (d) { return d.type === t; }); }); }
+  function docsSorted(p) { var seen = {}; return p.docs.map(function (d) { return d.type; }).filter(function (t) { if (seen[t]) return false; seen[t] = 1; return true; }); }
   function thumb(p, cls) {
     if (p.thumb && p.thumb.src) return '<div class="ph ph--img' + (cls ? ' ' + cls : '') + '"><img loading="lazy" src="' + esc(p.thumb.thumb || p.thumb.src) + '" alt="' + esc(p.cardTitle) + ' 대표 이미지"></div>';
     return ph('THUMBNAIL', typeof p.cover === 'string' ? p.cover : '').replace('class="ph"', 'class="ph' + (cls ? ' ' + cls : '') + '"');
@@ -229,6 +238,23 @@
   /* =========================================================
      HOME — 히어로 · 대표 프로젝트 카드 · 프로필 요약
      ========================================================= */
+  /* AI 페이지 — 단계 탭 · 프롬프트 비교 */
+  if (page === 'ai') {
+    var stabs = $$('.ai-steps [role="tab"]');
+    var pick = function (t) { stabs.forEach(function (b) { var on = b === t; b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; document.getElementById(b.getAttribute('aria-controls')).hidden = !on; }); };
+    stabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { pick(t); });
+      t.addEventListener('keydown', function (e) { var k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!k) return; var n = stabs[(i + k + stabs.length) % stabs.length]; pick(n); n.focus(); e.preventDefault(); });
+    });
+    $$('[data-pr]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-pr');
+        $$('[data-pr]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        $$('[data-pr-view]').forEach(function (x) { x.hidden = x.getAttribute('data-pr-view') !== v; });
+      });
+    });
+  }
+
   if (page === 'home') {
     var now = new Date(), nowYM = now.getFullYear() * 100 + now.getMonth() + 1;
     var isLive = function (p) { var m = String(p.period).match(/(\d{4})\.(\d{2})(?:\s*[—–-]\s*(\d{2}))?/); return m ? (+m[1] * 100 + +(m[3] || m[2])) > nowYM : false; };
@@ -238,13 +264,13 @@
     if (pc) pc.innerHTML = D.mainOrder.map(function (id) {
       var p = D.projects[id], docs = docsSorted(p);
       return '<li><a class="pcard" href="project.html?id=' + id + '">' +
-        '<div class="pcard__img">' + thumb(p) + '<span class="pcard__badge">' + esc(isLive(p) ? '진행 중' : (docs[0] || '프로젝트')) + '</span></div>' +
+        '<div class="pcard__img">' + thumb(p) + '<span class="pcard__badge">' + esc(docs[0] || '프로젝트') + '</span></div>' +
         '<div class="pcard__body">' +
           '<ul class="chips">' + (p.homeTags || p.tags).map(function (t) { return '<li>' + esc(String(t).replace(/^#/, '')) + '</li>'; }).join('') + '</ul>' +
           '<h3 class="pcard__title">' + esc(p.cardTitle) + '</h3>' +
           '<p class="pcard__core">' + esc(p.core) + '</p>' +
           '<p class="pcard__sum">' + esc(p.summary || p.homeSummary) + '</p>' +
-          '<p class="pcard__meta"><span><i class="ic ic--cal" aria-hidden="true"></i>' + esc(String(p.period).replace(/\s*—\s*/, ' ~ ')) + '</span><span><i class="ic ic--team" aria-hidden="true"></i>' + esc(p.role) + '</span></p>' +
+          '<p class="pcard__meta"><span><i class="ic ic--cal" aria-hidden="true"></i>' + esc(String(p.period).replace(/\s*—\s*/, ' ~ ')) + '</span><span><i class="ic ic--team" aria-hidden="true"></i>' + esc((p.homeInfo && p.homeInfo.role) || p.role) + '</span></p>' +
         '</div></a></li>';
     }).join('');
 
@@ -290,11 +316,11 @@
     });
 
     /* 메뉴 위치 표시 */
-    var secs = ['experience', 'projects', 'skills', 'contact'].map(function (k) { return document.getElementById(k); }).filter(Boolean);
+    var secs = ['experience', 'projects', 'skills', 'ai-intro', 'contact'].map(function (k) { return document.getElementById(k); }).filter(Boolean);
     var spy = function () {
       var cur = '', mid = window.innerHeight * 0.35;
       secs.forEach(function (sec) { if (sec.getBoundingClientRect().top <= mid) cur = sec.id; });
-      setActive(cur);
+      setActive(cur === 'ai-intro' ? 'ai' : cur);
     };
     window.addEventListener('scroll', spy, { passive: true }); spy();
   }
@@ -327,7 +353,7 @@
     });
 
     /* HOME-03 문서 미리보기 */
-    var codes = { plan: '기획서', report: '보고서', wire: '화면설계서', proposal: '제안서' };
+    var codes = { plan: '기획서', report: '보고서', wire: '화면설계서', proposal: '제안서', deck: '발표자료' };
     var codeOf = function (t) { for (var k in codes) if (codes[k] === t) return k; };
     var tabs = $('#doc-tabs'), dlist = $('#doc-list'), dprev = $('#doc-preview');
     var params = new URLSearchParams(location.search);
@@ -638,3 +664,9 @@
   }
   initScenes();
 })();
+
+/* 푸터 BACK TO TOP */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('.ft__top');
+  if (!a) return; e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });
+});
