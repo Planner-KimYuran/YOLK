@@ -1138,3 +1138,13 @@
   P['10'].thumb = P['10'].cover;
   D.curatedOrder = ['01', '07', '08', '02', '03', '04', '05', '10'];
 })();
+
+/* 썸네일 라벨 — 무드를 맞춘 썸네일에서도 구분되도록 */
+(function () {
+  var P = window.YOLK.projects;
+  var S = { '01': 'HAELON', '07': 'WEVERSE', '08': 'CREATIVE × SEONGSU', '02': 'ARC.DOT', '03': 'COUPANG ROCKETFRESH', '04': 'IEUM LINE', '05': 'BLUE DOG', '10': 'YOLK PLANNER' };
+  Object.keys(S).forEach(function (k) { if (P[k]) P[k].short = S[k]; });
+})();
+
+/* HAELON 썸네일 */
+(function () { var H = window.YOLK.projects['01']; H.cover = { src: 'img/hl-thumb.jpg', thumb: 'img/hl-thumb-t.jpg' }; H.thumb = H.cover; })();

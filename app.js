@@ -229,8 +229,9 @@
   }
   function docsSorted(p) { var seen = {}; return p.docs.map(function (d) { return d.type; }).filter(function (t) { if (seen[t]) return false; seen[t] = 1; return true; }); }
   function thumb(p, cls) {
-    if (p.thumb && p.thumb.src) return '<div class="ph ph--img' + (cls ? ' ' + cls : '') + '"><img loading="lazy" src="' + esc(p.thumb.thumb || p.thumb.src) + '" alt="' + esc(p.cardTitle) + ' 대표 이미지"></div>';
-    return ph('THUMBNAIL', typeof p.cover === 'string' ? p.cover : '').replace('class="ph"', 'class="ph' + (cls ? ' ' + cls : '') + '"');
+    if (p.thumb && p.thumb.src) return '<div class="ph ph--img th-mood' + (cls ? ' ' + cls : '') + '"><img loading="lazy" src="' + esc(p.thumb.thumb || p.thumb.src) + '" alt="' + esc(p.cardTitle) + ' 대표 이미지">' + (p.short ? '<span class="th-name">' + esc(p.short) + '</span>' : '') + '</div>';
+    var h = ph('THUMBNAIL', typeof p.cover === 'string' ? p.cover : '').replace('class="ph"', 'class="ph th-mood th-empty' + (cls ? ' ' + cls : '') + '"');
+    return p.short ? h.replace(/<\/div>$/, '<span class="th-name">' + esc(p.short) + '</span></div>') : h;
   }
   function ph(label, sub) { return '<div class="ph" role="img" aria-label="' + esc(label + (sub ? ' — ' + sub : '') + ' 이미지 자리') + '"><span class="ph__label">' + esc(label) + (sub ? '<span class="ph__sub">' + esc(sub) + '</span>' : '') + '</span></div>'; }
 

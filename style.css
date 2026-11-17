@@ -2420,3 +2420,20 @@ body { letter-spacing: -0.012em; }
 .hx__core.is-drawn::after { transform: scaleX(1); }
 [data-accent="yolk"] .hx__core::after { background: var(--pt); height: 2px; }
 @media (prefers-reduced-motion: reduce) { .hx__core::after { transition: none; transform: scaleX(1); } }
+
+/* v8.3 — 썸네일 무드 통일: 평소엔 웜 그레이 톤 + 이름, 호버하면 원래 썸네일 */
+.th-mood { position: relative; overflow: hidden; background: #ECEAE3; }
+.th-mood img { filter: grayscale(1) contrast(.92) brightness(1.06); transition: filter .45s ease, opacity .45s ease; }
+.th-mood::before { content: ''; position: absolute; inset: 0; z-index: 1; background: rgba(240, 237, 228, .42); mix-blend-mode: multiply; transition: opacity .45s ease; pointer-events: none; }
+.th-name { position: absolute; left: 12px; top: 12px; z-index: 2; padding: 5px 9px; border-radius: 4px; background: rgba(255, 255, 255, .92); color: #333; font-family: var(--en); font-size: 10px; font-weight: 600; letter-spacing: .04em; line-height: 1; transition: opacity .3s ease; }
+.card:hover .th-mood img, .card:focus-visible .th-mood img, .pcard:hover .th-mood img, .pcard:focus-within .th-mood img { filter: none; }
+.card:hover .th-mood::before, .card:focus-visible .th-mood::before, .pcard:hover .th-mood::before, .pcard:focus-within .th-mood::before { opacity: 0; }
+.card:hover .th-name, .pcard:hover .th-name { opacity: 0; }
+.th-empty { background: #ECEAE3 !important; }
+.th-empty .ph__label { color: #8a877e; }
+[data-accent="yolk"] .th-mood::before { background: rgba(255, 236, 170, .35); }
+@media (hover: none) { .th-mood img { filter: grayscale(.35); } .th-mood::before { opacity: .4; } }
+.th-mood img { filter: grayscale(1) contrast(.62) brightness(1.12) !important; }
+.th-mood::before { background: rgba(238, 235, 226, .38) !important; mix-blend-mode: normal !important; }
+.card:hover .th-mood img, .card:focus-visible .th-mood img, .pcard:hover .th-mood img, .pcard:focus-within .th-mood img { filter: none !important; }
+[data-accent="yolk"] .th-mood::before { background: rgba(255, 240, 190, .4) !important; }
