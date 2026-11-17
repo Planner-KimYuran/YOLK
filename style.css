@@ -2500,3 +2500,5 @@ body { letter-spacing: -0.012em; }
 .th-empty { background: #F2F2F2 !important; }
 [data-accent="yolk"] .th-mood::before { background: rgba(250, 250, 250, .14) !important; }
 [data-accent="yolk"] .card:hover, [data-accent="yolk"] .pcard:hover { background: #F7F7F7 !important; }
+.ft__sub { margin-top: 18px !important; font-size: 13px !important; color: #777 !important; }
+.gnb__links a { font-size: 12px !important; } .gnb__logo { font-size: 14px !important; }
