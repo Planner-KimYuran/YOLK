@@ -27,7 +27,7 @@
   function setActive(key) {
     $$('[data-nav]').forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('data-nav') === key ? 'true' : 'false'); });
   }
-  setActive(page === 'home' ? '' : 'works');
+  setActive(page === 'home' ? '' : 'projects');
 
   /* 노른자 토글 — 옐로우 포인트 컬러 켜기 · 끄기 */
   var egg = $('.egg');
