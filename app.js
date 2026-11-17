@@ -355,7 +355,7 @@
     });
 
     /* HOME-03 문서 미리보기 */
-    var codes = { plan: '기획서', report: '보고서', wire: '화면설계서', proposal: '제안서', deck: '발표자료' };
+    var codes = { plan: '기획서', report: '보고서', wire: '화면설계서', proposal: '제안서' };
     var codeOf = function (t) { for (var k in codes) if (codes[k] === t) return k; };
     var tabs = $('#doc-tabs'), dlist = $('#doc-list'), dprev = $('#doc-preview');
     var params = new URLSearchParams(location.search);
@@ -405,7 +405,7 @@
      CORE WORKS — 전체 목록 (PROJECT-01 · 02)
      ========================================================= */
   if (page === 'works') {
-    var typeCodes = { plan: '기획서', report: '보고서', wire: '화면설계서', proposal: '제안서', deck: '발표자료' };
+    var typeCodes = { plan: '기획서', report: '보고서', wire: '화면설계서', proposal: '제안서' };
     var typeCode = function (t) { for (var k in typeCodes) if (typeCodes[k] === t) return k; };
     var saved = store.get('yolk-works') || {};
     var q = new URLSearchParams(location.search);
