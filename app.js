@@ -27,7 +27,7 @@
   function setActive(key) {
     $$('[data-nav]').forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('data-nav') === key ? 'true' : 'false'); });
   }
-  setActive(page === 'home' ? 'home' : 'works');
+  setActive(page === 'home' ? '' : 'works');
 
   /* 모바일 메뉴 (햄버거) */
   var burger = $('.gnb__burger'), navEl = $('#gnb-links');
@@ -265,9 +265,9 @@
     });
 
     /* 메뉴 위치 표시 */
-    var secs = ['home', 'projects', 'experience', 'skills', 'contact'].map(function (k) { return document.getElementById(k); }).filter(Boolean);
+    var secs = ['experience', 'projects', 'skills', 'contact'].map(function (k) { return document.getElementById(k); }).filter(Boolean);
     var spy = function () {
-      var cur = 'home', mid = window.innerHeight * 0.35;
+      var cur = '', mid = window.innerHeight * 0.35;
       secs.forEach(function (sec) { if (sec.getBoundingClientRect().top <= mid) cur = sec.id; });
       setActive(cur);
     };
