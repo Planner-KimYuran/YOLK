@@ -2174,3 +2174,7 @@ html[data-accent="yolk"] { --pt: #FFC21A; --pt-soft: #FFF4CC; --pt-line: #F3D77C
 .btn-yb .dot { width: 10px; height: 10px; border-radius: 50%; background: radial-gradient(circle at 34% 30%, #FFF6D0 0 10%, #FFC93C 40%, #F5A300 100%); }
 .ai-hero__bot { margin-top: 28px; } .sx__more .btn-yb { margin-left: 6px; }
 .yb-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; } .yb-chips::-webkit-scrollbar { display: none; } .yb-chip { flex: none; white-space: nowrap; }
+
+/* v7.6 — 썸네일 16:9 (1920×1080) 그대로, 잘림 없이 */
+.pcard__img, .card__thumb, .yl__img, .spanel__thumb, .spanel__thumb.ph--img, .fcard__img { aspect-ratio: 16 / 9 !important; }
+.pcard__img img, .card__thumb img, .yl__img img, .spanel__thumb img, .fcard__img img, .ph--img img { object-fit: cover; object-position: center; }

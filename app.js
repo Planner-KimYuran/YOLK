@@ -403,7 +403,7 @@
      CORE WORKS — 전체 목록 (PROJECT-01 · 02)
      ========================================================= */
   if (page === 'works') {
-    var typeCodes = { plan: '기획서', report: '보고서', wire: '화면설계서', proposal: '제안서' };
+    var typeCodes = { plan: '기획서', report: '보고서', wire: '화면설계서', proposal: '제안서', deck: '발표자료' };
     var typeCode = function (t) { for (var k in typeCodes) if (typeCodes[k] === t) return k; };
     var saved = store.get('yolk-works') || {};
     var q = new URLSearchParams(location.search);
