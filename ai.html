@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap">
 <script>try{localStorage.removeItem("yolk-theme");if(localStorage.getItem("yolk-accent")==="on")document.documentElement.setAttribute("data-accent","yolk");}catch(e){}</script>
-<link rel="stylesheet" href="style.css?v=57">
+<link rel="stylesheet" href="style.css?v=59">
 </head>
 <body data-page="ai">
 <a class="skip" href="#main">본문 바로가기</a>
@@ -54,6 +54,97 @@
   </section>
 
   <!-- AI-02 단계별 -->
+  <section class="wrap ai-sec ai-journey" aria-labelledby="ai-j-t">
+    <div class="ai-sec__head"><p class="en">00</p><h2 id="ai-j-t">시작부터 마무리까지, 이렇게 일합니다</h2></div>
+    <p class="ai-sec__lead">판단은 제가, 정리와 구현은 AI가. 여섯 단계를 거치며 무엇을 누가 하는지 나눠 둡니다.</p>
+    <ol class="ai-j">
+      <li class="ai-j__step">
+        <div class="ai-j__no"><span class="en">01</span><i aria-hidden="true"></i></div>
+        <div class="ai-j__card">
+          <p class="ai-j__k en">BRIEF</p>
+          <h3>판 짜기</h3>
+          <p class="ai-j__lead">목표 · 범위 · 하지 말 것을 먼저 정해요.</p>
+          <dl class="ai-j__split"><div class="me"><dt>내가</dt><dd>번호를 붙인 요청 목록과 제약을 정리</dd></div><div class="ai"><dt>AI가</dt><dd>빠진 항목이 없는지 체크리스트로 되묻기</dd></div></dl>
+          <p class="ai-j__out"><span class="en">OUTPUT</span>요청 목록 · 제약 조건</p>
+          <blockquote class="ai-j__ex">“1. 문구 변경 2. 여백 축소 3. 온보딩 추가… 내용은 수정하지 마.”</blockquote>
+        </div>
+      </li>
+      <li class="ai-j__step">
+        <div class="ai-j__no"><span class="en">02</span><i aria-hidden="true"></i></div>
+        <div class="ai-j__card">
+          <p class="ai-j__k en">CONTEXT</p>
+          <h3>자료 넣기</h3>
+          <p class="ai-j__lead">근거는 말로 설명하지 않고 원본을 직접 줘요.</p>
+          <dl class="ai-j__split"><div class="me"><dt>내가</dt><dd>이력서 · 자기소개서 · 기획서 PDF · 화면설계서 첨부</dd></div><div class="ai"><dt>AI가</dt><dd>긴 문서를 읽고 구조 · 수치를 뽑아 정리</dd></div></dl>
+          <p class="ai-j__out"><span class="en">OUTPUT</span>원본 자료 묶음</p>
+          <blockquote class="ai-j__ex">“이 PDF들이 프로젝트 원본이야. 정보구조도 · AS-IS · TO-BE가 잘 보이게.”</blockquote>
+        </div>
+      </li>
+      <li class="ai-j__step">
+        <div class="ai-j__no"><span class="en">03</span><i aria-hidden="true"></i></div>
+        <div class="ai-j__card">
+          <p class="ai-j__k en">STRUCTURE</p>
+          <h3>구조 정하기</h3>
+          <p class="ai-j__lead">무엇을 보여주고 덜어낼지는 제가 정해요.</p>
+          <dl class="ai-j__split"><div class="me"><dt>내가</dt><dd>정보구조 · 화면 순서 · 메인 프로젝트 3개 결정</dd></div><div class="ai"><dt>AI가</dt><dd>정한 구조대로 데이터 파일과 섹션 틀 만들기</dd></div></dl>
+          <p class="ai-j__out"><span class="en">OUTPUT</span>정보구조 · 화면설계서</p>
+          <blockquote class="ai-j__ex">“메인은 HAELON · 위버스 · 성수 세 개. 나머지는 전체 프로젝트로.”</blockquote>
+        </div>
+      </li>
+      <li class="ai-j__step">
+        <div class="ai-j__no"><span class="en">04</span><i aria-hidden="true"></i></div>
+        <div class="ai-j__card">
+          <p class="ai-j__k en">BUILD</p>
+          <h3>만들기</h3>
+          <p class="ai-j__lead">한 번에 한 화면, 한 가지 변경만 요청해요.</p>
+          <dl class="ai-j__split"><div class="me"><dt>내가</dt><dd>우선순위와 순서 지정</dd></div><div class="ai"><dt>AI가</dt><dd>Claude Code로 HTML · CSS · JS 구현</dd></div></dl>
+          <p class="ai-j__out"><span class="en">OUTPUT</span>실제로 열리는 화면</p>
+          <blockquote class="ai-j__ex">“가로형 키오스크가 메인이야. 직접 눌러 볼 수 있게 넣어줘.”</blockquote>
+        </div>
+      </li>
+      <li class="ai-j__step">
+        <div class="ai-j__no"><span class="en">05</span><i aria-hidden="true"></i></div>
+        <div class="ai-j__card">
+          <p class="ai-j__k en">REVIEW</p>
+          <h3>보고 고치기</h3>
+          <p class="ai-j__lead">실제 화면을 보고, 느낌이 아니라 구체적으로 짚어요.</p>
+          <dl class="ai-j__split"><div class="me"><dt>내가</dt><dd>행간 · 자간 · 여백 · 색 · 잘림을 눈으로 확인</dd></div><div class="ai"><dt>AI가</dt><dd>지적한 곳만 작게 수정, 스크린샷으로 보고</dd></div></dl>
+          <p class="ai-j__out"><span class="en">OUTPUT</span>수정 기록</p>
+          <blockquote class="ai-j__ex">“썸네일 왼쪽이 다 잘려.” → 칸 비율을 16:9로</blockquote>
+        </div>
+      </li>
+      <li class="ai-j__step">
+        <div class="ai-j__no"><span class="en">06</span><i aria-hidden="true"></i></div>
+        <div class="ai-j__card">
+          <p class="ai-j__k en">SHIP</p>
+          <h3>검증 · 공개</h3>
+          <p class="ai-j__lead">“됐다”는 말 대신 확인한 근거를 받아요.</p>
+          <dl class="ai-j__split"><div class="me"><dt>내가</dt><dd>최종 판단 · 사실 확인 · 공개 여부 결정</dd></div><div class="ai"><dt>AI가</dt><dd>모바일 넘침 · 깨진 이미지 점검, 원본과 글자 대조, 실제 주소 확인</dd></div></dl>
+          <p class="ai-j__out"><span class="en">OUTPUT</span>배포된 사이트</p>
+          <blockquote class="ai-j__ex">“이력서 내용은 바꾸지 마.” → 원본과 글자 대조로 확인</blockquote>
+        </div>
+      </li>
+    </ol>
+    <div class="ai-loop" aria-label="보고 고치기 반복 구조">
+      <div class="ai-loop__ring" aria-hidden="true">
+        <svg viewBox="0 0 220 220"><circle cx="110" cy="110" r="84" fill="none" stroke="#E6E3D8" stroke-width="2"/><path d="M110 26 A84 84 0 0 1 194 110" fill="none" stroke="#333" stroke-width="2"/><path d="M188 98 l6 12 l7 -12" fill="none" stroke="#333" stroke-width="2"/></svg>
+        <span class="n1">요청</span><span class="n2">구현</span><span class="n3">화면 확인</span><span class="n4">작은 수정</span>
+        <b class="c">한 번에<br>한 가지</b>
+      </div>
+      <div class="ai-loop__txt">
+        <p class="en">THE LOOP</p>
+        <h3>크게 다시 만들지 않고, 작게 여러 번</h3>
+        <p>전체를 갈아엎는 대신 한 번에 하나만 바꾸고, 바로 실제 화면으로 확인해요. 이 사이트도 이 고리를 수십 번 돌았어요.</p>
+      </div>
+    </div>
+    <div class="ai-cases">
+      <p class="ai-cases__h en">REAL REQUESTS · 이 사이트에서 실제로 있었던 일</p>
+      <div class="ai-case-row"><div><small>내가 짚은 것</small><p>“썸네일 좌측이 다 잘려.”</p></div><span aria-hidden="true">→</span><div><small>원인</small><p>16:10 칸에 16:9 장표</p></div><span aria-hidden="true">→</span><div><small>확인</small><p>16:9로 바꾸고 실제 사이트에서 비율 확인</p></div></div>
+      <div class="ai-case-row"><div><small>내가 짚은 것</small><p>“영상 말고는 소리 나면 안 돼.”</p></div><span aria-hidden="true">→</span><div><small>원인</small><p>프로토타입 안내 음성</p></div><span aria-hidden="true">→</span><div><small>확인</small><p>음성은 끄고 자막만 남김</p></div></div>
+      <div class="ai-case-row"><div><small>내가 짚은 것</small><p>“ESG를 너무 대놓고 쓰지 마.”</p></div><span aria-hidden="true">→</span><div><small>판단</small><p>상 자랑이 아니라 설계의 이유</p></div><span aria-hidden="true">→</span><div><small>확인</small><p>결론 속 한 문장으로 다시 씀</p></div></div>
+    </div>
+  </section>
+
   <section class="wrap ai-sec" aria-labelledby="ai-flow-t">
     <div class="ai-sec__head"><p class="en">01</p><h2 id="ai-flow-t">단계마다 역할을 나눕니다</h2></div>
     <div class="ai-steps" role="tablist" aria-label="기획 단계">
@@ -194,9 +285,9 @@
   </div>
 </div>
 
-<script src="data.js?v=57"></script>
-<script src="story.js?v=57"></script>
-<script src="app.js?v=57"></script>
-<script src="yolkbot.js?v=57"></script>
+<script src="data.js?v=59"></script>
+<script src="story.js?v=59"></script>
+<script src="app.js?v=59"></script>
+<script src="yolkbot.js?v=59"></script>
 </body>
 </html>
