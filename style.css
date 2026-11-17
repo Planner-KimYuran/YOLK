@@ -2489,3 +2489,14 @@ body { letter-spacing: -0.012em; }
 @media (max-width: 760px) { .ai-case-row { grid-template-columns: minmax(0, 1fr); } .ai-case-row > span { transform: rotate(90deg); } }
 [data-accent="yolk"] .ai-j__no .en { background: #FFC21A; color: #333; }
 .ai-j { align-items: stretch; } .ai-j__step { grid-template-rows: 34px 1fr; } .ai-j__no { height: 34px; }
+
+/* v8.4 — 무채색 정리: 썸네일은 선명한 흑백, 호버 배경은 아주 연한 뉴트럴 그레이 */
+.th-mood { background: #F2F2F2 !important; }
+.th-mood img { filter: grayscale(1) contrast(1.02) brightness(1.02) !important; }
+.th-mood::before { background: rgba(250, 250, 250, .14) !important; }
+.card:hover .th-mood img, .card:focus-visible .th-mood img, .pcard:hover .th-mood img, .pcard:focus-within .th-mood img { filter: none !important; }
+.card:hover, .card:focus-visible, .pcard:hover, .pcard:focus-within { background: #F7F7F7 !important; }
+.card:hover .tag-doc, .card:focus-visible .tag-doc { background: #fff !important; }
+.th-empty { background: #F2F2F2 !important; }
+[data-accent="yolk"] .th-mood::before { background: rgba(250, 250, 250, .14) !important; }
+[data-accent="yolk"] .card:hover, [data-accent="yolk"] .pcard:hover { background: #F7F7F7 !important; }
