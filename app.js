@@ -20,14 +20,26 @@
     if (gnb) gnb.classList.toggle('is-scrolled', y > 4);
     var top = $('.to-top'); if (top) top.classList.toggle('is-on', y > 700);
     var hint = $('.hero__scroll'); if (hint) hint.classList.toggle('is-hidden', y > 40);
-    var pct = $('.gnb__pct'); if (pct) { var max = document.documentElement.scrollHeight - window.innerHeight; pct.textContent = (max > 0 ? Math.round(y / max * 100) : 0) + '%'; }
+    var bar = $('.gnb__bar i'); if (bar) { var max = document.documentElement.scrollHeight - window.innerHeight; bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')'; }
   }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
   function setActive(key) {
     $$('[data-nav]').forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('data-nav') === key ? 'true' : 'false'); });
   }
-  setActive(page === 'about' ? 'about' : page === 'home' ? '' : 'works');
+  setActive(page === 'home' ? 'home' : 'works');
+
+  /* 모바일 메뉴 (햄버거) */
+  var burger = $('.gnb__burger'), navEl = $('#gnb-links');
+  function setMenu(open) {
+    if (!burger || !navEl) return;
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+    document.body.classList.toggle('is-menu', open);
+  }
+  if (burger) burger.addEventListener('click', function () { setMenu(burger.getAttribute('aria-expanded') !== 'true'); });
+  $$('.gnb__links a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('is-menu')) { setMenu(false); burger.focus(); } });
 
   /* 모바일 전체 화면 메뉴 */
   var mm = $('.mmenu'), mmOpen = $('.gnb__toggle'), mmClose = $('.mmenu__close');
@@ -161,27 +173,89 @@
      ========================================================= */
   if (page === 'home') {
     var now = new Date(), nowYM = now.getFullYear() * 100 + now.getMonth() + 1;
-    var yl = $('#ylist');
-    if (yl) yl.innerHTML = D.mainOrder.map(function (id, i) {
-      var p = D.projects[id], pm = String(p.period).match(/(\d{4})\.(\d{2})(?:\s*[—–-]\s*(\d{2}))?/);
-      var live = pm ? (+pm[1] * 100 + +(pm[3] || pm[2])) > nowYM : false;
-      var award = (D.awards || []).filter(function (a) { return a[2] === id; })[0];
-      return '<li><a class="yl__row" href="project.html?id=' + id + '">' +
-        '<span class="yl__no">#' + two(i + 1) + '</span>' +
-        '<div class="yl__text">' +
-          '<p class="yl__tags">' + (p.homeTags || p.tags).map(esc).join(' ') + (live ? ' <span class="yl__live"><i class="dot" aria-hidden="true"></i>진행 중</span>' : '') + '</p>' +
-          '<h3 class="yl__title">' + esc(p.cardTitle) + '</h3>' +
-          '<p class="core-line"><span class="core-label"><i class="dot" aria-hidden="true"></i>CORE</span><span>' + esc(p.core) + '</span></p>' +
-          '<p class="yl__meta">' + esc(String(p.period).replace(/\s*—\s*/, ' — ')) + ' · ' + esc(p.role) + ' · ' + docsSorted(p).map(esc).join(' · ') + (award ? ' · ' + esc(award[1].split(' · ')[0]) : '') + '</p>' +
-          '<span class="yl__go">VIEW PROJECT →</span>' +
-        '</div>' +
-        '<div class="yl__img">' + thumb(p) + '</div></a></li>';
+    var isLive = function (p) { var m = String(p.period).match(/(\d{4})\.(\d{2})(?:\s*[—–-]\s*(\d{2}))?/); return m ? (+m[1] * 100 + +(m[3] || m[2])) > nowYM : false; };
+
+    /* 대표 프로젝트 카드 */
+    var pc = $('#pcards');
+    if (pc) pc.innerHTML = D.mainOrder.map(function (id) {
+      var p = D.projects[id], docs = docsSorted(p);
+      return '<li><a class="pcard" href="project.html?id=' + id + '">' +
+        '<div class="pcard__img">' + thumb(p) + '<span class="pcard__badge">' + esc(isLive(p) ? '진행 중' : (docs[0] || '프로젝트')) + '</span></div>' +
+        '<div class="pcard__body">' +
+          '<ul class="chips">' + (p.homeTags || p.tags).map(function (t) { return '<li>' + esc(String(t).replace(/^#/, '')) + '</li>'; }).join('') + '</ul>' +
+          '<h3 class="pcard__title">' + esc(p.cardTitle) + '</h3>' +
+          '<p class="pcard__core">' + esc(p.core) + '</p>' +
+          '<p class="pcard__sum">' + esc(p.summary || p.homeSummary) + '</p>' +
+          '<p class="pcard__meta"><span><i class="ic ic--cal" aria-hidden="true"></i>' + esc(String(p.period).replace(/\s*—\s*/, ' ~ ')) + '</span><span><i class="ic ic--team" aria-hidden="true"></i>' + esc(p.role) + '</span></p>' +
+        '</div></a></li>';
     }).join('');
-    var cs = $('#contact');
-    if (cs) {
-      var spy = function () { setActive(cs.getBoundingClientRect().top < window.innerHeight * 0.5 ? 'contact' : ''); };
-      window.addEventListener('scroll', spy, { passive: true }); spy();
+
+    /* 나의 이력 — 경험 카드 */
+    var xc = $('#xcards');
+    if (xc) xc.innerHTML = D.experience.map(function (e) {
+      return '<li class="xcard"><div class="xcard__head"><div><h3>' + esc(e.name) + '</h3><p class="xcard__role">' + esc(e.role) + '</p></div>' +
+        '<span class="xcard__when">' + esc(e.when.split(' · ')[0].replace(/\s*—\s*/g, ' - ')) + '</span></div>' +
+        '<p class="xcard__text">' + esc(e.text) + '</p>' +
+        '<p class="xcard__type"><span class="en">' + esc(e.type) + '</span>' + (e.lead ? ' · 리드 경험' : '') + (e.when.indexOf(' · ') > 0 ? ' · ' + esc(e.when.split(' · ').slice(1).join(' · ')) : '') + '</p></li>';
+    }).join('');
+    /* 학력 · 수상 · 자격 */
+    var xe = $('#xedu');
+    if (xe) {
+      var block = function (t, rows) { return '<div class="xcard xlist"><h3>' + t + '</h3><ul>' + rows.map(function (r) { return '<li><span class="xlist__d">' + esc(r[0]) + '</span><span>' + esc(r[1]) + (r[2] && !/^\d+$/.test(r[2]) ? ' · ' + esc(r[2]) : '') + '</span></li>'; }).join('') + '</ul></div>'; };
+      xe.innerHTML = block('학력', D.education) + block('수상 · 장학', D.awards) + block('자격', D.certificates);
     }
+    /* 탭 */
+    var tabs = $$('.xtabs [role="tab"]');
+    var selTab = function (t) {
+      tabs.forEach(function (b) { var on = b === t; b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; document.getElementById(b.getAttribute('aria-controls')).hidden = !on; });
+    };
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { selTab(t); });
+      t.addEventListener('keydown', function (e) {
+        var k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!k) return;
+        var n = tabs[(i + k + tabs.length) % tabs.length]; selTab(n); n.focus(); e.preventDefault();
+      });
+    });
+
+    /* 나의 역량 */
+    var kc = $('#kcard');
+    if (kc) kc.innerHTML = '<h3 class="kcard__h"><span class="kcard__ic en" aria-hidden="true">K</span>Main Skills</h3>' +
+      D.skills.map(function (g, i) {
+        return '<div class="krow"><p class="krow__k en"><span>' + two(i + 1) + '</span>' + esc(g[0]) + '</p><ul class="chips chips--lg">' + g[1].map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>';
+      }).join('');
+    var ka = $('#kai'); if (ka) ka.textContent = D.aiNote;
+    var ks = $('#kstats');
+    if (ks) {
+      var lead = D.experience.filter(function (e) { return e.lead; }).length;
+      ks.innerHTML = [[Object.keys(D.projects).length, '기획 프로젝트'], [D.awards.length, '수상 · 장학'], [lead, '팀장 · 리드 경험']].map(function (s) {
+        return '<li><b class="en">' + s[0] + '</b><span>' + s[1] + '</span></li>';
+      }).join('');
+    }
+
+    /* 연락하기 — 메일 앱으로 작성 */
+    var cf = $('#cform');
+    if (cf) cf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var n = cf.name.value.trim(), m = cf.email.value.trim(), t = cf.msg.value.trim(), err = $('#cform-err');
+      var bad = [[cf.name, n], [cf.email, m && /.+@.+\..+/.test(m)], [cf.msg, t]];
+      bad.forEach(function (b) { b[0].setAttribute('aria-invalid', b[1] ? 'false' : 'true'); });
+      var first = bad.filter(function (b) { return !b[1]; })[0];
+      if (first) { err.hidden = false; first[0].focus(); return; }
+      err.hidden = true;
+      var sub = '[포트폴리오 문의] ' + n;
+      var body = t + '\n\n— ' + n + ' (' + m + ')';
+      window.location.href = 'mailto:' + D.profile.email + '?subject=' + encodeURIComponent(sub) + '&body=' + encodeURIComponent(body);
+      toast('메일 앱에서 내용을 확인하고 보내 주세요.');
+    });
+
+    /* 메뉴 위치 표시 */
+    var secs = ['home', 'projects', 'experience', 'skills', 'contact'].map(function (k) { return document.getElementById(k); }).filter(Boolean);
+    var spy = function () {
+      var cur = 'home', mid = window.innerHeight * 0.35;
+      secs.forEach(function (sec) { if (sec.getBoundingClientRect().top <= mid) cur = sec.id; });
+      setActive(cur);
+    };
+    window.addEventListener('scroll', spy, { passive: true }); spy();
   }
 
   if (page === 'about') {
