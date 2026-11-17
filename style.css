@@ -1783,3 +1783,13 @@ img { transition: transform .9s var(--ease-soft), filter .6s var(--ease-soft); }
 .station.is-hi i, .stations:not([style]) .station:nth-child(4) i, .station:nth-child(4) i { background: var(--ink); }
 .jny__col.is-cut .jny__dot { background: var(--ink); }
 #experience { align-items: flex-start; padding-top: calc(var(--gnb-h) + 64px); }
+
+/* v6.7 — 역량: 박스 · 칩 · K 아이콘 제거, 텍스트로만 */
+.kcard { border: 0; box-shadow: none; padding: 0; background: none; }
+.kcard__h { font-size: 15px; font-weight: 600; padding-bottom: 12px; border-bottom: 1px solid var(--ink); }
+.krow { margin-top: 0; padding-block: 18px; border-top: 0; border-bottom: 1px solid #EEEEEA; grid-template-columns: 180px minmax(0, 1fr); align-items: baseline; }
+.krow__k { padding-top: 0; font-size: 12px; }
+.krow__v { margin: 0; font-size: 15px; color: var(--ink); line-height: 1.6; }
+.krow__sep { color: #BDBDB8; }
+.kai { display: block; }
+.kai .en { display: inline; padding: 0; margin-right: 10px; background: none; border-radius: 0; color: var(--ink); font-size: 11px; font-weight: 700; }

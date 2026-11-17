@@ -235,9 +235,9 @@
 
     /* 나의 역량 */
     var kc = $('#kcard');
-    if (kc) kc.innerHTML = '<h3 class="kcard__h"><span class="kcard__ic en" aria-hidden="true">K</span>Main Skills</h3>' +
+    if (kc) kc.innerHTML = '<h3 class="kcard__h">Main Skills</h3>' +
       D.skills.map(function (g, i) {
-        return '<div class="krow"><p class="krow__k en"><span>' + two(i + 1) + '</span>' + esc(g[0]) + '</p><ul class="chips chips--lg">' + g[1].map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>';
+        return '<div class="krow"><p class="krow__k en"><span>' + two(i + 1) + '</span>' + esc(g[0]) + '</p><p class="krow__v">' + g[1].map(esc).join('<span class="krow__sep" aria-hidden="true"> · </span>') + '</p></div>';
       }).join('');
     var ka = $('#kai'); if (ka) ka.textContent = D.aiNote;
     var ks = $('#kstats');
