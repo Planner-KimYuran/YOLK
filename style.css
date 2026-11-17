@@ -1548,3 +1548,67 @@ body { font-weight: 400; }
 .card__thumb, .d-cover--img, .gal button, .tbl-wrap, .modal__box { overflow: hidden; }
 .chip, .tag-doc, .lead-badge, .d-badge, .bar__track, .bar__fill, .sbar__track { border-radius: var(--r-s); }
 .fchip, .sort__list, .sort__menu { border-radius: var(--r-s); }
+
+/* =========================================================
+   v6.3 — 순검정 대신 차콜 · 호버 자연스럽게
+   ========================================================= */
+:root {
+  --ink: #333333;
+  --ink-2: #4a4a4a;
+  --ink-3: #666666;
+  --line-strong: #3d3d3d;
+  --surface-2: #2f2f2f;
+  --ease-soft: cubic-bezier(.22, .61, .36, 1);
+  --t: .45s;
+}
+body { color: var(--ink); }
+.footer, .gnb { color: var(--ink); }
+.footer { background: #fff; }
+
+/* 공통 전환 */
+a, button, .pcard, .xcard, .kstats li, .cinfo > div, .card, .fchip, .chip, .to-top, .yl__row {
+  transition: color var(--t) var(--ease-soft), background-color var(--t) var(--ease-soft), border-color var(--t) var(--ease-soft),
+              box-shadow .6s var(--ease-soft), transform .6s var(--ease-soft), opacity var(--t) var(--ease-soft), padding var(--t) var(--ease-soft);
+}
+img { transition: transform .9s var(--ease-soft), filter .6s var(--ease-soft); }
+
+/* 메뉴 */
+.gnb__links a:hover { background: #F6F6F1; color: var(--ink); }
+.gnb__links a[aria-current="true"]:hover { background: var(--yolk-soft); }
+
+/* 버튼 */
+.btn-y { box-shadow: 0 4px 14px -8px rgba(214,170,0,.55); }
+.btn-y:hover { transform: translateY(-1px); background: #FFDE3D; box-shadow: 0 8px 20px -10px rgba(214,170,0,.6); }
+.btn-line:hover { transform: translateY(-1px); border-color: #9a9a9a; background: #FAFAF7; }
+.btn-y:active, .btn-line:active { transform: translateY(0); transition-duration: .15s; }
+
+/* 카드 */
+.pcard:hover { transform: translateY(-3px); border-color: #E2E2DC; box-shadow: 0 16px 34px -24px rgba(51,51,51,.28); }
+.pcard:hover .pcard__img img { transform: scale(1.025); }
+.xcard:hover, .kstats li:hover, .cinfo > div:hover { border-color: #E2E2DC; box-shadow: 0 12px 28px -24px rgba(51,51,51,.3); }
+.card:hover, .card:focus-visible { transform: translateY(-3px); box-shadow: 0 16px 34px -26px rgba(51,51,51,.3); border-color: #DDDDD6; }
+.card:hover .card__body, .card:focus-visible .card__body { padding-inline: 0; padding-bottom: 0; }
+.card:hover .card__thumb img { transform: scale(1.025); }
+
+/* 탭 · 필터 · 복사 */
+.xtabs button:hover:not([aria-selected="true"]) { background: #F6F6F1; color: var(--ink); }
+.fchip:hover { border-color: #9a9a9a; color: var(--ink); }
+.fchip[aria-pressed="true"]:hover { background: #4a4a4a; border-color: #4a4a4a; color: #fff; }
+.cinfo .copy-btn:hover { background: var(--yolk-soft); border-color: var(--yolk-line); }
+
+/* 글 링크 — 밑줄이 부드럽게 */
+.tlink { border-bottom-color: rgba(51,51,51,.35); }
+.tlink:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.cinfo dd a, .yp__info a { text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .5s var(--ease-soft); }
+.cinfo dd a:hover, .yp__info a:hover { text-decoration: none; background-size: 100% 1px; }
+
+/* TOP */
+.to-top:hover { background: #FFDE3D; color: var(--ink); transform: translateY(-2px); }
+
+/* 포커스 링도 차콜 */
+:focus-visible { box-shadow: 0 0 0 1px var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  a, button, .pcard, .xcard, .card, img { transition-duration: .01s !important; }
+  .pcard:hover, .card:hover, .btn-y:hover, .btn-line:hover, .to-top:hover { transform: none; }
+}
