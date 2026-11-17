@@ -2437,3 +2437,5 @@ body { letter-spacing: -0.012em; }
 .th-mood::before { background: rgba(238, 235, 226, .38) !important; mix-blend-mode: normal !important; }
 .card:hover .th-mood img, .card:focus-visible .th-mood img, .pcard:hover .th-mood img, .pcard:focus-within .th-mood img { filter: none !important; }
 [data-accent="yolk"] .th-mood::before { background: rgba(255, 240, 190, .4) !important; }
+.hx__core::after { left: 0.06em !important; right: -0.14em !important; bottom: 0.07em !important; height: 2.5px !important; border-radius: 2px; }
+[data-accent="yolk"] .hx__core::after { height: 3px !important; }
