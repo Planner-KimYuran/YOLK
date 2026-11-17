@@ -1914,3 +1914,40 @@ body, .gnb, .sx, .hx, .footer, .pcard, .xcard, .cform, .cinfo > div, .kstats li 
 [data-theme="dark"] .scene__pill { background: #2E2D2A; color: var(--ink); border-color: #4A4844; }
 [data-theme="dark"] .jny__col p, [data-theme="dark"] .jny p { color: #B5B3AD; }
 [data-theme="dark"] .clr__item p, [data-theme="dark"] .clr__item code, [data-theme="dark"] .xcard__type .en, [data-theme="dark"] .footer__slogan, [data-theme="dark"] .xtabs button, [data-theme="dark"] .modal__tabs button { color: #A9A7A1; }
+
+/* =========================================================
+   v7.1 — 히어로 문장: 행간 · 자간 좁게, 크기 살짝 작게
+   ========================================================= */
+.hx__title { font-size: clamp(21px, 2.1vw, 30px); line-height: 1.34; letter-spacing: -0.055em; }
+
+/* =========================================================
+   노른자 토글 = 옐로우 포인트 컬러 켜기 / 끄기 (다크 모드 아님)
+   끔: 노른자가 연하고 왼쪽 · 켬: 노른자가 진해지며 오른쪽
+   ========================================================= */
+.egg__yolk { background: radial-gradient(circle at 34% 30%, #FFF6D6 0 10%, #FBE7A6 40%, #F2D27A 100%); box-shadow: inset 0 -1.5px 2px rgba(170, 120, 0, .18), 0 1px 1.5px rgba(160, 110, 0, .2); transition: transform .5s cubic-bezier(.34, 1.3, .5, 1), background .4s ease, box-shadow .4s ease; }
+[data-theme="dark"] .egg__yolk { transform: none; }
+[data-accent="yolk"] .egg__yolk { transform: translateX(20px); background: radial-gradient(circle at 34% 30%, #FFE7A0 0 10%, #FFC233 32%, #F7A10C 70%, #E98A00 100%); box-shadow: inset 0 -1.5px 2px rgba(170, 80, 0, .35), 0 1px 1.5px rgba(160, 90, 0, .35); }
+
+html[data-accent="yolk"] { --pt: #FFC21A; --pt-soft: #FFF4CC; --pt-line: #F3D77C; --pt-ink: #7A5200; }
+[data-accent="yolk"] ::selection { background: #FFE8A3; color: var(--ink); }
+[data-accent="yolk"] .gnb__bar i { background: var(--pt); }
+[data-accent="yolk"] .gnb__links a[aria-current="true"], [data-accent="yolk"] .gnb__links a[aria-current="true"]:hover { background: var(--pt-soft); }
+[data-accent="yolk"] .gnb__logo .dot { display: inline-block; background: var(--pt); }
+[data-accent="yolk"] .hx__title { background: none; }
+[data-accent="yolk"] .hx__q { color: var(--pt-ink); }
+[data-accent="yolk"] .btn-y, [data-accent="yolk"] .docpair__dl--y, [data-accent="yolk"] .modal.is-doc .modal__dl { background: var(--pt); border-color: var(--pt); color: #333; }
+[data-accent="yolk"] .btn-y:hover, [data-accent="yolk"] .docpair__dl--y:hover, [data-accent="yolk"] .modal.is-doc .modal__dl:hover { background: #FFCF4A; border-color: #FFCF4A; }
+[data-accent="yolk"] .docpair__dl--y { box-shadow: inset 1px 0 0 rgba(51, 51, 51, .15); }
+[data-accent="yolk"] .pill { background: var(--pt-soft); border-color: var(--pt-line); color: var(--pt-ink); }
+[data-accent="yolk"] .xb__h, [data-accent="yolk"] .kcard__h { border-bottom-color: var(--pt); }
+[data-accent="yolk"] .xb__h .en, [data-accent="yolk"] .krow__k span, [data-accent="yolk"] .cinfo dt, [data-accent="yolk"] .xlist__d { color: var(--pt-ink); }
+[data-accent="yolk"] .xb__lead, [data-accent="yolk"] .xcard__when, [data-accent="yolk"] .pcard__badge { background: var(--pt-soft); color: var(--pt-ink); }
+[data-accent="yolk"] .pcard__core, [data-accent="yolk"] .xb__role { color: var(--pt-ink); }
+[data-accent="yolk"] .pcard:hover, [data-accent="yolk"] .card:hover { border-color: var(--pt-line); }
+[data-accent="yolk"] .kstats b::after { display: inline-block; background: var(--pt); }
+[data-accent="yolk"] .to-top:hover { background: var(--pt); border-color: var(--pt); color: #333; }
+[data-accent="yolk"] .cinfo .copy-btn:hover, [data-accent="yolk"] .xtabs button[aria-selected="true"], [data-accent="yolk"] .modal__tabs button[aria-selected="true"] { background: var(--pt-soft); border-color: var(--pt-line); }
+[data-accent="yolk"] .cform input:focus, [data-accent="yolk"] .cform textarea:focus { border-color: var(--pt); }
+[data-accent="yolk"] .fchip[aria-pressed="true"] { background: var(--pt); border-color: var(--pt); color: #333; }
+[data-accent="yolk"] .dot, [data-accent="yolk"] .core-label .dot, [data-accent="yolk"] .yw__key .dot { background: var(--pt); }
+[data-accent="yolk"] .xb__photo { box-shadow: 0 0 0 1px var(--pt-line); }

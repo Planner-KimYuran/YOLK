@@ -29,16 +29,16 @@
   }
   setActive(page === 'home' ? '' : 'works');
 
-  /* 라이트 · 다크 모드 — 노른자 토글 */
+  /* 노른자 토글 — 옐로우 포인트 컬러 켜기 · 끄기 */
   var egg = $('.egg');
-  function setTheme(dark, save) {
+  function setYolk(on, save) {
     var root = document.documentElement;
-    if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
-    if (egg) { egg.setAttribute('aria-checked', dark ? 'true' : 'false'); egg.setAttribute('aria-label', dark ? '라이트 모드로 바꾸기' : '다크 모드로 바꾸기'); }
-    if (save) { try { localStorage.setItem('yolk-theme', dark ? 'dark' : 'light'); } catch (e) {} }
+    if (on) root.setAttribute('data-accent', 'yolk'); else root.removeAttribute('data-accent');
+    if (egg) { egg.setAttribute('aria-checked', on ? 'true' : 'false'); egg.setAttribute('aria-label', on ? '노른자 포인트 컬러 끄기' : '노른자 포인트 컬러 켜기'); }
+    if (save) { try { localStorage.setItem('yolk-accent', on ? 'on' : 'off'); } catch (e) {} }
   }
-  setTheme(document.documentElement.getAttribute('data-theme') === 'dark', false);
-  if (egg) egg.addEventListener('click', function () { setTheme(document.documentElement.getAttribute('data-theme') !== 'dark', true); });
+  setYolk(document.documentElement.getAttribute('data-accent') === 'yolk', false);
+  if (egg) egg.addEventListener('click', function () { setYolk(document.documentElement.getAttribute('data-accent') !== 'yolk', true); });
 
   /* 모바일 메뉴 (햄버거) */
   var burger = $('.gnb__burger'), navEl = $('#gnb-links');

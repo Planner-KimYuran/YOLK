@@ -11,8 +11,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap">
-<script>try{var t=localStorage.getItem("yolk-theme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");}catch(e){}</script>
-<link rel="stylesheet" href="style.css?v=29">
+<script>try{localStorage.removeItem("yolk-theme");if(localStorage.getItem("yolk-accent")==="on")document.documentElement.setAttribute("data-accent","yolk");}catch(e){}</script>
+<link rel="stylesheet" href="style.css?v=30">
 </head>
 <body data-page="detail">
 <a class="skip" href="#main">본문 바로가기</a>
@@ -31,7 +31,7 @@
           <li><a href="index.html#contact" data-nav="contact">연락하기</a></li>
         </ul>
       </nav>
-      <button type="button" class="egg" role="switch" aria-checked="false" aria-label="다크 모드"><span class="egg__yolk" aria-hidden="true"></span></button>
+      <button type="button" class="egg" role="switch" aria-checked="false" aria-label="노른자 포인트 컬러 켜기"><span class="egg__yolk" aria-hidden="true"></span></button>
       <button type="button" class="gnb__burger" aria-expanded="false" aria-controls="gnb-links" aria-label="메뉴 열기"><span></span><span></span></button>
     </div>
   </div>
@@ -69,8 +69,8 @@
   </div>
 </div>
 
-<script src="data.js?v=29"></script>
-<script src="story.js?v=29"></script>
-<script src="app.js?v=29"></script>
+<script src="data.js?v=30"></script>
+<script src="story.js?v=30"></script>
+<script src="app.js?v=30"></script>
 </body>
 </html>
