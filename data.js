@@ -10,10 +10,11 @@ window.YOLK = {
     slogan: '판을 계획하고, 핵심만 남기는 노른자 같은 기획자',
     birth: '—',
     phone: '010.3452.6632',
-    email: 'kimyuran36@gmail.com',
+    email: 'knewrun25@gmail.com',
     instagram: '@nwrnnyo',
     instagramUrl: 'https://www.instagram.com/nwrnnyo/',
-    location: '—',
+    location: '경기도 화성시',
+    leadCount: 10,
     resumeFile: 'resume.pdf',
     coverLetterFile: 'cover-letter.pdf'
   },

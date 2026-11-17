@@ -242,7 +242,7 @@
     var ka = $('#kai'); if (ka) ka.textContent = D.aiNote;
     var ks = $('#kstats');
     if (ks) {
-      var lead = D.experience.filter(function (e) { return e.lead; }).length;
+      var lead = D.profile.leadCount || D.experience.filter(function (e) { return e.lead; }).length;
       ks.innerHTML = [[Object.keys(D.projects).length, '기획 프로젝트'], [D.awards.length, '수상 · 장학'], [lead, '팀장 · 리드 경험']].map(function (s) {
         return '<li><b class="en">' + s[0] + '</b><span>' + s[1] + '</span></li>';
       }).join('');
