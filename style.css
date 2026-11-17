@@ -1464,3 +1464,71 @@ body:not([data-page="home"]) main { padding-top: var(--gnb-h); }
 .sx + .sx { border-top: 1px solid #F2F2F2; }
 .footer__inner { grid-template-columns: minmax(0, 1fr) !important; }
 .page-title { font-family: var(--en); font-weight: 600; letter-spacing: .02em; }
+
+/* =========================================================
+   v6.1 — 전체 글자 크기 · 두께 한 단계 낮춤
+   ========================================================= */
+body { font-weight: 400; }
+/* 헤더 */
+.gnb__logo { font-size: 15px; font-weight: 600; }
+.gnb__links a { font-size: 13px; font-weight: 400; padding: 7px 12px; }
+.gnb__links a[aria-current="true"] { font-weight: 600; }
+/* 히어로 */
+.hx__q { font-size: clamp(14px, 1.1vw, 17px); }
+.hx__title { font-size: clamp(26px, 3.2vw, 46px); font-weight: 500; line-height: 1.38; }
+.hx__title b { font-weight: 600; }
+.hx__docs { margin-top: 32px; }
+.btn-y, .btn-line { min-height: 44px; padding: 0 22px; font-size: 14px; font-weight: 500; }
+.hx__scroll { font-size: 10px; font-weight: 500; }
+/* 섹션 머리 */
+.pill { padding: 6px 14px; font-size: 12px; font-weight: 500; }
+.sh__title { margin-top: 14px; font-size: clamp(26px, 2.8vw, 40px); font-weight: 500; }
+.sh__sub { margin-top: 12px; font-size: 14px; line-height: 1.75; }
+.sh__sub b { font-weight: 600; }
+#projects .sh__sub { font-weight: 500; }
+/* 프로젝트 카드 */
+.pcard__badge { font-size: 11px; font-weight: 500; }
+.pcard__body { padding: 20px 20px 18px; }
+.pcard__title { font-size: 16px; font-weight: 600; }
+.pcard__core { font-size: 13px; font-weight: 500; }
+.pcard__sum { font-size: 13px; }
+.pcard__meta { font-size: 12px; }
+.chips li { font-size: 11px; font-weight: 400; }
+.chips--lg li { padding: 6px 12px; font-size: 13px; }
+/* 이력 */
+.xtabs button { min-height: 46px; padding: 0 18px; font-size: 14px; font-weight: 500; }
+.xcard h3 { font-size: 17px; font-weight: 600; }
+.xcard__role { font-size: 14px; font-weight: 500; }
+.xcard__when { font-size: 12px; font-weight: 500; }
+.xcard__text { font-size: 14px; }
+.xlist li { font-size: 14px; }
+.xlist__d { font-size: 11px; font-weight: 500; }
+/* 역량 */
+.kcard__h { font-size: 17px; font-weight: 600; }
+.kcard__ic { width: 34px; height: 34px; font-size: 14px; font-weight: 700; }
+.krow__k { font-size: 13px; font-weight: 600; }
+.kai { font-size: 13px; }
+.kai .en { font-size: 11px; font-weight: 600; }
+.kstats b { font-size: clamp(26px, 2.6vw, 34px); font-weight: 600; }
+.kstats span { font-size: 13px; }
+/* 연락하기 */
+.cform h3 { font-size: 20px; font-weight: 600; }
+.cform label { font-size: 13px; font-weight: 500; }
+.cform input, .cform textarea { font-size: 14px; padding: 12px 14px; }
+.cinfo dd { font-size: 15px; font-weight: 500; }
+.cinfo dt { font-weight: 600; }
+/* 푸터 */
+.footer__thanks { font-size: clamp(20px, 2vw, 30px); font-weight: 500; }
+.footer__sub { font-size: 14px; }
+.footer__name { font-size: 16px; font-weight: 600; }
+.footer__name .en { font-size: 13px; }
+.footer__slogan { font-size: 13px; }
+.to-top { width: 44px; height: 44px; font-size: 16px; font-weight: 600; }
+/* 전체 프로젝트 · 상세 */
+.page-title { font-size: clamp(32px, 4.6vw, 72px); font-weight: 500; }
+.page-title span { font-weight: 300; }
+.card__title { font-size: 17px; font-weight: 500; }
+.d-q__line { font-size: clamp(26px, 3.4vw, 56px); font-weight: 300; }
+.d-title { font-size: clamp(24px, 2.1vw, 38px); font-weight: 500; }
+.dsec__title { font-size: clamp(26px, 2.3vw, 40px); font-weight: 600; }
+.sec-head h2 { font-size: clamp(26px, 2.6vw, 42px); }
