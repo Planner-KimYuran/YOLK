@@ -1951,3 +1951,39 @@ html[data-accent="yolk"] { --pt: #FFC21A; --pt-soft: #FFF4CC; --pt-line: #F3D77C
 [data-accent="yolk"] .fchip[aria-pressed="true"] { background: var(--pt); border-color: var(--pt); color: #333; }
 [data-accent="yolk"] .dot, [data-accent="yolk"] .core-label .dot, [data-accent="yolk"] .yw__key .dot { background: var(--pt); }
 [data-accent="yolk"] .xb__photo { box-shadow: 0 0 0 1px var(--pt-line); }
+
+/* =========================================================
+   v7.2 — 온보딩 로딩 · 연락하기 / 역량 여백 정리
+   ========================================================= */
+.loader { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: #fff; transition: opacity .6s var(--ease-soft), visibility .6s; }
+.loader.is-done { opacity: 0; visibility: hidden; }
+.loader__dots { display: flex; gap: 12px; align-items: flex-end; height: 40px; }
+.loader__dots i { width: 11px; height: 11px; border-radius: 50%; background: #FFE58F; box-shadow: inset 0 -1px 1.5px rgba(214, 160, 0, .25); animation: yolkHop 1.2s cubic-bezier(.3, 1.6, .5, 1) infinite; }
+.loader__dots i:nth-child(2) { animation-delay: .12s; } .loader__dots i:nth-child(3) { animation-delay: .24s; }
+.loader__dots i:nth-child(4) { animation-delay: .36s; } .loader__dots i:nth-child(5) { animation-delay: .48s; }
+@keyframes yolkHop { 0%, 55%, 100% { transform: translateY(0) scale(1, 1); } 12% { transform: translateY(0) scale(1.15, .85); } 28% { transform: translateY(-18px) scale(.95, 1.06); } 44% { transform: translateY(0) scale(1.12, .88); } }
+@media (prefers-reduced-motion: reduce) { .loader__dots i { animation: yolkFade 1.2s ease-in-out infinite; } @keyframes yolkFade { 50% { opacity: .35; } } }
+
+/* 연락하기 — 상자 · 안쪽 여백 축소 */
+.cgrid { gap: 16px; margin-top: clamp(28px, 3vw, 40px); }
+.cform { padding: 22px 24px; gap: 12px; }
+.cform h3 { font-size: 17px; }
+.cform__hint { margin-top: -8px; }
+.cform label { gap: 6px; }
+.cform input, .cform textarea { padding: 9px 12px; }
+.cform .btn-y { min-height: 40px; }
+.cform__req { margin-top: -4px; }
+.cinfo { gap: 8px; }
+.cinfo > div { padding: 12px 16px; }
+.cinfo dd { margin-top: 4px; font-size: 14px; }
+.cinfo .copy-btn { padding: 4px 8px; }
+
+/* 나의 역량 — 위아래 여백 축소 */
+.kcard { margin-top: clamp(28px, 3vw, 40px); }
+.kcard__h { padding-bottom: 8px; }
+.krow { padding-block: 10px; }
+.kai { margin-top: 14px; }
+.kstats { margin-top: 24px; gap: 12px; }
+.kstats li { padding: 16px 12px; gap: 6px; }
+.kstats b { font-size: clamp(22px, 2.2vw, 28px); }
+#projects, #skills, #contact { padding-block: clamp(64px, 7vw, 100px); }

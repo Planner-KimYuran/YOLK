@@ -29,6 +29,20 @@
   }
   setActive(page === 'home' ? '' : 'projects');
 
+  /* 온보딩 로딩 — 노른자 점 5개 (세션당 한 번) */
+  var loader = document.getElementById('loader');
+  if (loader) {
+    var t0 = Date.now();
+    var hide = function () {
+      setTimeout(function () {
+        loader.classList.add('is-done');
+        try { sessionStorage.setItem('yolk-onboard', '1'); } catch (e) {}
+        setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 700);
+      }, Math.max(0, 1600 - (Date.now() - t0)));
+    };
+    if (document.readyState === 'complete') hide(); else window.addEventListener('load', hide);
+  }
+
   /* 노른자 토글 — 옐로우 포인트 컬러 켜기 · 끄기 */
   var egg = $('.egg');
   function setYolk(on, save) {
