@@ -2381,3 +2381,34 @@ body { letter-spacing: -0.012em; }
 .yolk-ball::after { content: ''; position: absolute; left: 22%; top: 20%; width: 26%; height: 26%; border-radius: 50%; background: rgba(255,255,255,.85); }
 .yolk-ball.is-rest { transition: opacity .6s; }
 .hx__core { position: relative; }
+
+/* 노른자 봇 — 질문 목록 */
+.yb-menu-btn { height: 28px; padding: 0 10px; border: 1px solid #ECE6CF; border-radius: 4px; background: #fff; color: #5a4300; font-size: 11px; cursor: pointer; }
+.yb-menu-btn:hover { background: #FFF6D6; }
+.yb-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 2px; }
+.yb-cat { display: flex; justify-content: space-between; align-items: center; padding: 9px 10px; border: 1px solid #EFE7C8; border-radius: 4px; background: #fff; color: #333; font-size: 12px; text-align: left; cursor: pointer; }
+.yb-cat em { font-style: normal; font-family: var(--en); font-size: 10px; color: #B88A00; }
+.yb-cat:hover { background: #FFF8DC; border-color: #FFC93C; }
+.yb-chip--menu { background: #fff !important; border-style: dashed !important; }
+.yb-msg:has(.yb-cats) { width: 100%; }
+
+/* v8.2 — 프로젝트 카드 호버: 선 대신 카드 전체 색 변화 (움직임 없음) */
+.card { border: 0 !important; border-radius: 6px; background: transparent; transition: background-color .25s ease !important; overflow: hidden; }
+.card .card__body { padding: 16px 16px 18px !important; background: none !important; }
+.card .card__thumb { border-radius: 6px 6px 0 0; }
+.card:hover, .card:focus-visible { background: #F3F2EC !important; box-shadow: none !important; transform: none !important; }
+.card:hover .card__title, .pcard:hover .pcard__title { text-decoration: none !important; }
+.card:hover .card__body, .card:focus-visible .card__body { color: inherit !important; }
+.card:hover .tag-doc, .card:focus-visible .tag-doc { border-color: transparent !important; background: #fff; color: inherit !important; }
+.card:hover .core-line, .card:focus-visible .core-line { border-color: rgba(0,0,0,.08) !important; }
+.card:hover .card__no, .card:hover .card__meta, .card:hover .core-label { color: inherit !important; }
+.pcard { transition: background-color .25s ease !important; }
+.pcard:hover, .pcard:focus-within { background: #F3F2EC !important; border-color: var(--card-line, #ECECE8) !important; box-shadow: none !important; transform: none !important; }
+[data-accent="yolk"] .card:hover, [data-accent="yolk"] .pcard:hover { background: #FFF6D6 !important; border-color: transparent !important; }
+[data-accent="yolk"] .pcard:hover { border-color: #F3E2A6 !important; }
+.card:focus-visible { outline: 2px solid #333; outline-offset: 2px; }
+/* 흰 썸네일도 구분되도록 얇은 테두리 */
+.card__thumb, .pcard__img, .proto__shot, .gal .g-open, .d-cover--img { box-shadow: inset 0 0 0 1px rgba(0,0,0,.08) !important; }
+.card__thumb .ph--img, .pcard__img .ph--img { position: relative; }
+.card__thumb .ph--img::after, .pcard__img .ph--img::after, .gal .g-open::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(0,0,0,.08); border-radius: inherit; pointer-events: none; }
+.gal .g-open { position: relative; }

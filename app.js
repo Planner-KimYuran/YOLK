@@ -454,7 +454,7 @@
     }
     (function () {
       var cnt = {}, all = 0; ids.forEach(function (id) { D.projects[id].docs.forEach(function (d) { if (!d.file) return; cnt[d.type] = (cnt[d.type] || 0) + 1; all++; }); });
-      $$('.fchip[data-type]').forEach(function (b) { var t = b.getAttribute('data-type'); var n = t === 'ALL' ? all : (cnt[t] || 0); if (!n) { b.hidden = true; return; } b.insertAdjacentHTML('beforeend', ' <em class="fchip__n">' + n + '</em>'); });
+      $$('.fchip[data-type]').forEach(function (b) { var t = b.getAttribute('data-type'); var n = t === 'ALL' ? 0 : (cnt[t] || 0); if (t === 'ALL') return; if (!n) { b.hidden = true; return; } b.insertAdjacentHTML('beforeend', ' <em class="fchip__n">' + n + '</em>'); });
       var sum = $('#doc-sum'); if (sum) sum.innerHTML = D.docTypes.filter(function (t) { return cnt[t]; }).map(function (t) { return '<span><b>' + cnt[t] + '</b>' + t + '</span>'; }).join('');
     })();
     $$('[data-type]').forEach(function (b) { b.addEventListener('click', function () { state.type = b.getAttribute('data-type'); render(); }); });
@@ -477,7 +477,8 @@
   if (page === 'detail') {
     var id = new URLSearchParams(location.search).get('id');
     if (!D.projects[id]) id = '01';
-    var P = D.projects[id], keys = Object.keys(D.projects).sort(), idx = keys.indexOf(id);
+    var P = D.projects[id], keys = (D.curatedOrder || []).filter(function (k) { return D.projects[k]; }), idx = keys.indexOf(id);
+    if (idx < 0) { keys = Object.keys(D.projects).sort(); idx = keys.indexOf(id); }
     var prevId = keys[(idx - 1 + keys.length) % keys.length], nextId = keys[(idx + 1) % keys.length];
     document.title = P.title + ' — 김유란';
     var docs = docsSorted(P);
@@ -509,7 +510,7 @@
       : ph('PROJECT COVER / KEY VISUAL', P.cover).replace('class="ph"', 'class="ph d-cover"');
     var topHtml =
       '<section class="d-top wrap" data-scene="OVERVIEW" aria-labelledby="d-title">' +
-        '<div class="d-nav"><a class="tlink" href="works.html" id="back-top">← BACK TO PROJECTS</a><span>(PROJECT #' + id + ')</span></div>' +
+        '<div class="d-nav"><a class="tlink" href="works.html" id="back-top">← BACK TO PROJECTS</a><span>(PROJECT ' + two(idx + 1) + ' / ' + two(keys.length) + ')</span></div>' +
         (P.question ? '<div class="d-q"><p class="d-q__eyebrow">(' + esc(P.tagline || '') + ')</p><p class="d-q__line">' + P.question.join('<br>') + '</p></div>' : '') +
         coverHtml +
         '<p class="d-tags">' + P.tags.map(esc).join(' ') + '</p>' +
@@ -789,39 +790,40 @@ document.addEventListener('click', function (e) {
   document.addEventListener('keydown', function (e) { if (!box) return; if (e.key === 'Escape') end(); if (e.key === 'ArrowRight' && i < steps.length - 1) { i++; show(); } if (e.key === 'ArrowLeft' && i > 0) { i--; show(); } });
 })();
 
-/* 메인 첫 화면 — 노른자가 떨어져 '핵심'에 튕기고 굴러가는 모션 */
+/* 메인 첫 화면 — 노른자가 떨어져 '핵심' 위에서 통, 통 두 번 튀고 데구르르 굴러간다 */
 (function () {
-  var core = document.getElementById('hx-core'), endEl = document.getElementById('hx-end');
+  var core = document.getElementById('hx-core'), endEl = document.getElementById('hx-end'), title = document.getElementById('hx-title');
   if (!core || !endEl) return;
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var played = false;
   function play() {
     if (played || reduce || !core.animate) return; played = true;
-    var r = core.getBoundingClientRect(), e = endEl.getBoundingClientRect();
-    var size = Math.max(12, Math.min(18, r.height * 0.32));
+    var r = core.getBoundingClientRect(), e = endEl.getBoundingClientRect(), tr = title ? title.getBoundingClientRect() : e;
+    var size = Math.round(Math.max(18, Math.min(26, r.height * 0.5)));
     var ball = document.createElement('span'); ball.className = 'yolk-ball'; ball.setAttribute('aria-hidden', 'true');
     ball.style.width = ball.style.height = size + 'px';
-    var x = r.left + r.width / 2 - size / 2 + scrollX, y = r.top + scrollY + r.height * 0.14 - size;
-    ball.style.left = x + 'px'; ball.style.top = y + 'px'; ball.style.transformOrigin = '50% 100%';
+    /* 글자와 겹치지 않도록 '핵심' 글자 상자 위쪽에 착지 */
+    var floor = r.top + scrollY - size - 2;
+    ball.style.left = (r.left + r.width / 2 - size / 2 + scrollX) + 'px'; ball.style.top = floor + 'px';
+    ball.style.transformOrigin = '50% 100%';
     document.body.appendChild(ball);
-    var fall = -(r.top + size + 60);
+    var drop = -(r.top + size + 40), h1 = Math.round(size * 6.5), h2 = Math.round(size * 2.2);
+    var fallE = 'cubic-bezier(.5,0,1,.6)', riseE = 'cubic-bezier(0,.45,.5,1)';
     ball.animate([
-      { transform: 'translateY(' + fall + 'px) scale(1,1)', easing: 'cubic-bezier(.55,0,1,.45)' },
-      { transform: 'translateY(0) scale(1.18,.78)', offset: .52, easing: 'cubic-bezier(0,.55,.45,1)' },
-      { transform: 'translateY(-' + (size * 2.6) + 'px) scale(.94,1.06)', offset: .7, easing: 'cubic-bezier(.55,0,1,.45)' },
-      { transform: 'translateY(0) scale(1.1,.88)', offset: .84, easing: 'cubic-bezier(0,.55,.45,1)' },
-      { transform: 'translateY(-' + (size * .6) + 'px) scale(1,1)', offset: .92, easing: 'cubic-bezier(.55,0,1,.45)' },
+      { transform: 'translateY(' + drop + 'px)', easing: fallE },
+      { transform: 'translateY(0) scale(1.2,.82)', offset: .36, easing: 'linear' },     /* 통 */
+      { transform: 'translateY(0) scale(1,1)', offset: .4, easing: riseE },
+      { transform: 'translateY(-' + h1 + 'px)', offset: .64, easing: fallE },
+      { transform: 'translateY(0) scale(1.12,.88)', offset: .92, easing: 'linear' },    /* 통 */
       { transform: 'translateY(0) scale(1,1)' }
-    ], { duration: 1150, fill: 'forwards' }).onfinish = function () {
+    ], { duration: 1500, fill: 'forwards' }).onfinish = function () {
       ball.style.transformOrigin = '50% 50%';
-      var dist = Math.max(40, e.right - r.left - r.width / 2 + size * .4);
+      var dist = Math.max(80, Math.min(e.right + 220, innerWidth - 40) - (r.left + r.width / 2));
       var turns = dist / (Math.PI * size) * 360;
       ball.animate([
         { transform: 'translateX(0) rotate(0deg)' },
         { transform: 'translateX(' + dist + 'px) rotate(' + turns + 'deg)' }
-      ], { duration: Math.min(1700, 600 + dist * 3), easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' }).onfinish = function () {
-        ball.classList.add('is-rest');
-      };
+      ], { duration: Math.min(2200, 900 + dist * 2.6), easing: 'cubic-bezier(.15,.6,.25,1)', fill: 'forwards' });
     };
     var kill = function () { if (ball.parentNode) ball.parentNode.removeChild(ball); removeEventListener('resize', kill); };
     addEventListener('resize', kill);
