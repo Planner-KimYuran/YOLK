@@ -2522,3 +2522,8 @@ body { letter-spacing: -0.012em; }
 }
 /* 넓은 화면에서는 좌측 PROJECT INDEX가 위치를 보여주므로 떠 있는 위치 표시는 숨김 (겹침 방지) */
 @media (min-width: 981px) { .scene__pill { display: none !important; } }
+/* 문서 탭이 많아도 다운로드 · 닫기 버튼을 가리지 않도록 */
+.modal.is-doc .modal__docbar { min-width: 0; }
+.modal__tabs { min-width: 0; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.modal__tabs::-webkit-scrollbar { display: none; }
+.modal__tabs button { flex: none; white-space: nowrap; }

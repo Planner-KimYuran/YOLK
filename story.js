@@ -864,7 +864,7 @@
     title: '사용성 평가를 통한 위버스 미디어 탐색 경로 개선 보고서',
     cardTitle: '사용성 평가를 통한 위버스 미디어 탐색 경로 개선 보고서',
     team: '3인 팀 (한수현 · 김유란 · 정유민)',
-    deliverable: '보고서 16p · 화면설계서 · 페이퍼 · 디지털 프로토타입',
+    deliverable: '보고서 2종(16p · 15p) · 화면설계서 2종 · 페이퍼 · 디지털 프로토타입',
     tags: ['#사용성평가', '#아이트래킹', '#정보구조'], homeTags: ['#사용성평가', '#아이트래킹', '#정보구조'],
     tagline: '탐색의 깊이는 최소한으로, 즐거움의 깊이는 무한대로.',
     question: ['보고 싶은 영상은 분명 있는데,', '왜 <em>카테고리에서 멈출까?</em>'],
@@ -875,7 +875,9 @@
     cover: pg('wv', 1, '보고서 표지'),
     docs: [
       doc('보고서', '사용성 평가 보고서', 'weverse-usability-report.pdf', 'wv', 1, 16, '김유란_위버스_사용성평가_보고서.pdf'),
-      doc('화면설계서', '화면설계서 (AS-IS → TO-BE)', 'weverse-screen-spec.pdf', 'wv', 11, 4, '김유란_위버스_화면설계서.pdf')
+      doc('보고서', '미디어 프로토타이핑 보고서', 'weverse-report-mp.pdf', 'wm', 1, 15, '김유란_위버스_미디어프로토타이핑_보고서.pdf'),
+      doc('화면설계서', '화면설계서 (AS-IS → TO-BE)', 'weverse-screen-spec.pdf', 'wv', 11, 4, '김유란_위버스_화면설계서.pdf'),
+      doc('화면설계서', '미디어 프로토타이핑 화면설계서', 'weverse-screen-spec-mp.pdf', 'wm', 10, 4, '김유란_위버스_미디어프로토타이핑_화면설계서.pdf')
     ],
     story: [
       { id: 'overview', name: 'Overview', title: 'Overview', lead: '글로벌 팬덤을 하나로 연결하는 올인원 플랫폼, 위버스',

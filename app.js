@@ -176,7 +176,7 @@
     }
     bar.innerHTML = '<div class="modal__tabs" role="tablist" aria-label="문서 선택">' + DOCS.map(function (x) {
       var on = x.file === d.file;
-      return '<button type="button" role="tab" aria-selected="' + on + '" data-doc="' + esc(x.file) + '">' + esc(x.title.replace(/^김유란 · /, '')) + '</button>';
+      return '<button type="button" role="tab" aria-selected="' + on + '" data-doc="' + esc(x.file) + '">' + esc(x.label || x.title.replace(/^김유란 · /, '').split(' · ').pop()) + '</button>';
     }).join('') + '</div><span class="modal__count">' + d.pages.length + '쪽</span>';
     $$('[data-doc]', bar).forEach(function (t) { t.addEventListener('click', function () { showDoc(t.getAttribute('data-doc')); }); });
     $('.modal__title', modal).textContent = d.title;
