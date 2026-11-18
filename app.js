@@ -302,7 +302,7 @@
       }).join('');
     }
 
-    /* 연락하기 — 메일 앱으로 작성 */
+    /* 연락하기 — Gmail 작성 창으로 바로 이동 */
     var cf = $('#cform');
     if (cf) cf.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -314,8 +314,10 @@
       err.hidden = true;
       var sub = '[포트폴리오 문의] ' + n;
       var body = t + '\n\n— ' + n + ' (' + m + ')';
-      window.location.href = 'mailto:' + D.profile.email + '?subject=' + encodeURIComponent(sub) + '&body=' + encodeURIComponent(body);
-      toast('메일 앱에서 내용을 확인하고 보내 주세요.');
+      var gm = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(D.profile.email) + '&su=' + encodeURIComponent(sub) + '&body=' + encodeURIComponent(body);
+      var w = window.open(gm, '_blank', 'noopener');
+      if (!w) window.location.href = gm;
+      toast('Gmail에서 내용을 확인하고 보내기를 눌러 주세요.');
     });
 
     /* 메뉴 위치 표시 */
