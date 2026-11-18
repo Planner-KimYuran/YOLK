@@ -2502,3 +2502,23 @@ body { letter-spacing: -0.012em; }
 [data-accent="yolk"] .card:hover, [data-accent="yolk"] .pcard:hover { background: #F7F7F7 !important; }
 .ft__sub { margin-top: 18px !important; font-size: 13px !important; color: #777 !important; }
 .gnb__links a { font-size: 12px !important; } .gnb__logo { font-size: 14px !important; }
+
+/* ===== v9 · 1920 × 1080 기준 그리드 — 화면이 넓을 때 본문 1600px · 좌우 160px ===== */
+@media (min-width: 1600px) {
+  :root { --max: 1600px; --gutter: clamp(56px, 8.334vw, 160px); --gnb-h: 76px; }
+  .gnb__links a { font-size: 13px !important; padding-inline: 14px; }
+  .gnb__logo { font-size: 16px !important; }
+  .hx__q { font-size: 14px; }
+  .hx__title { font-size: clamp(32px, 2.3vw, 44px); }
+  .sh__title { font-size: clamp(38px, 2.4vw, 46px); }
+  .kstats { max-width: none; } .cgrid { max-width: 1320px; }
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 56px 28px; }
+  .pcards { gap: 32px; }
+  .d-body { grid-template-columns: 220px minmax(0, 1fr); gap: 96px; }
+  .d-q__line { font-size: clamp(34px, 2.3vw, 44px) !important; }
+  .d-title { font-size: clamp(26px, 1.6vw, 30px) !important; }
+  .yb-launch { right: 40px; bottom: 40px; }
+  .to-top { right: 50px !important; bottom: 124px !important; }
+}
+/* 넓은 화면에서는 좌측 PROJECT INDEX가 위치를 보여주므로 떠 있는 위치 표시는 숨김 (겹침 방지) */
+@media (min-width: 981px) { .scene__pill { display: none !important; } }
