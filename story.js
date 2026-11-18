@@ -1149,4 +1149,4 @@
 })();
 
 /* HAELON 썸네일 */
-(function () { var H = window.YOLK.projects['01']; H.cover = { src: 'img/hl-thumb.jpg', thumb: 'img/hl-thumb-t.jpg' }; H.thumb = H.cover; })();
+(function () { var H = window.YOLK.projects['01']; H.cover = { src: 'img/hl-thumb.jpg', thumb: 'img/hl-thumb-t.jpg' }; H.thumb = { src: 'img/hl-thumb2.jpg', thumb: 'img/hl-thumb2-t.jpg' }; })();
