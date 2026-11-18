@@ -2527,3 +2527,7 @@ body { letter-spacing: -0.012em; }
 .modal__tabs { min-width: 0; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
 .modal__tabs::-webkit-scrollbar { display: none; }
 .modal__tabs button { flex: none; white-space: nowrap; }
+/* GNB를 위쪽 끝에서 조금 내려 여유 있게 */
+@media (min-width: 981px) { :root { --gnb-h: 84px; } .gnb__inner { padding-top: 6px; } }
+@media (min-width: 1600px) { :root { --gnb-h: 96px; } .gnb__inner { padding-top: 10px; } }
+@media (min-width: 1600px) { #projects { padding-top: 88px; padding-bottom: 88px; } }
