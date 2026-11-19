@@ -29,16 +29,17 @@
   }
   setActive(page === 'home' ? '' : page === 'ai' ? 'ai' : 'projects');
 
-  /* 온보딩 로딩 — 노른자 점 5개 (세션당 한 번) */
+  /* 온보딩 로딩 — 노른자 점 5개 (페이지를 열거나 새로고침할 때마다) */
   var loader = document.getElementById('loader');
   if (loader) {
     var t0 = Date.now();
     var hide = function () {
       setTimeout(function () {
-        loader.classList.add('is-done');
-        setTimeout(function () { document.dispatchEvent(new Event('yolk:ready')); }, 380);
-        try { sessionStorage.setItem('yolk-onboard', '1'); } catch (e) {}
-        setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 700);
+        /* 온보딩이 완전히 끝난 뒤 메인이 한 번에 나타나도록 — 겹치거나 서서히 보이는 전환 없음 */
+        if (!location.hash) window.scrollTo(0, 0);
+        if (loader.parentNode) loader.parentNode.removeChild(loader);
+        document.documentElement.classList.remove('is-onboarding');
+        document.dispatchEvent(new Event('yolk:ready'));
       }, Math.max(0, 1600 - (Date.now() - t0)));
     };
     if (document.readyState === 'complete') hide(); else window.addEventListener('load', hide);
@@ -318,6 +319,45 @@
       }
     });
 
+    /* 놀이터 입장 — 비밀번호 확인 → 로딩 → 놀이터로 이동 (지인 전용, 정식 보안이 아닌 가벼운 잠금) */
+    (function () {
+      var H = 'd2967f9c27227eca434ed735fbdee3743864f8578e9204429c351bab91a67b2f';
+      var gate = null, inp, boxes, err, pin;
+      function sha(t) { return crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)).then(function (b) { return [].map.call(new Uint8Array(b), function (x) { return ('0' + x.toString(16)).slice(-2); }).join(''); }); }
+      function build() {
+        gate = document.createElement('div'); gate.className = 'pgate'; gate.hidden = true;
+        gate.innerHTML = '<div class="pgate__card" role="dialog" aria-modal="true" aria-labelledby="pg-t"><button type="button" class="pgate__x" aria-label="닫기">✕</button>' +
+          '<p class="pgate__en">PLAYGROUND</p><h2 id="pg-t">지인 전용 놀이터</h2><p>비밀번호 네 자리를 입력하면 들어갈 수 있어요.</p>' +
+          '<form novalidate><div class="pgate__pin"><span></span><span></span><span></span><span></span><input inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" aria-label="비밀번호 네 자리"></div>' +
+          '<p class="pgate__err" role="alert"></p><button type="submit" class="pgate__go">입장하기</button></form></div>';
+        document.body.appendChild(gate);
+        inp = gate.querySelector('input'); boxes = gate.querySelectorAll('.pgate__pin span'); err = gate.querySelector('.pgate__err'); pin = gate.querySelector('.pgate__pin');
+        function paint() { var v = inp.value; [].forEach.call(boxes, function (b, i) { b.textContent = v[i] ? '●' : ''; b.classList.toggle('on', !!v[i]); b.classList.toggle('cur', i === v.length); }); }
+        inp.addEventListener('input', function () { inp.value = inp.value.replace(/\D/g, '').slice(0, 4); err.textContent = ''; paint(); if (inp.value.length === 4) check(); });
+        gate.querySelector('form').addEventListener('submit', function (e) { e.preventDefault(); check(); });
+        gate.querySelector('.pgate__x').addEventListener('click', close);
+        gate.addEventListener('click', function (e) { if (e.target === gate) close(); });
+        gate.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+        paint(); paintPin = paint;
+      }
+      var paintPin = function () {};
+      function check() {
+        if (inp.value.length < 4) { err.textContent = '네 자리를 모두 입력해 주세요.'; return; }
+        sha('yolk-play:' + inp.value).then(function (h) {
+          if (h !== H) { err.textContent = '비밀번호가 달라요. 다시 입력해 주세요.'; pin.classList.remove('shake'); void pin.offsetWidth; pin.classList.add('shake'); inp.value = ''; paintPin(); inp.focus(); return; }
+          try { sessionStorage.setItem('yolk-play', '1'); } catch (e) {}
+          gate.hidden = true;
+          var ld = document.createElement('div'); ld.className = 'loader'; ld.setAttribute('role', 'status'); ld.setAttribute('aria-label', '놀이터로 이동하는 중');
+          ld.innerHTML = '<div class="loader__dots"><i></i><i></i><i></i><i></i><i></i></div><p class="loader__t">김유란의 놀이터</p>';
+          document.body.appendChild(ld);
+          setTimeout(function () { location.href = 'play/'; }, 1600);
+        });
+      }
+      function open() { if (!gate) build(); gate.hidden = false; inp.value = ''; paintPin(); err.textContent = ''; setTimeout(function () { inp.focus(); }, 30); }
+      function close() { gate.hidden = true; }
+      document.addEventListener('click', function (e) { if (e.target.closest('[data-play]')) { e.preventDefault(); open(); } });
+    })();
+
     /* HOME 구역 맞춤 — 한 구역의 내용이 화면(GNB 아래)보다 길면 그 구역만 살짝 축소해 한 화면 안에 담음 */
     (function () {
       var root = document.documentElement, main = document.getElementById('main');
@@ -332,11 +372,13 @@
           if (!on || s.hidden) return;
           var g = (document.querySelector('.gnb') || {}).offsetHeight || 0, cs = getComputedStyle(s);
           var avail = innerHeight - g - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
-          var need = w.offsetHeight;
-          if (need > avail) w.style.zoom = Math.max(0.7, avail / need).toFixed(3);
+          var z = 1, h = w.getBoundingClientRect().height;
+          for (var k = 0; k < 6 && h > avail + 1 && z > 0.7; k++) { z = Math.max(0.7, z * (avail / h) - 0.003); w.style.zoom = z.toFixed(3); h = w.getBoundingClientRect().height; }
         });
       }
       fit(); addEventListener('resize', function () { clearTimeout(fit.t); fit.t = setTimeout(fit, 120); });
+      if (window.ResizeObserver) { var ro = new ResizeObserver(function () { clearTimeout(fit.r); fit.r = setTimeout(fit, 150); }); secs.forEach(function (s) { var w = s.querySelector(':scope > .wrap'); if (w) ro.observe(w); }); }
+      [].forEach.call(document.querySelectorAll('#main img'), function (im) { if (!im.complete) im.addEventListener('load', function () { clearTimeout(fit.r); fit.r = setTimeout(fit, 150); }); });
       addEventListener('load', fit); if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
     })();
 
