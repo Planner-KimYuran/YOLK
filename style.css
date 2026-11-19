@@ -2538,3 +2538,29 @@ body { letter-spacing: -0.012em; }
 .gnb__logo { font-family: "Pretendard Variable", Pretendard, sans-serif !important; font-weight: 700 !important; letter-spacing: -0.01em !important; }
 /* HOME 슬로건 '핵심' 밑줄 제거 */
 .hx__core::after { display: none !important; content: none !important; }
+
+/* ===== v10 · 노른자 봇 정리 — 답변을 가리지 않는 하단 영역, 차분한 톤 ===== */
+.yb-panel { width: 400px; border-color: #E8E8E8; box-shadow: 0 2px 6px rgba(0,0,0,.04), 0 28px 64px -24px rgba(0,0,0,.24); }
+.yb-head { background: #fff; padding: 16px 18px; }
+.yb-log { padding: 20px 18px 24px; gap: 14px; scrollbar-width: thin; scrollbar-color: #DADADA transparent;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 22px), transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 22px), transparent 100%); }
+.yb-log::-webkit-scrollbar { width: 6px; } .yb-log::-webkit-scrollbar-thumb { background: #DADADA; border-radius: 3px; } .yb-log::-webkit-scrollbar-track { background: transparent; }
+.yb-stack { max-width: 88%; gap: 8px; }
+.yb-msg { padding: 12px 14px; line-height: 1.65; }
+.yb-msg--me { padding: 10px 14px; }
+/* 이어서 물어보기 — 대화와 분리된 별도 영역, 잘리지 않고 줄바꿈 */
+.yb-chips { flex: none; flex-wrap: wrap !important; overflow: visible !important; gap: 6px; padding: 12px 18px 14px !important; border-top: 1px solid #F0F0F0; background: #FAFAFA; }
+.yb-chips:empty { display: none; }
+.yb-chips::before { content: '이어서 물어보기'; flex-basis: 100%; margin-bottom: 2px; font-size: 12px; font-weight: 600; color: #999; letter-spacing: -0.01em; }
+.yb-chip { flex: none; white-space: nowrap; padding: 7px 11px; border: 1px solid #E3E3E3; border-radius: 4px; background: #fff; color: #333; font-size: 14px; line-height: 1.3; }
+.yb-chip:hover { background: #F7F7F7; border-color: #CFCFCF; }
+.yb-chip--menu { background: transparent !important; border-style: dashed !important; color: #777; }
+.yb-form { padding: 12px 16px calc(14px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid #F0F0F0; background: #fff; }
+.yb-input { height: 44px; padding: 0 14px; border-color: #E3E3E3; }
+.yb-input::placeholder { color: #AAA; }
+.yb-send { width: 44px; height: 44px; }
+@media (max-width: 600px) { .yb-panel { width: auto; } .yb-chips { padding: 10px 14px 12px !important; } }
+.yb-menu-btn { border-color: #E3E3E3 !important; color: #555 !important; background: #fff !important; }
+.yb-menu-btn:hover { background: #F7F7F7 !important; border-color: #CFCFCF !important; }
+.yb-head { border-bottom-color: #F0F0F0; }
