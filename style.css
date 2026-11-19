@@ -2534,3 +2534,7 @@ body { letter-spacing: -0.012em; }
 /* 썸네일은 흑백 처리 없이 원래 컬러 그대로 */
 .th-mood img, .card .th-mood img, .pcard .th-mood img { filter: none !important; }
 .th-mood::before, [data-accent="yolk"] .th-mood::before { display: none !important; }
+/* 로고는 한글 '김유란' — Pretendard */
+.gnb__logo { font-family: "Pretendard Variable", Pretendard, sans-serif !important; font-weight: 700 !important; letter-spacing: -0.01em !important; }
+/* HOME 슬로건 '핵심' 밑줄 제거 */
+.hx__core::after { display: none !important; content: none !important; }
