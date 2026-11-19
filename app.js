@@ -44,7 +44,7 @@
           document.dispatchEvent(new Event('yolk:ready'));
           setTimeout(function () { r.classList.remove('is-enter'); }, 1800);
         }, 520);
-      }, Math.max(0, 2100 - (Date.now() - t0)));
+      }, Math.max(0, 3000 - (Date.now() - t0)));
     };
     if (document.readyState === 'complete') hide(); else window.addEventListener('load', hide);
   }
