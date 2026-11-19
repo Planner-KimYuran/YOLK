@@ -322,7 +322,7 @@
     '<button type="button" class="yb-launch" aria-label="노른자 봇 열기 — 김유란에 대해 물어보기" aria-expanded="false" aria-controls="yb-panel">' +
       '<span class="yb-egg">' + yolk + '</span><span class="yb-tip">김유란이 궁금하다면?</span></button>' +
     '<section class="yb-panel" id="yb-panel" role="dialog" aria-label="노른자 봇" hidden>' +
-      '<div class="yb-resize" role="separator" aria-label="채팅 창 크기 조절 — 끌어서 조절, 두 번 누르면 기본 크기" title="끌어서 크기 조절 · 두 번 누르면 기본 크기"></div>' +
+      '<div class="yb-rz yb-rz--l" data-rz="l" aria-hidden="true"></div><div class="yb-rz yb-rz--t" data-rz="t" aria-hidden="true"></div><div class="yb-rz yb-rz--tl" data-rz="tl" aria-hidden="true"></div>' +
       '<header class="yb-head"><span class="yb-egg yb-egg--sm">' + yolk + '</span>' +
         '<div class="yb-head__t"><b>노른자 봇</b><small><span class="en">YOLK BOT</span> · 김유란에 대해 무엇이든</small></div>' +
         '<button type="button" class="yb-menu-btn" aria-label="질문 목록 보기">목록</button>' +
@@ -339,28 +339,36 @@
       form = root.querySelector('.yb-form'), input = root.querySelector('.yb-input');
   var started = false, busy = false;
 
-  /* 채팅 창 크기 조절 — 왼쪽 위 손잡이를 끌어 조절, 두 번 누르면 기본 크기. 크기는 이 브라우저에만 기억 */
+  /* 채팅 창 크기 조절 — 창의 왼쪽 · 위쪽 테두리와 왼쪽 위 모서리에 마우스를 올리면 조절 커서가 뜨고, 끌어서 가로 · 세로를 자유롭게 조절.
+     테두리를 두 번 누르면 기본 크기. 크기는 이 브라우저에만 기억 */
   (function () {
-    var h = panel.querySelector('.yb-resize'), KEY = 'yolkbot-size';
-    function apply(w, ht) { panel.style.width = w + 'px'; panel.style.height = ht + 'px'; if (typeof scroll === 'function' && pinned) scroll(); }
-    function clampSize(w, ht) { var r = panel.getBoundingClientRect(); return [Math.max(320, Math.min(w, r.right - 16)), Math.max(420, Math.min(ht, r.bottom - 16))]; }
+    var KEY = 'yolkbot-size';
+    function apply(w, ht) { if (w) panel.style.width = w + 'px'; if (ht) panel.style.height = ht + 'px'; if (pinned) scroll(); }
     try { var sv = JSON.parse(localStorage.getItem(KEY) || 'null'); if (sv && innerWidth > 600) apply(sv[0], sv[1]); } catch (e) {}
-    h.addEventListener('pointerdown', function (e) {
-      if (innerWidth <= 600) return;
-      e.preventDefault(); h.setPointerCapture(e.pointerId); panel.classList.add('is-resizing');
-      var r = panel.getBoundingClientRect(), sx = e.clientX, sy = e.clientY;
-      function mv(ev) { var c = clampSize(r.width + (sx - ev.clientX), r.height + (sy - ev.clientY)); apply(c[0], c[1]); }
-      function up() { h.removeEventListener('pointermove', mv); h.removeEventListener('pointerup', up); panel.classList.remove('is-resizing');
-        try { localStorage.setItem(KEY, JSON.stringify([panel.offsetWidth, panel.offsetHeight])); } catch (err) {} }
-      h.addEventListener('pointermove', mv); h.addEventListener('pointerup', up);
+    panel.querySelectorAll('.yb-rz').forEach(function (h) {
+      var mode = h.getAttribute('data-rz');
+      h.addEventListener('pointerdown', function (e) {
+        if (innerWidth <= 600 || e.button !== 0) return;
+        e.preventDefault(); h.setPointerCapture(e.pointerId); panel.classList.add('is-resizing');
+        var r = panel.getBoundingClientRect(), sx = e.clientX, sy = e.clientY, keep = pinned; rzing = true;
+        function mv(ev) {
+          var w = mode !== 't' ? Math.max(320, Math.min(r.width + (sx - ev.clientX), r.right - 16)) : 0;
+          var ht = mode !== 'l' ? Math.max(480, Math.min(r.height + (sy - ev.clientY), r.bottom - 16)) : 0;
+          apply(w, ht); if (keep) scroll();
+        }
+        function up() { rzing = false; if (keep) { pinned = true; scroll(); } h.removeEventListener('pointermove', mv); h.removeEventListener('pointerup', up); h.removeEventListener('pointercancel', up); panel.classList.remove('is-resizing');
+          try { localStorage.setItem(KEY, JSON.stringify([panel.offsetWidth, panel.offsetHeight])); } catch (err) {} }
+        h.addEventListener('pointermove', mv); h.addEventListener('pointerup', up); h.addEventListener('pointercancel', up);
+      });
+      h.addEventListener('dblclick', function () { panel.style.width = ''; panel.style.height = ''; pinned = true; requestAnimationFrame(scroll); try { localStorage.removeItem(KEY); } catch (e) {} });
     });
-    h.addEventListener('dblclick', function () { panel.style.width = ''; panel.style.height = ''; pinned = true; requestAnimationFrame(scroll); try { localStorage.removeItem(KEY); } catch (e) {} });
   })();
 
   function scroll() { log.scrollTop = log.scrollHeight; }
   /* 아래 추천 질문 · 창 크기가 바뀌어도 마지막 답변이 가려지지 않도록 바닥에 붙여 둠 */
   var pinned = true;
-  log.addEventListener('scroll', function () { pinned = log.scrollHeight - log.scrollTop - log.clientHeight < 40; });
+  var rzing = false;
+  log.addEventListener('scroll', function () { if (!rzing) pinned = log.scrollHeight - log.scrollTop - log.clientHeight < 40; });
   if (window.ResizeObserver) new ResizeObserver(function () { if (pinned) scroll(); }).observe(log);
   function addUser(t) { var d = document.createElement('div'); d.className = 'yb-msg yb-msg--me'; d.textContent = t; log.appendChild(d); scroll(); }
   function addBot(parts, done) {
