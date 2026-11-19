@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap">
 <script>try{localStorage.removeItem("yolk-theme");if(localStorage.getItem("yolk-accent")==="on")document.documentElement.setAttribute("data-accent","yolk");}catch(e){}</script>
-<link rel="stylesheet" href="style.css?v=80">
+<link rel="stylesheet" href="style.css?v=83">
 </head>
 <body data-page="home">
 <div class="loader" id="loader" role="status" aria-label="김유란의 포트폴리오 불러오는 중"><div class="loader__dots"><i></i><i></i><i></i><i></i><i></i></div><p class="loader__t">김유란의 포트폴리오</p></div>
@@ -180,7 +180,7 @@
         <p class="sh__sub">포트폴리오를 보고 남기고 싶은 한마디가 있다면 들려주세요.<br>닉네임과 메시지는 모두에게 보이고, 실명과 연락처는 김유란에게만 전달됩니다.</p>
       </div>
       <div class="chr">
-        <form class="chr__form" id="chr-form" novalidate>
+        <form class="chr__form" id="chr-form" novalidate onsubmit="return false" action="javascript:void(0)">
           <h3>응원 남기기</h3>
           <label class="chr__f"><span>닉네임 <b aria-hidden="true">*</b> <em>공개</em></span><input name="nick" required maxlength="20" autocomplete="nickname" placeholder="예) 노른자 팬"></label>
           <label class="chr__f"><span>메시지 <b aria-hidden="true">*</b> <em>공개</em></span><textarea name="msg" required maxlength="300" rows="4" placeholder="응원, 피드백, 감상 무엇이든 좋아요. (300자)"></textarea><small class="chr__count" aria-live="polite">0 / 300</small></label>
@@ -255,11 +255,11 @@
   </div>
 </div>
 
-<script src="data.js?v=80"></script>
-<script src="story.js?v=80"></script>
-<script src="app.js?v=80"></script>
-<script src="yolkbot.js?v=80"></script>
-<script src="cheer-config.js?v=80"></script>
-<script type="module" src="cheer.js?v=80"></script>
+<script src="data.js?v=83"></script>
+<script src="story.js?v=83"></script>
+<script src="app.js?v=83"></script>
+<script src="yolkbot.js?v=83"></script>
+<script src="cheer-config.js?v=83"></script>
+<script type="module" src="cheer.js?v=83"></script>
 </body>
 </html>

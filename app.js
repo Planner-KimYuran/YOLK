@@ -384,12 +384,13 @@
         root.classList.toggle('home-fit', on);
         secs.forEach(function (s) {
           var w = s.querySelector(':scope > .wrap'); if (!w) return;
-          w.style.zoom = '';
+          var kids = [].slice.call(w.children); kids.forEach(function (k) { k.style.zoom = ''; });
           if (!on || s.hidden) return;
           var g = (document.querySelector('.gnb') || {}).offsetHeight || 0, cs = getComputedStyle(s);
           var avail = innerHeight - g - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
           var z = 1, h = w.getBoundingClientRect().height;
-          for (var k = 0; k < 6 && h > avail + 1 && z > 0.7; k++) { z = Math.max(0.7, z * (avail / h) - 0.003); w.style.zoom = z.toFixed(3); h = w.getBoundingClientRect().height; }
+          /* 좌우 여백은 그대로 두고 안쪽 내용만 줄임 → 모든 구역의 양옆 마진이 같음 */
+          for (var k = 0; k < 6 && h > avail + 1 && z > 0.8; k++) { z = Math.max(0.8, z * (avail / h) - 0.003); kids.forEach(function (c) { c.style.zoom = z.toFixed(3); }); h = w.getBoundingClientRect().height; }
         });
       }
       fit(); addEventListener('resize', function () { clearTimeout(fit.t); fit.t = setTimeout(fit, 120); });
