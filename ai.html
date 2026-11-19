@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap">
 <script>try{localStorage.removeItem("yolk-theme");if(localStorage.getItem("yolk-accent")==="on")document.documentElement.setAttribute("data-accent","yolk");}catch(e){}</script>
-<link rel="stylesheet" href="style.css?v=76">
+<link rel="stylesheet" href="style.css?v=77">
 </head>
 <body data-page="ai">
 <a class="skip" href="#main">본문 바로가기</a>
@@ -37,199 +37,162 @@
   </div>
 </header>
 
-<main id="main" class="ai">
-  <!-- AI-01 한 줄 -->
-  <section class="wrap ai-hero" aria-labelledby="ai-title">
-    <p class="pill">AI 활용</p>
-    <h1 class="ai-hero__title en" id="ai-title">AI Workflow</h1>
-    <p class="ai-hero__lead">AI에게 <b>맡기지</b> 않고, AI와 <b>판을 짭니다.</b></p>
-    <p class="ai-hero__sub">문제 정의와 판단은 제가, 정리와 구현은 AI가. 결과는 다시 제가 검증합니다.</p>
-    <dl class="ai-stack">
-      <div><dt class="en">TOOL</dt><dd>Claude Code</dd></div>
-      <div><dt class="en">PLAN</dt><dd>Claude Pro</dd></div>
-      <div><dt class="en">MODEL</dt><dd>Fable · Opus</dd></div>
-      <div><dt class="en">RULE</dt><dd>근거는 내가, 정리는 AI가</dd></div>
-    </dl>
-    <p class="ai-hero__bot"><a class="btn-line btn-yb" href="#" data-yolkbot><i class="dot" aria-hidden="true"></i>노른자 봇에게 김유란에 대해 물어보기</a></p>
-  </section>
-
-  <!-- AI-02 단계별 -->
-  <section class="wrap ai-sec ai-journey" aria-labelledby="ai-j-t">
-    <div class="ai-sec__head"><p class="en">00</p><h2 id="ai-j-t">시작부터 마무리까지, 이렇게 일합니다</h2></div>
-    <p class="ai-sec__lead">판단은 제가, 정리와 구현은 AI가. 여섯 단계를 거치며 무엇을 누가 하는지 나눠 둡니다.</p>
-    <ol class="ai-j">
-      <li class="ai-j__step">
-        <div class="ai-j__no"><span class="en">01</span><i aria-hidden="true"></i></div>
-        <div class="ai-j__card">
-          <p class="ai-j__k en">BRIEF</p>
-          <h3>판 짜기</h3>
-          <p class="ai-j__lead">목표 · 범위 · 하지 말 것을 먼저 정해요.</p>
-          <dl class="ai-j__split"><div class="me"><dt>내가</dt><dd>번호를 붙인 요청 목록과 제약을 정리</dd></div><div class="ai"><dt>AI가</dt><dd>빠진 항목이 없는지 체크리스트로 되묻기</dd></div></dl>
-          <p class="ai-j__out"><span class="en">OUTPUT</span>요청 목록 · 제약 조건</p>
-          <blockquote class="ai-j__ex">“1. 문구 변경 2. 여백 축소 3. 온보딩 추가… 내용은 수정하지 마.”</blockquote>
-        </div>
-      </li>
-      <li class="ai-j__step">
-        <div class="ai-j__no"><span class="en">02</span><i aria-hidden="true"></i></div>
-        <div class="ai-j__card">
-          <p class="ai-j__k en">CONTEXT</p>
-          <h3>자료 넣기</h3>
-          <p class="ai-j__lead">근거는 말로 설명하지 않고 원본을 직접 줘요.</p>
-          <dl class="ai-j__split"><div class="me"><dt>내가</dt><dd>이력서 · 자기소개서 · 기획서 PDF · 화면설계서 첨부</dd></div><div class="ai"><dt>AI가</dt><dd>긴 문서를 읽고 구조 · 수치를 뽑아 정리</dd></div></dl>
-          <p class="ai-j__out"><span class="en">OUTPUT</span>원본 자료 묶음</p>
-          <blockquote class="ai-j__ex">“이 PDF들이 프로젝트 원본이야. 정보구조도 · AS-IS · TO-BE가 잘 보이게.”</blockquote>
-        </div>
-      </li>
-      <li class="ai-j__step">
-        <div class="ai-j__no"><span class="en">03</span><i aria-hidden="true"></i></div>
-        <div class="ai-j__card">
-          <p class="ai-j__k en">STRUCTURE</p>
-          <h3>구조 정하기</h3>
-          <p class="ai-j__lead">무엇을 보여주고 덜어낼지는 제가 정해요.</p>
-          <dl class="ai-j__split"><div class="me"><dt>내가</dt><dd>정보구조 · 화면 순서 · 메인 프로젝트 3개 결정</dd></div><div class="ai"><dt>AI가</dt><dd>정한 구조대로 데이터 파일과 섹션 틀 만들기</dd></div></dl>
-          <p class="ai-j__out"><span class="en">OUTPUT</span>정보구조 · 화면설계서</p>
-          <blockquote class="ai-j__ex">“메인은 HAELON · 위버스 · 성수 세 개. 나머지는 전체 프로젝트로.”</blockquote>
-        </div>
-      </li>
-      <li class="ai-j__step">
-        <div class="ai-j__no"><span class="en">04</span><i aria-hidden="true"></i></div>
-        <div class="ai-j__card">
-          <p class="ai-j__k en">BUILD</p>
-          <h3>만들기</h3>
-          <p class="ai-j__lead">한 번에 한 화면, 한 가지 변경만 요청해요.</p>
-          <dl class="ai-j__split"><div class="me"><dt>내가</dt><dd>우선순위와 순서 지정</dd></div><div class="ai"><dt>AI가</dt><dd>Claude Code로 HTML · CSS · JS 구현</dd></div></dl>
-          <p class="ai-j__out"><span class="en">OUTPUT</span>실제로 열리는 화면</p>
-          <blockquote class="ai-j__ex">“가로형 키오스크가 메인이야. 직접 눌러 볼 수 있게 넣어줘.”</blockquote>
-        </div>
-      </li>
-      <li class="ai-j__step">
-        <div class="ai-j__no"><span class="en">05</span><i aria-hidden="true"></i></div>
-        <div class="ai-j__card">
-          <p class="ai-j__k en">REVIEW</p>
-          <h3>보고 고치기</h3>
-          <p class="ai-j__lead">실제 화면을 보고, 느낌이 아니라 구체적으로 짚어요.</p>
-          <dl class="ai-j__split"><div class="me"><dt>내가</dt><dd>행간 · 자간 · 여백 · 색 · 잘림을 눈으로 확인</dd></div><div class="ai"><dt>AI가</dt><dd>지적한 곳만 작게 수정, 스크린샷으로 보고</dd></div></dl>
-          <p class="ai-j__out"><span class="en">OUTPUT</span>수정 기록</p>
-          <blockquote class="ai-j__ex">“썸네일 왼쪽이 다 잘려.” → 칸 비율을 16:9로</blockquote>
-        </div>
-      </li>
-      <li class="ai-j__step">
-        <div class="ai-j__no"><span class="en">06</span><i aria-hidden="true"></i></div>
-        <div class="ai-j__card">
-          <p class="ai-j__k en">SHIP</p>
-          <h3>검증 · 공개</h3>
-          <p class="ai-j__lead">“됐다”는 말 대신 확인한 근거를 받아요.</p>
-          <dl class="ai-j__split"><div class="me"><dt>내가</dt><dd>최종 판단 · 사실 확인 · 공개 여부 결정</dd></div><div class="ai"><dt>AI가</dt><dd>모바일 넘침 · 깨진 이미지 점검, 원본과 글자 대조, 실제 주소 확인</dd></div></dl>
-          <p class="ai-j__out"><span class="en">OUTPUT</span>배포된 사이트</p>
-          <blockquote class="ai-j__ex">“이력서 내용은 바꾸지 마.” → 원본과 글자 대조로 확인</blockquote>
-        </div>
-      </li>
-    </ol>
-    <div class="ai-loop" aria-label="보고 고치기 반복 구조">
-      <div class="ai-loop__ring" aria-hidden="true">
-        <svg viewBox="0 0 220 220"><circle cx="110" cy="110" r="84" fill="none" stroke="#E6E3D8" stroke-width="2"/><path d="M110 26 A84 84 0 0 1 194 110" fill="none" stroke="#333" stroke-width="2"/><path d="M188 98 l6 12 l7 -12" fill="none" stroke="#333" stroke-width="2"/></svg>
-        <span class="n1">요청</span><span class="n2">구현</span><span class="n3">화면 확인</span><span class="n4">작은 수정</span>
-        <b class="c">한 번에<br>한 가지</b>
+<main id="main" class="ax">
+  <!-- AX-01 한 문장 -->
+  <section class="sx ax-hero" id="ai-top" aria-labelledby="ai-title">
+    <div class="wrap ax-hero__in">
+      <div class="ax-hero__l">
+        <p class="pill">AI 활용법</p>
+        <h1 class="ax-hero__t" id="ai-title">AI에게 맡기지 않고,<br>AI와 <span>판을 짭니다.</span></h1>
+        <p class="ax-hero__s">문제 정의와 판단은 제가, 정리와 구현은 AI가.<br>결과는 다시 제가 검증합니다.</p>
+        <dl class="ax-stack">
+          <div><dt class="en">TOOL</dt><dd>Claude Code</dd></div>
+          <div><dt class="en">PLAN</dt><dd>Claude Pro</dd></div>
+          <div><dt class="en">MODEL</dt><dd>Fable · Opus</dd></div>
+        </dl>
+        <p class="ax-hero__cta"><a class="ax-btn ax-btn--line" href="#" data-yolkbot><i class="dot" aria-hidden="true"></i>노른자 봇에게 물어보기</a></p>
       </div>
-      <div class="ai-loop__txt">
-        <p class="en">THE LOOP</p>
-        <h3>크게 다시 만들지 않고, 작게 여러 번</h3>
-        <p>전체를 갈아엎는 대신 한 번에 하나만 바꾸고, 바로 실제 화면으로 확인해요. 이 사이트도 이 고리를 수십 번 돌았어요.</p>
+      <div class="ax-split" aria-label="역할 나누기">
+        <div class="ax-split__col ax-split__col--me">
+          <p class="en">KIM YURAN</p><h2>제가 하는 일</h2>
+          <ol><li><b>01</b>무엇이 문제인지 정하기</li><li><b>02</b>근거 자료 고르기</li><li><b>03</b>남길 것 · 덜어낼 것 결정</li><li><b>04</b>사실 확인과 최종 판단</li></ol>
+        </div>
+        <div class="ax-split__mid" aria-hidden="true"><span>요청</span><i></i><span>결과</span></div>
+        <div class="ax-split__col ax-split__col--ai">
+          <p class="en">AI</p><h2>AI에게 맡기는 일</h2>
+          <ol><li><b>01</b>긴 자료 읽고 구조 정리</li><li><b>02</b>빠진 항목 되묻기</li><li><b>03</b>화면 구현 · 문서 조판</li><li><b>04</b>스크린샷 · 오류 점검</li></ol>
+        </div>
       </div>
-    </div>
-    <div class="ai-cases">
-      <p class="ai-cases__h en">REAL REQUESTS · 이 사이트에서 실제로 있었던 일</p>
-      <div class="ai-case-row"><div><small>내가 짚은 것</small><p>“썸네일 좌측이 다 잘려.”</p></div><span aria-hidden="true">→</span><div><small>원인</small><p>16:10 칸에 16:9 장표</p></div><span aria-hidden="true">→</span><div><small>확인</small><p>16:9로 바꾸고 실제 사이트에서 비율 확인</p></div></div>
-      <div class="ai-case-row"><div><small>내가 짚은 것</small><p>“영상 말고는 소리 나면 안 돼.”</p></div><span aria-hidden="true">→</span><div><small>원인</small><p>프로토타입 안내 음성</p></div><span aria-hidden="true">→</span><div><small>확인</small><p>음성은 끄고 자막만 남김</p></div></div>
-      <div class="ai-case-row"><div><small>내가 짚은 것</small><p>“ESG를 너무 대놓고 쓰지 마.”</p></div><span aria-hidden="true">→</span><div><small>판단</small><p>상 자랑이 아니라 설계의 이유</p></div><span aria-hidden="true">→</span><div><small>확인</small><p>결론 속 한 문장으로 다시 씀</p></div></div>
     </div>
   </section>
 
-  <section class="wrap ai-sec" aria-labelledby="ai-flow-t">
-    <div class="ai-sec__head"><p class="en">01</p><h2 id="ai-flow-t">단계마다 역할을 나눕니다</h2></div>
-    <div class="ai-steps" role="tablist" aria-label="기획 단계">
-      <button type="button" role="tab" aria-selected="true" aria-controls="st-1" id="tb-1"><span class="en">PLAN</span>판 짜기</button>
-      <button type="button" role="tab" aria-selected="false" aria-controls="st-2" id="tb-2" tabindex="-1"><span class="en">FIND</span>핵심 찾기</button>
-      <button type="button" role="tab" aria-selected="false" aria-controls="st-3" id="tb-3" tabindex="-1"><span class="en">KEEP</span>구조 · 구현</button>
-      <button type="button" role="tab" aria-selected="false" aria-controls="st-4" id="tb-4" tabindex="-1"><span class="en">CHECK</span>검증</button>
-    </div>
-    <div class="ai-panel" role="tabpanel" id="st-1" aria-labelledby="tb-1">
-      <div class="ai-split"><div><h3>내가 하는 일</h3><p>목표 · 범위 · 일정 · 산출물을 먼저 정합니다. 무엇을 확인해야 하는지가 정해져야 AI에게 줄 질문도 정해집니다.</p></div>
-      <div><h3>AI에게 맡기는 일</h3><p>정해진 범위 안에서 체크리스트 · 목차 · 일정표 초안. 빠진 항목이 없는지 반대로 질문하게 합니다.</p></div></div>
-      <p class="ai-model"><span class="en">MODEL</span>Opus — 짧은 정리와 반복 수정</p>
-    </div>
-    <div class="ai-panel" role="tabpanel" id="st-2" aria-labelledby="tb-2" hidden>
-      <div class="ai-split"><div><h3>내가 하는 일</h3><p>설문 설계, 현장 관찰, 출처 확인. 숫자는 원문에서 직접 확인하고, 문제를 다시 정의하는 판단은 제가 내립니다.</p></div>
-      <div><h3>AI에게 맡기는 일</h3><p>모은 자료의 분류 · 요약 · 비교표. 출처 없는 문장은 쓰지 않도록 조건을 걸고, 근거 문장을 함께 표시하게 합니다.</p></div></div>
-      <p class="ai-model"><span class="en">MODEL</span>Fable — 긴 자료를 한 번에 읽고 구조화</p>
-    </div>
-    <div class="ai-panel" role="tabpanel" id="st-3" aria-labelledby="tb-3" hidden>
-      <div class="ai-split"><div><h3>내가 하는 일</h3><p>정보구조도 · 화면설계서 · 문구. 화면에 무엇을 남기고 무엇을 덜어낼지 정합니다.</p></div>
-      <div><h3>AI에게 맡기는 일</h3><p>설계서대로의 HTML · CSS 구현, 문서 조판, 반복 작업. 한 번에 한 화면 · 한 가지 변경만 요청합니다.</p></div></div>
-      <p class="ai-model"><span class="en">MODEL</span>Fable — 구조 설계 · 큰 구현 / Opus — 작은 수정</p>
-    </div>
-    <div class="ai-panel" role="tabpanel" id="st-4" aria-labelledby="tb-4" hidden>
-      <div class="ai-split"><div><h3>내가 하는 일</h3><p>실제 화면을 직접 보고 어색한 곳을 짚습니다. 최종 결정과 사실 확인은 넘기지 않습니다.</p></div>
-      <div><h3>AI에게 맡기는 일</h3><p>스크린샷 · 오류 · 가로 넘침 자동 점검, 원본 문서와 글자 대조. "됐다"는 말 대신 확인한 근거를 보고하게 합니다.</p></div></div>
-      <p class="ai-model"><span class="en">MODEL</span>Opus — 체크리스트 대조</p>
+  <!-- AX-02 여섯 단계 -->
+  <section class="sx" id="ai-flow" aria-labelledby="ai-flow-t">
+    <div class="wrap">
+      <div class="sh"><p class="pill">일하는 순서</p><h2 class="sh__title en" id="ai-flow-t">Workflow</h2><p class="sh__sub">시작부터 마무리까지 여섯 단계, 단계마다 누가 무엇을 하는지 나눠 둡니다.</p></div>
+      <div class="ax-flow" role="table" aria-label="여섯 단계와 역할">
+        <div class="ax-flow__row ax-flow__row--head" role="row">
+          <div class="ax-flow__lb" role="rowheader"></div>
+          <div role="columnheader"><span class="en">01 BRIEF</span><b>판 짜기</b></div>
+          <div role="columnheader"><span class="en">02 CONTEXT</span><b>자료 넣기</b></div>
+          <div role="columnheader"><span class="en">03 STRUCTURE</span><b>구조 정하기</b></div>
+          <div role="columnheader"><span class="en">04 BUILD</span><b>만들기</b></div>
+          <div role="columnheader"><span class="en">05 REVIEW</span><b>보고 고치기</b></div>
+          <div role="columnheader"><span class="en">06 SHIP</span><b>검증 · 공개</b></div>
+        </div>
+        <div class="ax-flow__row ax-flow__row--me" role="row">
+          <div class="ax-flow__lb" role="rowheader">제가</div>
+          <div role="cell">목표 · 범위 · 하지 말 것을 번호 붙여 정리</div>
+          <div role="cell">이력서 · 기획서 PDF · 화면설계서 원본 첨부</div>
+          <div role="cell">정보구조 · 화면 순서 · 메인 프로젝트 3개 결정</div>
+          <div role="cell">우선순위와 순서 지정</div>
+          <div role="cell">행간 · 여백 · 색 · 잘림을 눈으로 확인</div>
+          <div role="cell">사실 확인 · 공개 여부 최종 결정</div>
+        </div>
+        <div class="ax-flow__row ax-flow__row--ai" role="row">
+          <div class="ax-flow__lb" role="rowheader">AI가</div>
+          <div role="cell">빠진 항목이 없는지 체크리스트로 되묻기</div>
+          <div role="cell">긴 문서를 읽고 구조 · 수치 정리</div>
+          <div role="cell">정한 구조대로 데이터와 섹션 틀 구성</div>
+          <div role="cell">Claude Code로 HTML · CSS · JS 구현</div>
+          <div role="cell">짚은 곳만 작게 수정, 스크린샷으로 보고</div>
+          <div role="cell">모바일 넘침 · 깨진 이미지 점검, 원본과 글자 대조</div>
+        </div>
+        <div class="ax-flow__row ax-flow__row--out" role="row">
+          <div class="ax-flow__lb en" role="rowheader">OUTPUT</div>
+          <div role="cell">요청 목록 · 제약 조건</div>
+          <div role="cell">원본 자료 묶음</div>
+          <div role="cell">정보구조 · 화면설계서</div>
+          <div role="cell">실제로 열리는 화면</div>
+          <div role="cell">수정 기록</div>
+          <div role="cell">배포된 사이트</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- AI-03 프롬프트 -->
-  <section class="wrap ai-sec" aria-labelledby="ai-pr-t">
-    <div class="ai-sec__head"><p class="en">02</p><h2 id="ai-pr-t">프롬프트는 짧게, 조건은 분명하게</h2></div>
-    <div class="ai-prompt">
-      <div class="ai-prompt__toggle" role="group" aria-label="프롬프트 비교">
-        <button type="button" aria-pressed="false" data-pr="bad">그냥 시키기</button>
-        <button type="button" aria-pressed="true" data-pr="good">제가 쓰는 방식</button>
+  <!-- AX-03 작게 여러 번 -->
+  <section class="sx" id="ai-loop" aria-labelledby="ai-loop-t">
+    <div class="wrap">
+      <div class="sh"><p class="pill">고치는 방식</p><h2 class="sh__title en" id="ai-loop-t">The Loop</h2><p class="sh__sub">크게 다시 만들지 않고, 한 번에 하나만 바꾸고 바로 실제 화면으로 확인해요.</p></div>
+      <div class="ax-loop">
+        <div class="ax-loop__ring" aria-hidden="true">
+          <svg viewBox="0 0 240 240"><circle cx="120" cy="120" r="96" fill="none" stroke="#ECECEC" stroke-width="2"/><circle cx="120" cy="120" r="96" fill="none" stroke="#333" stroke-width="2" stroke-dasharray="120 483" stroke-linecap="round" class="ax-loop__arc"/></svg>
+          <span class="n n1">요청</span><span class="n n2">구현</span><span class="n n3">화면 확인</span><span class="n n4">작은 수정</span>
+          <b>한 번에<br>한 가지</b>
+        </div>
+        <div class="ax-cases">
+          <p class="ax-cases__h en">REAL REQUESTS</p>
+          <article class="ax-case"><div><small>제가 짚은 것</small><p>“썸네일 좌측이 다 잘려.”</p></div><div><small>원인</small><p>16:10 칸에 16:9 장표</p></div><div><small>확인</small><p>16:9로 바꾸고 실제 사이트에서 비율 확인</p></div></article>
+          <article class="ax-case"><div><small>제가 짚은 것</small><p>“영상 말고는 소리 나면 안 돼.”</p></div><div><small>원인</small><p>프로토타입 안내 음성</p></div><div><small>확인</small><p>음성은 끄고 자막만 남김</p></div></article>
+          <article class="ax-case"><div><small>제가 짚은 것</small><p>“ESG를 너무 대놓고 쓰지 마.”</p></div><div><small>판단</small><p>상 자랑이 아니라 설계의 이유</p></div><div><small>확인</small><p>결론 속 한 문장으로 다시 씀</p></div></article>
+        </div>
       </div>
-      <pre class="ai-code" data-pr-view="bad" hidden>포트폴리오 사이트 예쁘게 만들어줘.</pre>
-      <pre class="ai-code" data-pr-view="good"><span class="k">[목표]</span>  메인 '나의 이력'을 1920×1080 한 화면에 사진 · 경력이 다 보이게.
+    </div>
+  </section>
+
+  <!-- AX-04 프롬프트 -->
+  <section class="sx" id="ai-prompt" aria-labelledby="ai-pr-t">
+    <div class="wrap">
+      <div class="sh"><p class="pill">프롬프트</p><h2 class="sh__title en" id="ai-pr-t">Prompt</h2><p class="sh__sub">짧게 쓰되 조건은 분명하게. 다섯 가지를 빠뜨리지 않아요.</p></div>
+      <div class="ax-prompt">
+        <div class="ax-prompt__l">
+          <div class="ax-toggle" role="group" aria-label="프롬프트 비교">
+            <button type="button" aria-pressed="false" data-pr="bad">그냥 시키기</button>
+            <button type="button" aria-pressed="true" data-pr="good">제가 쓰는 방식</button>
+          </div>
+          <pre class="ax-code" data-pr-view="bad" hidden>포트폴리오 사이트 예쁘게 만들어줘.</pre>
+          <pre class="ax-code" data-pr-view="good"><span class="k">[목표]</span>  메인 '나의 이력'을 1920×1080 한 화면에 사진 · 경력이 다 보이게.
 <span class="k">[맥락]</span>  첨부한 화면설계서 p.12, 현재 사이트 링크.
 <span class="k">[제약]</span>  내용 수정 금지 · 일러스트 금지 · 폰트는 Pretendard / Orbitron만.
 <span class="k">[출력]</span>  바뀐 부분만, 이전으로 되돌릴 수 있게.
 <span class="k">[검증]</span>  1920×1080 스크린샷과 모바일 가로 넘침 여부를 함께 보고.</pre>
-      <ul class="ai-anatomy">
-        <li><b class="en">GOAL</b>무엇이 끝인지 한 문장</li>
-        <li><b class="en">CONTEXT</b>근거 자료를 직접 첨부</li>
-        <li><b class="en">LIMIT</b>하지 말 것을 먼저</li>
-        <li><b class="en">OUTPUT</b>바뀐 부분만, 되돌릴 수 있게</li>
-        <li><b class="en">CHECK</b>확인 방법까지 요청</li>
-      </ul>
+        </div>
+        <ol class="ax-anatomy">
+          <li><span class="en">GOAL</span><b>무엇이 끝인지 한 문장</b></li>
+          <li><span class="en">CONTEXT</span><b>근거 자료를 직접 첨부</b></li>
+          <li><span class="en">LIMIT</span><b>하지 말 것을 먼저</b></li>
+          <li><span class="en">OUTPUT</span><b>바뀐 부분만, 되돌릴 수 있게</b></li>
+          <li><span class="en">CHECK</span><b>확인 방법까지 요청</b></li>
+        </ol>
+      </div>
     </div>
   </section>
 
-  <!-- AI-04 토큰 -->
-  <section class="wrap ai-sec" aria-labelledby="ai-tk-t">
-    <div class="ai-sec__head"><p class="en">03</p><h2 id="ai-tk-t">토큰은 아껴서, 필요한 곳에</h2></div>
-    <ol class="ai-rules">
-      <li><span class="en">01</span><h3>작게 쪼개기</h3><p>한 번에 하나의 화면, 하나의 변경. 긴 요청은 번호를 붙여 순서대로.</p></li>
-      <li><span class="en">02</span><h3>모델 나눠 쓰기</h3><p>설계 · 대량 정리는 Fable, 문구 · 간격 같은 작은 수정은 Opus.</p></li>
-      <li><span class="en">03</span><h3>다시 쓰지 않기</h3><p>전체 재작성 대신 바뀐 부분만. 결과물은 파일로 받고 대화에 붙여 넣지 않습니다.</p></li>
-      <li><span class="en">04</span><h3>맥락은 문서로</h3><p>화면설계서 · 데이터 파일을 기준점으로 두고, 대화가 길어지면 요약 후 새로 시작합니다.</p></li>
-    </ol>
+  <!-- AX-05 모델과 토큰 -->
+  <section class="sx" id="ai-token" aria-labelledby="ai-tk-t">
+    <div class="wrap">
+      <div class="sh"><p class="pill">모델 · 토큰</p><h2 class="sh__title en" id="ai-tk-t">Model &amp; Token</h2><p class="sh__sub">일의 크기에 맞는 모델을 고르고, 필요한 곳에만 씁니다.</p></div>
+      <div class="ax-model">
+        <article class="ax-mcard"><p class="en">FABLE</p><h3>크고 긴 일</h3><p>긴 자료를 한 번에 읽고 구조화, 구조 설계와 큰 구현</p></article>
+        <article class="ax-mcard"><p class="en">OPUS</p><h3>짧고 잦은 일</h3><p>짧은 정리, 문구 · 간격 같은 작은 수정, 체크리스트 대조</p></article>
+        <ol class="ax-rules">
+          <li><span class="en">01</span><div><h3>작게 쪼개기</h3><p>한 번에 하나의 화면, 하나의 변경. 긴 요청은 번호를 붙여 순서대로.</p></div></li>
+          <li><span class="en">02</span><div><h3>다시 쓰지 않기</h3><p>전체 재작성 대신 바뀐 부분만. 결과물은 파일로 받습니다.</p></div></li>
+          <li><span class="en">03</span><div><h3>맥락은 문서로</h3><p>화면설계서 · 데이터 파일을 기준점으로, 대화가 길어지면 요약 후 새로 시작.</p></div></li>
+        </ol>
+      </div>
+    </div>
   </section>
 
-  <!-- AI-05 이 웹사이트 -->
-  <section class="wrap ai-sec" aria-labelledby="ai-case-t">
-    <div class="ai-sec__head"><p class="en">04</p><h2 id="ai-case-t">이 웹사이트도 이렇게 만들었습니다</h2></div>
-    <ol class="ai-case">
-      <li><span class="en">STEP 1</span><h3>기획은 직접</h3><p>정보구조도 · 화면설계서를 먼저 쓰고, 그 문서를 AI 작업의 기준으로 넘겼습니다.</p></li>
-      <li><span class="en">STEP 2</span><h3>구현은 Claude Code</h3><p>HTML · CSS · JS를 화면 단위로 구현하고, 데이터는 한 파일로 모아 문구를 한곳에서 고칩니다.</p></li>
-      <li><span class="en">STEP 3</span><h3>피드백은 화면으로</h3><p>실제 화면을 보고 행간 · 여백 · 색처럼 구체적으로 짚어 수십 번의 작은 수정을 반복했습니다.</p></li>
-      <li><span class="en">STEP 4</span><h3>배포와 검증</h3><p>GitHub Pages에 올린 뒤 실제 주소에서 다시 확인. 이력서 PDF는 원본과 글자를 대조해 내용이 바뀌지 않았음을 확인했습니다.</p></li>
-    </ol>
-  </section>
-
-  <!-- AI-06 맡기지 않는 것 -->
-  <section class="wrap ai-sec ai-sec--last" aria-labelledby="ai-no-t">
-    <div class="ai-sec__head"><p class="en">05</p><h2 id="ai-no-t">AI에게 맡기지 않는 것</h2></div>
-    <ul class="ai-no">
-      <li>무엇이 문제인지 정하는 일</li>
-      <li>숫자와 출처의 사실 확인</li>
-      <li>무엇을 남기고 덜어낼지의 결정</li>
-      <li>개인정보와 팀원의 기여 표기</li>
-    </ul>
+  <!-- AX-06 이 웹사이트 · 맡기지 않는 것 -->
+  <section class="sx" id="ai-site" aria-labelledby="ai-case-t">
+    <div class="wrap">
+      <div class="sh"><p class="pill">이 웹사이트</p><h2 class="sh__title en" id="ai-case-t">This Site</h2><p class="sh__sub">지금 보고 계신 이 사이트도 같은 방식으로 만들었어요.</p></div>
+      <div class="ax-site">
+        <ol class="ax-steps">
+          <li><span class="en">STEP 1</span><h3>기획은 직접</h3><p>정보구조도 · 화면설계서를 먼저 쓰고, 그 문서를 AI 작업의 기준으로 넘겼습니다.</p></li>
+          <li><span class="en">STEP 2</span><h3>구현은 Claude Code</h3><p>화면 단위로 구현하고, 데이터는 한 파일로 모아 문구를 한곳에서 고칩니다.</p></li>
+          <li><span class="en">STEP 3</span><h3>피드백은 화면으로</h3><p>실제 화면을 보고 행간 · 여백 · 색처럼 구체적으로 짚어 작은 수정을 반복했습니다.</p></li>
+          <li><span class="en">STEP 4</span><h3>배포와 검증</h3><p>실제 주소에서 다시 확인하고, 이력서 PDF는 원본과 글자를 대조했습니다.</p></li>
+        </ol>
+        <aside class="ax-no" aria-labelledby="ai-no-t">
+          <p class="en">NEVER DELEGATE</p>
+          <h3 id="ai-no-t">AI에게 맡기지 않는 것</h3>
+          <ul><li>무엇이 문제인지 정하는 일</li><li>숫자와 출처의 사실 확인</li><li>무엇을 남기고 덜어낼지의 결정</li><li>개인정보와 팀원의 기여 표기</li></ul>
+        </aside>
+      </div>
+    </div>
   </section>
 </main>
 
@@ -284,9 +247,9 @@
   </div>
 </div>
 
-<script src="data.js?v=76"></script>
-<script src="story.js?v=76"></script>
-<script src="app.js?v=76"></script>
-<script src="yolkbot.js?v=76"></script>
+<script src="data.js?v=77"></script>
+<script src="story.js?v=77"></script>
+<script src="app.js?v=77"></script>
+<script src="yolkbot.js?v=77"></script>
 </body>
 </html>

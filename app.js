@@ -303,6 +303,18 @@
       }).join('');
     }
 
+    /* 메뉴 위치 표시 */
+    var secs = ['experience', 'projects', 'skills', 'ai-intro', 'contact'].map(function (k) { return document.getElementById(k); }).filter(Boolean);
+    var spy = function () {
+      var cur = '', mid = window.innerHeight * 0.35;
+      secs.forEach(function (sec) { if (sec.getBoundingClientRect().top <= mid) cur = sec.id; });
+      setActive(cur === 'ai-intro' ? 'ai' : cur);
+    };
+    window.addEventListener('scroll', spy, { passive: true }); spy();
+  }
+
+  /* ---------- 모든 페이지 공통: 메일 · 놀이터 · 구역 맞춤 ---------- */
+  (function () {
     /* 연락하기 — 폼 없이 메일 쓰기 창으로 바로 이동 (Gmail · 네이버 · 기본 메일 앱) */
     document.addEventListener('click', function (e) {
       var a = e.target.closest('[data-mail]'); if (!a) return;
@@ -361,7 +373,7 @@
     /* HOME 구역 맞춤 — 한 구역의 내용이 화면(GNB 아래)보다 길면 그 구역만 살짝 축소해 한 화면 안에 담음 */
     (function () {
       var root = document.documentElement, main = document.getElementById('main');
-      if (!main || !document.getElementById('home')) return;
+      if (!main || !(document.getElementById('home') || main.classList.contains('ax'))) return;
       var secs = [].slice.call(main.querySelectorAll(':scope > .sx'));
       function fit() {
         var on = innerWidth >= 1024 && innerHeight >= 560;
@@ -382,15 +394,8 @@
       addEventListener('load', fit); if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
     })();
 
-    /* 메뉴 위치 표시 */
-    var secs = ['experience', 'projects', 'skills', 'ai-intro', 'contact'].map(function (k) { return document.getElementById(k); }).filter(Boolean);
-    var spy = function () {
-      var cur = '', mid = window.innerHeight * 0.35;
-      secs.forEach(function (sec) { if (sec.getBoundingClientRect().top <= mid) cur = sec.id; });
-      setActive(cur === 'ai-intro' ? 'ai' : cur);
-    };
-    window.addEventListener('scroll', spy, { passive: true }); spy();
-  }
+  })();
+
 
   if (page === 'about') {
     /* ABOUT-02 Experience */
