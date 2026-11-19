@@ -19,72 +19,72 @@ canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
 
 /* 상단 바 — 포트폴리오 GNB와 같은 구성 */
 .bar { position: fixed; left: 0; right: 0; top: 0; z-index: 8; height: 76px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(20px, 8.334vw, 160px); background: rgba(255,255,255,.88); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid #F0F0F0; }
-.bar__logo { color: var(--ink); text-decoration: none; font-size: 17px; font-weight: 700; }
-.bar__logo small { margin-left: 8px; font-family: var(--en); font-size: 11px; font-weight: 600; letter-spacing: .14em; color: var(--mute); }
-.bar__back { color: var(--sub); text-decoration: none; font-size: 14px; }
+.bar__logo { color: var(--ink); text-decoration: none; font-size: 18px; font-weight: 700; }
+.bar__logo small { margin-left: 8px; font-family: var(--en); font-size: 12px; font-weight: 600; letter-spacing: .14em; color: var(--mute); }
+.bar__back { color: var(--sub); text-decoration: none; font-size: 15px; }
 .bar__back:hover { color: var(--ink); }
 
 /* HUD */
 .hud { position: fixed; left: 0; right: 0; top: 76px; z-index: 6; display: flex; justify-content: space-between; align-items: flex-start; padding: 22px clamp(20px, 8.334vw, 160px) 0; pointer-events: none; }
 .hud[hidden], .scr[hidden], .gate[hidden], .loader[hidden] { display: none; }
-.hud__lb { font-family: var(--en); font-size: 11px; letter-spacing: .16em; color: var(--mute); }
-.hud__score { margin-top: 6px; font-family: var(--en); font-size: 40px; font-weight: 700; line-height: 1; }
-.hud__combo { margin-top: 8px; min-height: 20px; font-family: var(--en); font-size: 12px; letter-spacing: .1em; color: #B88A00; }
+.hud__lb { font-family: var(--en); font-size: 12px; letter-spacing: .16em; color: var(--mute); }
+.hud__score { margin-top: 6px; font-family: var(--en); font-size: 41px; font-weight: 700; line-height: 1; }
+.hud__combo { margin-top: 8px; min-height: 20px; font-family: var(--en); font-size: 13px; letter-spacing: .1em; color: #B88A00; }
 .hud__right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; pointer-events: auto; }
 .lives { display: flex; gap: 8px; }
 .lives i { width: 14px; height: 14px; border-radius: 50%; background: var(--yolk-l); box-shadow: inset 0 -1px 1.5px rgba(214,160,0,.35); transition: .3s; }
 .lives i.off { background: #fff; box-shadow: inset 0 0 0 1.5px #D9D9D9; }
-.pbtn { height: 32px; padding: 0 12px; border: 1px solid #E3E3E3; border-radius: 4px; background: #fff; color: var(--sub); font-family: var(--en); font-size: 11px; letter-spacing: .12em; cursor: pointer; }
+.pbtn { height: 32px; padding: 0 12px; border: 1px solid #E3E3E3; border-radius: 4px; background: #fff; color: var(--sub); font-family: var(--en); font-size: 12px; letter-spacing: .12em; cursor: pointer; }
 .pbtn:hover { border-color: #CFCFCF; color: var(--ink); }
 
 /* 화면 카드 */
 .scr { position: fixed; inset: 76px 0 0; z-index: 7; display: grid; place-items: center; padding: 20px; }
 .card { width: min(440px, 100%); padding: 36px 32px 30px; background: #fff; border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 24px 60px -28px rgba(0,0,0,.18); text-align: center; }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
-.pill { display: inline-block; padding: 6px 12px; border: 1px solid #E3E3E3; border-radius: 99px; font-size: 12px; color: var(--sub); }
-.card h1 { margin-top: 14px; font-size: 34px; font-weight: 700; letter-spacing: -0.04em; }
-.card .en-t { margin-top: 6px; font-family: var(--en); font-size: 13px; letter-spacing: .2em; color: var(--mute); }
-.card .lead { margin-top: 14px; font-size: 15px; line-height: 1.65; color: var(--sub); }
+.pill { display: inline-block; padding: 6px 12px; border: 1px solid #E3E3E3; border-radius: 99px; font-size: 13px; color: var(--sub); }
+.card h1 { margin-top: 14px; font-size: 35px; font-weight: 700; letter-spacing: -0.04em; }
+.card .en-t { margin-top: 6px; font-family: var(--en); font-size: 14px; letter-spacing: .2em; color: var(--mute); }
+.card .lead { margin-top: 14px; font-size: 16px; line-height: 1.65; color: var(--sub); }
 .rules { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 22px; border-top: 1px solid var(--ink); }
-.rules div { padding: 16px 6px 14px; font-size: 13px; line-height: 1.45; color: var(--sub); border-bottom: 1px solid #F0F0F0; }
+.rules div { padding: 16px 6px 14px; font-size: 14px; line-height: 1.45; color: var(--sub); border-bottom: 1px solid #F0F0F0; }
 .rules div + div { border-left: 1px solid #F0F0F0; }
-.rules b { display: block; margin-bottom: 4px; color: var(--ink); font-weight: 700; font-size: 14px; }
+.rules b { display: block; margin-bottom: 4px; color: var(--ink); font-weight: 700; font-size: 15px; }
 .rules canvas { position: static; width: 34px; height: 34px; margin: 0 auto 8px; }
-.btn { width: 100%; height: 54px; margin-top: 22px; border: 0; border-radius: 6px; background: var(--ink); color: #fff; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; transition: background .2s; }
+.btn { width: 100%; height: 54px; margin-top: 22px; border: 0; border-radius: 6px; background: var(--ink); color: #fff; font: inherit; font-size: 17px; font-weight: 600; cursor: pointer; transition: background .2s; }
 .btn:hover { background: #444; }
 .btn--line { height: 48px; margin-top: 10px; border: 1px solid #E3E3E3; background: #fff; color: var(--ink); font-weight: 500; }
 .btn--line:hover { background: var(--soft); }
-.hint { margin-top: 14px; font-size: 13px; color: var(--mute); }
-.best { margin-top: 10px; font-size: 13px; color: var(--sub); }
-.final { margin-top: 12px; font-family: var(--en); font-size: 72px; font-weight: 800; line-height: 1; }
-.rank { margin-top: 10px; font-size: 18px; font-weight: 700; }
-.newbest { display: inline-block; margin-top: 10px; padding: 5px 12px; border-radius: 99px; background: #FFF6D6; color: #8A6400; font-size: 12px; font-weight: 600; }
+.hint { margin-top: 14px; font-size: 14px; color: var(--mute); }
+.best { margin-top: 10px; font-size: 14px; color: var(--sub); }
+.final { margin-top: 12px; font-family: var(--en); font-size: 73px; font-weight: 800; line-height: 1; }
+.rank { margin-top: 10px; font-size: 19px; font-weight: 700; }
+.newbest { display: inline-block; margin-top: 10px; padding: 5px 12px; border-radius: 99px; background: #FFF6D6; color: #8A6400; font-size: 13px; font-weight: 600; }
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 20px; border-top: 1px solid var(--ink); }
 .stats div { padding: 12px 4px; border-bottom: 1px solid #F0F0F0; }
 .stats div + div { border-left: 1px solid #F0F0F0; }
-.stats small { display: block; font-family: var(--en); font-size: 10px; letter-spacing: .14em; color: var(--mute); }
-.stats b { display: block; margin-top: 6px; font-family: var(--en); font-size: 18px; }
+.stats small { display: block; font-family: var(--en); font-size: 11px; letter-spacing: .14em; color: var(--mute); }
+.stats b { display: block; margin-top: 6px; font-family: var(--en); font-size: 19px; }
 
 /* 비밀번호 · 로더 — 포트폴리오와 같은 모양 */
 .gate { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 16px; background: #fff; }
 .gate .card { width: min(400px, 100%); }
 .pin { position: relative; display: flex; justify-content: center; gap: 10px; margin-top: 24px; }
-.pin span { width: 52px; height: 60px; display: grid; place-items: center; border: 1px solid #E3E3E3; border-radius: 6px; font-size: 18px; transition: border-color .2s; }
+.pin span { width: 52px; height: 60px; display: grid; place-items: center; border: 1px solid #E3E3E3; border-radius: 6px; font-size: 19px; transition: border-color .2s; }
 .pin span.on { border-color: var(--ink); } .pin span.cur { border-color: var(--mute); }
-.pin input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; font-size: 16px; caret-color: transparent; }
+.pin input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; font-size: 17px; caret-color: transparent; }
 .pin.shake { animation: shake .4s; }
 @keyframes shake { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
-.err { min-height: 22px; margin-top: 12px; font-size: 14px; color: #C23333; }
+.err { min-height: 22px; margin-top: 12px; font-size: 15px; color: #C23333; }
 .loader { position: fixed; inset: 0; z-index: 30; display: flex; flex-direction: column; gap: 22px; align-items: center; justify-content: center; background: #fff; }
-.loader p { font-size: 13px; color: #999; }
+.loader p { font-size: 14px; color: #999; }
 .loader.done { opacity: 0; visibility: hidden; }
 .dots { display: flex; gap: 12px; align-items: flex-end; height: 40px; }
 .dots i { width: 11px; height: 11px; border-radius: 50%; background: var(--yolk-l); box-shadow: inset 0 -1px 1.5px rgba(214,160,0,.25); animation: hop 1.2s cubic-bezier(.3,1.6,.5,1) infinite; }
 .dots i:nth-child(2) { animation-delay: .12s; } .dots i:nth-child(3) { animation-delay: .24s; } .dots i:nth-child(4) { animation-delay: .36s; } .dots i:nth-child(5) { animation-delay: .48s; }
 @keyframes hop { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-18px); } }
-.toast { position: fixed; left: 50%; bottom: 36px; z-index: 40; transform: translate(-50%, 12px); padding: 12px 18px; border-radius: 6px; background: var(--ink); color: #fff; font-size: 14px; opacity: 0; transition: .3s; pointer-events: none; }
+.toast { position: fixed; left: 50%; bottom: 36px; z-index: 40; transform: translate(-50%, 12px); padding: 12px 18px; border-radius: 6px; background: var(--ink); color: #fff; font-size: 15px; opacity: 0; transition: .3s; pointer-events: none; }
 .toast.on { opacity: 1; transform: translate(-50%, 0); }
-@media (max-width: 600px) { .bar { height: 64px; } .hud { top: 64px; } .scr { inset: 64px 0 0; } .card { padding: 28px 22px 24px; } .card h1 { font-size: 28px; } .final { font-size: 60px; } }
+@media (max-width: 600px) { .bar { height: 64px; } .hud { top: 64px; } .scr { inset: 64px 0 0; } .card { padding: 28px 22px 24px; } .card h1 { font-size: 29px; } .final { font-size: 61px; } }
 @media (prefers-reduced-motion: reduce) { .dots i { animation: none; } .card { animation: none; } }
 </style>
 </head>

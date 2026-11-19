@@ -35,12 +35,16 @@
     var t0 = Date.now();
     var hide = function () {
       setTimeout(function () {
-        /* 온보딩이 완전히 끝난 뒤 메인이 한 번에 나타나도록 — 겹치거나 서서히 보이는 전환 없음 */
-        if (!location.hash) window.scrollTo(0, 0);
-        if (loader.parentNode) loader.parentNode.removeChild(loader);
-        document.documentElement.classList.remove('is-onboarding');
-        document.dispatchEvent(new Event('yolk:ready'));
-      }, Math.max(0, 1600 - (Date.now() - t0)));
+        /* 1) 로딩 점과 문구가 먼저 조용히 사라지고 2) 로더가 걷힌 뒤 3) 메인이 순서대로 떠오름 — 두 화면이 겹치지 않음 */
+        loader.classList.add('is-leaving');
+        setTimeout(function () {
+          if (!location.hash) window.scrollTo(0, 0);
+          if (loader.parentNode) loader.parentNode.removeChild(loader);
+          var r = document.documentElement; r.classList.add('is-enter'); r.classList.remove('is-intro');
+          document.dispatchEvent(new Event('yolk:ready'));
+          setTimeout(function () { r.classList.remove('is-enter'); }, 1800);
+        }, 520);
+      }, Math.max(0, 2100 - (Date.now() - t0)));
     };
     if (document.readyState === 'complete') hide(); else window.addEventListener('load', hide);
   }
