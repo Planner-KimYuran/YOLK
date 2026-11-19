@@ -318,6 +318,28 @@
       }
     });
 
+    /* HOME 구역 맞춤 — 한 구역의 내용이 화면(GNB 아래)보다 길면 그 구역만 살짝 축소해 한 화면 안에 담음 */
+    (function () {
+      var root = document.documentElement, main = document.getElementById('main');
+      if (!main || !document.getElementById('home')) return;
+      var secs = [].slice.call(main.querySelectorAll(':scope > .sx'));
+      function fit() {
+        var on = innerWidth >= 1024 && innerHeight >= 560;
+        root.classList.toggle('home-fit', on);
+        secs.forEach(function (s) {
+          var w = s.querySelector(':scope > .wrap'); if (!w) return;
+          w.style.zoom = '';
+          if (!on || s.hidden) return;
+          var g = (document.querySelector('.gnb') || {}).offsetHeight || 0, cs = getComputedStyle(s);
+          var avail = innerHeight - g - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+          var need = w.offsetHeight;
+          if (need > avail) w.style.zoom = Math.max(0.7, avail / need).toFixed(3);
+        });
+      }
+      fit(); addEventListener('resize', function () { clearTimeout(fit.t); fit.t = setTimeout(fit, 120); });
+      addEventListener('load', fit); if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+    })();
+
     /* 메뉴 위치 표시 */
     var secs = ['experience', 'projects', 'skills', 'ai-intro', 'contact'].map(function (k) { return document.getElementById(k); }).filter(Boolean);
     var spy = function () {
