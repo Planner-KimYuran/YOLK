@@ -2813,3 +2813,6 @@ html.is-enter .hx__title { animation: enterUp .9s cubic-bezier(.2,.7,.2,1) .18s 
 html.is-enter .hx__docs { animation: enterUp .8s cubic-bezier(.2,.7,.2,1) .36s both !important; }
 html.is-enter .hx__scroll { animation: enterFade .8s ease .6s both; }
 @media (prefers-reduced-motion: reduce) { html.is-enter .gnb, html.is-enter .hx__q, html.is-enter .hx__title, html.is-enter .hx__docs, html.is-enter .hx__scroll { animation: none !important; } }
+/* GNB 더 얇게 */
+@media (min-width: 981px) { :root { --gnb-h: 38px; } .gnb__links a { padding-top: 3px !important; padding-bottom: 3px !important; line-height: 1.4; } .egg { transform: scale(.86); } }
+@media (min-width: 1600px) { :root { --gnb-h: 40px; } }
