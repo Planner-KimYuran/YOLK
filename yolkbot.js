@@ -5,7 +5,7 @@
 
   var L = function (href, text) { return '<a href="' + href + '">' + text + '</a>'; };
   var PJ = function (id, text) { return L('project.html?id=' + id, text); };
-  var MAIL = L('mailto:knewrun25@gmail.com', 'knewrun25@gmail.com');
+  var MAIL = '<a href="mailto:knewrun25@gmail.com" data-mail="gmail" target="_blank" rel="noopener">knewrun25@gmail.com</a>';
 
   /* ---------- 질문 카테고리 ---------- */
   var CATS = [
@@ -322,6 +322,7 @@
     '<button type="button" class="yb-launch" aria-label="노른자 봇 열기 — 김유란에 대해 물어보기" aria-expanded="false" aria-controls="yb-panel">' +
       '<span class="yb-egg">' + yolk + '</span><span class="yb-tip">김유란이 궁금하다면?</span></button>' +
     '<section class="yb-panel" id="yb-panel" role="dialog" aria-label="노른자 봇" hidden>' +
+      '<div class="yb-resize" role="separator" aria-label="채팅 창 크기 조절 — 끌어서 조절, 두 번 누르면 기본 크기" title="끌어서 크기 조절 · 두 번 누르면 기본 크기"></div>' +
       '<header class="yb-head"><span class="yb-egg yb-egg--sm">' + yolk + '</span>' +
         '<div class="yb-head__t"><b>노른자 봇</b><small><span class="en">YOLK BOT</span> · 김유란에 대해 무엇이든</small></div>' +
         '<button type="button" class="yb-menu-btn" aria-label="질문 목록 보기">목록</button>' +
@@ -338,7 +339,29 @@
       form = root.querySelector('.yb-form'), input = root.querySelector('.yb-input');
   var started = false, busy = false;
 
+  /* 채팅 창 크기 조절 — 왼쪽 위 손잡이를 끌어 조절, 두 번 누르면 기본 크기. 크기는 이 브라우저에만 기억 */
+  (function () {
+    var h = panel.querySelector('.yb-resize'), KEY = 'yolkbot-size';
+    function apply(w, ht) { panel.style.width = w + 'px'; panel.style.height = ht + 'px'; if (typeof scroll === 'function' && pinned) scroll(); }
+    function clampSize(w, ht) { var r = panel.getBoundingClientRect(); return [Math.max(320, Math.min(w, r.right - 16)), Math.max(420, Math.min(ht, r.bottom - 16))]; }
+    try { var sv = JSON.parse(localStorage.getItem(KEY) || 'null'); if (sv && innerWidth > 600) apply(sv[0], sv[1]); } catch (e) {}
+    h.addEventListener('pointerdown', function (e) {
+      if (innerWidth <= 600) return;
+      e.preventDefault(); h.setPointerCapture(e.pointerId); panel.classList.add('is-resizing');
+      var r = panel.getBoundingClientRect(), sx = e.clientX, sy = e.clientY;
+      function mv(ev) { var c = clampSize(r.width + (sx - ev.clientX), r.height + (sy - ev.clientY)); apply(c[0], c[1]); }
+      function up() { h.removeEventListener('pointermove', mv); h.removeEventListener('pointerup', up); panel.classList.remove('is-resizing');
+        try { localStorage.setItem(KEY, JSON.stringify([panel.offsetWidth, panel.offsetHeight])); } catch (err) {} }
+      h.addEventListener('pointermove', mv); h.addEventListener('pointerup', up);
+    });
+    h.addEventListener('dblclick', function () { panel.style.width = ''; panel.style.height = ''; pinned = true; requestAnimationFrame(scroll); try { localStorage.removeItem(KEY); } catch (e) {} });
+  })();
+
   function scroll() { log.scrollTop = log.scrollHeight; }
+  /* 아래 추천 질문 · 창 크기가 바뀌어도 마지막 답변이 가려지지 않도록 바닥에 붙여 둠 */
+  var pinned = true;
+  log.addEventListener('scroll', function () { pinned = log.scrollHeight - log.scrollTop - log.clientHeight < 40; });
+  if (window.ResizeObserver) new ResizeObserver(function () { if (pinned) scroll(); }).observe(log);
   function addUser(t) { var d = document.createElement('div'); d.className = 'yb-msg yb-msg--me'; d.textContent = t; log.appendChild(d); scroll(); }
   function addBot(parts, done) {
     busy = true; chips.innerHTML = '';
@@ -356,6 +379,7 @@
   }
   function showChips(ids) {
     chips.innerHTML = ids.map(function (id) { return byId[id] ? '<button type="button" class="yb-chip' + (id === 'menu' ? ' yb-chip--menu' : '') + '" data-q="' + id + '">' + byId[id].label + '</button>' : ''; }).join('');
+    pinned = true; scroll(); requestAnimationFrame(scroll);
   }
   function showMenu() {
     if (busy) return;

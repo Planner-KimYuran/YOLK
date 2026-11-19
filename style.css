@@ -2564,3 +2564,25 @@ body { letter-spacing: -0.012em; }
 .yb-menu-btn { border-color: #E3E3E3 !important; color: #555 !important; background: #fff !important; }
 .yb-menu-btn:hover { background: #F7F7F7 !important; border-color: #CFCFCF !important; }
 .yb-head { border-bottom-color: #F0F0F0; }
+
+/* ===== 연락하기 — 메일 쓰기 바로가기 ===== */
+.cmail { background: #fff; border: 1px solid var(--card-line, #ECECEC); border-radius: 6px; padding: clamp(28px, 3vw, 44px); display: flex; flex-direction: column; gap: 14px; }
+.cmail h3 { font-size: 26px; font-weight: 700; letter-spacing: -0.03em; color: #333; }
+.cmail__hint { font-size: 16px; color: #777; line-height: 1.6; }
+.cmail__btns { display: grid; gap: 10px; margin-top: 10px; }
+.cmail__btn { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 60px; padding: 0 22px; border: 1px solid #E3E3E3; border-radius: 6px; background: #fff; color: #333; font-size: 17px; text-decoration: none; transition: background .2s, border-color .2s; }
+.cmail__btn b { font-weight: 700; }
+.cmail__btn i { font-style: normal; color: #999; font-size: 18px; }
+.cmail__btn:hover { background: #F7F7F7; border-color: #CFCFCF; }
+.cmail__btn--main { background: #333; border-color: #333; color: #fff; }
+.cmail__btn--main i { color: #fff; }
+.cmail__btn--main:hover { background: #444; border-color: #444; }
+.cmail__note { margin-top: auto; padding-top: 6px; font-size: 14px; color: #999; line-height: 1.6; }
+/* 채팅 창 크기 조절 손잡이 (왼쪽 위 모서리) */
+.yb-resize { position: absolute; left: 0; top: 0; z-index: 3; width: 22px; height: 22px; cursor: nwse-resize; touch-action: none; }
+.yb-resize::before { content: ''; position: absolute; left: 6px; top: 6px; width: 9px; height: 9px; border-left: 2px solid #CFCFCF; border-top: 2px solid #CFCFCF; border-radius: 2px 0 0 0; transition: border-color .2s; }
+.yb-resize:hover::before, .yb-panel.is-resizing .yb-resize::before { border-color: #999; }
+.yb-panel { max-width: calc(100vw - 32px); max-height: calc(100vh - 140px); }
+.yb-panel.is-resizing { user-select: none; }
+@media (max-width: 600px) { .yb-resize { display: none; } }
+.yb-input:focus { border-color: #999 !important; }

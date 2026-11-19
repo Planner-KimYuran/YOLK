@@ -302,22 +302,20 @@
       }).join('');
     }
 
-    /* 연락하기 — Gmail 작성 창으로 바로 이동 */
-    var cf = $('#cform');
-    if (cf) cf.addEventListener('submit', function (e) {
+    /* 연락하기 — 폼 없이 메일 쓰기 창으로 바로 이동 (Gmail · 네이버 · 기본 메일 앱) */
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('[data-mail]'); if (!a) return;
+      var to = (D.profile && D.profile.email) || 'knewrun25@gmail.com', kind = a.getAttribute('data-mail');
+      var sub = '[포트폴리오] 김유란 님께 드리는 연락';
+      if (kind === 'app') return; // mailto 그대로
       e.preventDefault();
-      var n = cf.name.value.trim(), m = cf.email.value.trim(), t = cf.msg.value.trim(), err = $('#cform-err');
-      var bad = [[cf.name, n], [cf.email, m && /.+@.+\..+/.test(m)], [cf.msg, t]];
-      bad.forEach(function (b) { b[0].setAttribute('aria-invalid', b[1] ? 'false' : 'true'); });
-      var first = bad.filter(function (b) { return !b[1]; })[0];
-      if (first) { err.hidden = false; first[0].focus(); return; }
-      err.hidden = true;
-      var sub = '[포트폴리오 문의] ' + n;
-      var body = t + '\n\n— ' + n + ' (' + m + ')';
-      var gm = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(D.profile.email) + '&su=' + encodeURIComponent(sub) + '&body=' + encodeURIComponent(body);
-      var w = window.open(gm, '_blank', 'noopener');
-      if (!w) window.location.href = gm;
-      toast('Gmail에서 내용을 확인하고 보내기를 눌러 주세요.');
+      if (kind === 'gmail') {
+        window.open('https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(to) + '&su=' + encodeURIComponent(sub), '_blank', 'noopener');
+      } else if (kind === 'naver') {
+        try { navigator.clipboard && navigator.clipboard.writeText(to).catch(function () {}); } catch (err) {}
+        window.open('https://mail.naver.com/v2/new', '_blank', 'noopener');
+        toast('받는 사람 주소가 복사되었습니다. 받는 사람 칸에 붙여넣어 주세요.');
+      }
     });
 
     /* 메뉴 위치 표시 */

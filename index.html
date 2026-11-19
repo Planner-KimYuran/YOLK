@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap">
 <script>try{localStorage.removeItem("yolk-theme");if(localStorage.getItem("yolk-accent")==="on")document.documentElement.setAttribute("data-accent","yolk");}catch(e){}</script>
-<link rel="stylesheet" href="style.css?v=70">
+<link rel="stylesheet" href="style.css?v=72">
 </head>
 <body data-page="home">
 <div class="loader" id="loader" aria-hidden="true"><div class="loader__dots"><i></i><i></i><i></i><i></i><i></i></div></div>
@@ -152,18 +152,18 @@
       <p class="sh__sub">프로젝트 제안, 협업 문의, 채용 관련 연락 모두 환영합니다.<br>남겨주신 내용은 메일로 확인하고 빠르게 답변드리겠습니다.</p>
     </div>
       <div class="cgrid">
-        <form class="cform" id="cform" novalidate>
-          <h3>메시지 보내기</h3>
-          <p class="cform__hint">작성 후 보내기를 누르면 Gmail 작성 창이 내용이 채워진 채로 열립니다.</p>
-          <label><span>이름 <b aria-hidden="true">*</b></span><input name="name" required autocomplete="name" placeholder="이름"></label>
-          <label><span>이메일 <b aria-hidden="true">*</b></span><input name="email" type="email" required autocomplete="email" placeholder="you@example.com"></label>
-          <label><span>메시지 <b aria-hidden="true">*</b></span><textarea name="msg" required rows="4" placeholder="프로젝트 제안, 협업 문의, 채용 관련 문의 모두 환영합니다."></textarea></label>
-          <p class="cform__err" id="cform-err" role="alert" hidden>필수 항목을 모두 입력해 주세요.</p>
-          <button type="submit" class="btn-y">메시지 보내기</button>
-          <p class="cform__req">* 필수 입력 항목입니다</p>
-        </form>
+        <div class="cmail">
+          <h3>메일 보내기</h3>
+          <p class="cmail__hint">버튼을 누르면 받는 사람(knewrun25@gmail.com)이 채워진 메일 쓰기 창이 바로 열립니다.</p>
+          <div class="cmail__btns">
+            <a class="cmail__btn cmail__btn--main" href="mailto:knewrun25@gmail.com" data-mail="gmail" target="_blank" rel="noopener"><span class="cmail__lb"><b>Gmail</b>로 메일 쓰기</span><i aria-hidden="true">↗</i></a>
+            <a class="cmail__btn" href="mailto:knewrun25@gmail.com" data-mail="naver" target="_blank" rel="noopener"><span class="cmail__lb"><b>네이버 메일</b>로 쓰기</span><i aria-hidden="true">↗</i></a>
+            <a class="cmail__btn" href="mailto:knewrun25@gmail.com" data-mail="app"><span class="cmail__lb"><b>기본 메일 앱</b>으로 쓰기</span><i aria-hidden="true">→</i></a>
+          </div>
+          <p class="cmail__note">네이버 메일은 쓰기 창이 열릴 때 받는 사람 주소가 자동으로 복사되어, 받는 사람 칸에 붙여넣기만 하면 됩니다.</p>
+        </div>
         <dl class="cinfo">
-          <div><dt class="en">EMAIL</dt><dd><a href="mailto:knewrun25@gmail.com" id="c-email">knewrun25@gmail.com</a><button type="button" class="copy-btn" data-copy="c-email" data-msg="이메일 주소가 복사되었습니다.">COPY</button></dd></div>
+          <div><dt class="en">EMAIL</dt><dd><a href="mailto:knewrun25@gmail.com" id="c-email" data-mail="gmail" target="_blank" rel="noopener">knewrun25@gmail.com</a><button type="button" class="copy-btn" data-copy="c-email" data-msg="이메일 주소가 복사되었습니다.">COPY</button></dd></div>
           <div><dt class="en">PHONE</dt><dd><a href="tel:+821034526632" id="c-phone">010.3452.6632</a><button type="button" class="copy-btn" data-copy="c-phone" data-msg="전화번호가 복사되었습니다.">COPY</button></dd></div>
           <div><dt class="en">LOCATION</dt><dd>경기도 화성시</dd></div>
           <div><dt class="en">INSTAGRAM</dt><dd><a href="https://www.instagram.com/nwrnnyo/" target="_blank" rel="noopener">@nwrnnyo ↗</a></dd></div>
@@ -180,7 +180,7 @@
       <p class="pill">Thank You</p>
       <p class="ft__sub">여러분과 함께 프로젝트의 핵심을 찾으러 제가 가겠습니다!</p>
       <div class="ft__cta">
-        <a class="ft__btn ft__btn--fill" href="mailto:knewrun25@gmail.com">메일 보내기 →</a>
+        <a class="ft__btn ft__btn--fill" href="mailto:knewrun25@gmail.com" data-mail="gmail" target="_blank" rel="noopener">메일 보내기 →</a>
         <a class="ft__btn" href="resume.pdf?v=8" download="김유란_이력서.pdf">이력서 PDF ↓</a>
       </div>
     </div>
@@ -196,7 +196,7 @@
       </nav>
       <div class="ft__col">
         <p class="ft__h en">CONTACT</p>
-        <ul><li><a href="mailto:knewrun25@gmail.com">knewrun25@gmail.com</a></li><li><a href="tel:+821034526632">010.3452.6632</a></li><li><a href="https://www.instagram.com/nwrnnyo/" target="_blank" rel="noopener">Instagram @nwrnnyo ↗</a></li><li>경기도 화성시</li></ul>
+        <ul><li><a href="mailto:knewrun25@gmail.com" data-mail="gmail" target="_blank" rel="noopener">knewrun25@gmail.com</a></li><li><a href="tel:+821034526632">010.3452.6632</a></li><li><a href="https://www.instagram.com/nwrnnyo/" target="_blank" rel="noopener">Instagram @nwrnnyo ↗</a></li><li>경기도 화성시</li></ul>
       </div>
       <div class="ft__col">
         <p class="ft__h en">DOCUMENTS</p>
@@ -225,9 +225,9 @@
   </div>
 </div>
 
-<script src="data.js?v=70"></script>
-<script src="story.js?v=70"></script>
-<script src="app.js?v=70"></script>
-<script src="yolkbot.js?v=70"></script>
+<script src="data.js?v=72"></script>
+<script src="story.js?v=72"></script>
+<script src="app.js?v=72"></script>
+<script src="yolkbot.js?v=72"></script>
 </body>
 </html>
