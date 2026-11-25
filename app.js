@@ -31,6 +31,40 @@
 
   /* 온보딩 로딩 — 노른자 점 5개 (페이지를 열거나 새로고침할 때마다) */
   var loader = document.getElementById('loader');
+  if (loader && document.documentElement.classList.contains('no-loader')) {
+    loader.parentNode.removeChild(loader); loader = null;
+    setTimeout(function () { document.dispatchEvent(new Event('yolk:ready')); }, 0);
+  }
+  /* GNB — 메뉴는 새로고침·온보딩 없이 이동, 로고만 처음부터(온보딩 포함) 다시 */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || a.target === '_blank') return;
+    var url; try { url = new URL(a.getAttribute('href'), location.href); } catch (er) { return; }
+    if (url.origin !== location.origin) return;
+    var file = function (p) { var f = p.split('/').pop(); return f === '' ? 'index.html' : f; };
+    if (a.classList.contains('gnb__logo')) {
+      e.preventDefault();
+      try { sessionStorage.removeItem('yolk-nav'); } catch (er) {}
+      var home = url.pathname.replace(/[^\/]*$/, '');
+      if (file(location.pathname) === 'index.html' && !location.search) { history.replaceState(null, '', home); location.reload(); }
+      else location.href = home;
+      return;
+    }
+    var samePage = file(url.pathname) === file(location.pathname) && url.search === location.search;
+    if (samePage && url.hash) {
+      var t = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+      if (t) {
+        e.preventDefault();
+        var g = document.querySelector('.gnb'); var gh = g ? g.getBoundingClientRect().height : 0;
+        window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - gh, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+        history.replaceState(null, '', url.hash);
+        var burger = document.querySelector('.gnb__burger');
+        if (burger && burger.getAttribute('aria-expanded') === 'true') burger.click();
+        return;
+      }
+    }
+    if (/\.html$/.test(file(url.pathname))) { try { sessionStorage.setItem('yolk-nav', '1'); } catch (er) {} }
+  }, true);
   if (loader) {
     var t0 = Date.now();
     var hide = function () {
