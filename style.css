@@ -2933,3 +2933,8 @@ html.is-enter .hx__scroll { animation: enterFade .8s ease .6s both; }
 @media (max-width: 600px) { .vibe__flow { grid-template-columns: 1fr; } .vibe__row { grid-template-columns: 64px 1fr; } }
 button.ft__btn { font: inherit; cursor: pointer; }
 .tag-doc--vibe { background: #333 !important; color: #fff !important; }
+
+/* 상세 이미지 호버 시 어두워지는 현상 제거 — 테두리만 남기고 덮개 · 필터 없음 */
+.gal .g-open::after { background: none !important; color: transparent !important; padding: 0 !important; opacity: 1 !important; }
+.gal .g-open:hover img, .g-open:hover img, .d-cover .g-open:hover img { filter: none !important; opacity: 1 !important; }
+.proto__shot img { opacity: 1 !important; }
