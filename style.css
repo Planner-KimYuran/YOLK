@@ -2829,7 +2829,7 @@ html.is-enter .hx__scroll { animation: enterFade .8s ease .6s both; }
 
   /* HOME 첫 화면 */
   .hx__q { font-size: clamp(17px, 1.1vw, 21px) !important; }
-  .hx__title { font-size: clamp(42px, 3.2vw, 62px) !important; font-weight: 700 !important; letter-spacing: -0.045em !important; }
+  .hx__title { font-size: clamp(42px, 3.2vw, 62px) !important; font-weight: 600 !important; letter-spacing: -0.04em !important; }
   .docpair__view, .btn-y, .btn-line { font-size: 16px !important; font-weight: 600 !important; }
 
   /* 채워온 이력 */
@@ -2938,3 +2938,4 @@ button.ft__btn { font: inherit; cursor: pointer; }
 .gal .g-open::after { background: none !important; color: transparent !important; padding: 0 !important; opacity: 1 !important; }
 .gal .g-open:hover img, .g-open:hover img, .d-cover .g-open:hover img { filter: none !important; opacity: 1 !important; }
 .proto__shot img { opacity: 1 !important; }
+.hx__docs a, .hx__docs button { font-weight: 500 !important; }
