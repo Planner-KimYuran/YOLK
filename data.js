@@ -11,8 +11,6 @@ window.YOLK = {
     birth: '—',
     phone: '010.3452.6632',
     email: 'knewrun25@gmail.com',
-    instagram: '@nwrnnyo',
-    instagramUrl: 'https://www.instagram.com/nwrnnyo/',
     location: '경기도 화성시',
     leadCount: 10,
     resumeFile: 'resume.pdf',

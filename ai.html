@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap">
 <script>try{localStorage.removeItem("yolk-theme");if(localStorage.getItem("yolk-accent")==="on")document.documentElement.setAttribute("data-accent","yolk");}catch(e){}</script>
-<link rel="stylesheet" href="style.css?v=83">
+<link rel="stylesheet" href="style.css?v=84">
 </head>
 <body data-page="ai">
 <a class="skip" href="#main">본문 바로가기</a>
@@ -61,6 +61,34 @@
         <div class="ax-split__col ax-split__col--ai">
           <p class="en">AI</p><h2>AI에게 맡기는 일</h2>
           <ol><li><b>01</b>긴 자료 읽고 구조 정리</li><li><b>02</b>빠진 항목 되묻기</li><li><b>03</b>화면 구현 · 문서 조판</li><li><b>04</b>스크린샷 · 오류 점검</li></ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AX-02 프롬프트 (핵심이라 위로) -->
+  <section class="sx" id="ai-prompt" aria-labelledby="ai-pr-t">
+    <div class="wrap">
+      <div class="sh"><p class="pill">프롬프트</p><h2 class="sh__title en" id="ai-pr-t">Prompt</h2><p class="sh__sub">짧게 쓰되 조건은 분명하게. 다섯 가지를 빠뜨리지 않아요.</p></div>
+      <div class="ax-prompt ax-prompt--first">
+        <ol class="ax-anatomy">
+          <li><span class="en">GOAL</span><b>무엇이 끝인지 한 문장</b></li>
+          <li><span class="en">CONTEXT</span><b>근거 자료를 직접 첨부</b></li>
+          <li><span class="en">LIMIT</span><b>하지 말 것을 먼저</b></li>
+          <li><span class="en">OUTPUT</span><b>바뀐 부분만, 되돌릴 수 있게</b></li>
+          <li><span class="en">CHECK</span><b>확인 방법까지 요청</b></li>
+        </ol>
+        <div class="ax-prompt__l">
+          <div class="ax-toggle" role="group" aria-label="프롬프트 비교">
+            <button type="button" aria-pressed="false" data-pr="bad">그냥 시키기</button>
+            <button type="button" aria-pressed="true" data-pr="good">제가 쓰는 방식</button>
+          </div>
+          <pre class="ax-code" data-pr-view="bad" hidden>포트폴리오 사이트 예쁘게 만들어줘.</pre>
+          <pre class="ax-code" data-pr-view="good"><span class="k">[목표]</span>  메인 '나의 이력'을 1920×1080 한 화면에 사진 · 경력이 다 보이게.
+<span class="k">[맥락]</span>  첨부한 화면설계서 p.12, 현재 사이트 링크.
+<span class="k">[제약]</span>  내용 수정 금지 · 일러스트 금지 · 폰트는 Pretendard / Orbitron만.
+<span class="k">[출력]</span>  바뀐 부분만, 이전으로 되돌릴 수 있게.
+<span class="k">[검증]</span>  1920×1080 스크린샷과 모바일 가로 넘침 여부를 함께 보고.</pre>
         </div>
       </div>
     </div>
@@ -131,34 +159,6 @@
     </div>
   </section>
 
-  <!-- AX-04 프롬프트 -->
-  <section class="sx" id="ai-prompt" aria-labelledby="ai-pr-t">
-    <div class="wrap">
-      <div class="sh"><p class="pill">프롬프트</p><h2 class="sh__title en" id="ai-pr-t">Prompt</h2><p class="sh__sub">짧게 쓰되 조건은 분명하게. 다섯 가지를 빠뜨리지 않아요.</p></div>
-      <div class="ax-prompt">
-        <div class="ax-prompt__l">
-          <div class="ax-toggle" role="group" aria-label="프롬프트 비교">
-            <button type="button" aria-pressed="false" data-pr="bad">그냥 시키기</button>
-            <button type="button" aria-pressed="true" data-pr="good">제가 쓰는 방식</button>
-          </div>
-          <pre class="ax-code" data-pr-view="bad" hidden>포트폴리오 사이트 예쁘게 만들어줘.</pre>
-          <pre class="ax-code" data-pr-view="good"><span class="k">[목표]</span>  메인 '나의 이력'을 1920×1080 한 화면에 사진 · 경력이 다 보이게.
-<span class="k">[맥락]</span>  첨부한 화면설계서 p.12, 현재 사이트 링크.
-<span class="k">[제약]</span>  내용 수정 금지 · 일러스트 금지 · 폰트는 Pretendard / Orbitron만.
-<span class="k">[출력]</span>  바뀐 부분만, 이전으로 되돌릴 수 있게.
-<span class="k">[검증]</span>  1920×1080 스크린샷과 모바일 가로 넘침 여부를 함께 보고.</pre>
-        </div>
-        <ol class="ax-anatomy">
-          <li><span class="en">GOAL</span><b>무엇이 끝인지 한 문장</b></li>
-          <li><span class="en">CONTEXT</span><b>근거 자료를 직접 첨부</b></li>
-          <li><span class="en">LIMIT</span><b>하지 말 것을 먼저</b></li>
-          <li><span class="en">OUTPUT</span><b>바뀐 부분만, 되돌릴 수 있게</b></li>
-          <li><span class="en">CHECK</span><b>확인 방법까지 요청</b></li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
   <!-- AX-05 모델과 토큰 -->
   <section class="sx" id="ai-token" aria-labelledby="ai-tk-t">
     <div class="wrap">
@@ -203,7 +203,7 @@
       <p class="ft__sub">여러분과 함께 프로젝트의 핵심을 찾으러 제가 가겠습니다!</p>
       <div class="ft__cta">
         <a class="ft__btn ft__btn--fill" href="mailto:knewrun25@gmail.com" data-mail="gmail" target="_blank" rel="noopener">메일 보내기 →</a>
-        <a class="ft__btn" href="resume.pdf?v=8" download="김유란_이력서.pdf">이력서 PDF ↓</a>
+        <a class="ft__btn" href="resume.pdf?v=9" download="김유란_이력서.pdf">이력서 PDF ↓</a>
       </div>
     </div>
     <div class="ft__grid">
@@ -218,11 +218,11 @@
       </nav>
       <div class="ft__col">
         <p class="ft__h en">CONTACT</p>
-        <ul><li><a href="mailto:knewrun25@gmail.com" data-mail="gmail" target="_blank" rel="noopener">knewrun25@gmail.com</a></li><li><a href="tel:+821034526632">010.3452.6632</a></li><li><a href="https://www.instagram.com/nwrnnyo/" target="_blank" rel="noopener">Instagram @nwrnnyo ↗</a></li><li>경기도 화성시</li></ul>
+        <ul><li><a href="mailto:knewrun25@gmail.com" data-mail="gmail" target="_blank" rel="noopener">knewrun25@gmail.com</a></li><li><a href="tel:+821034526632">010.3452.6632</a></li><li>경기도 화성시</li></ul>
       </div>
       <div class="ft__col">
         <p class="ft__h en">DOCUMENTS</p>
-        <ul><li><a href="resume.pdf?v=8" download="김유란_이력서.pdf">이력서 PDF ↓</a></li><li><a href="cover-letter.pdf?v=4" download="김유란_자기소개서.pdf">자기소개서 PDF ↓</a></li></ul>
+        <ul><li><a href="resume.pdf?v=9" download="김유란_이력서.pdf">이력서 PDF ↓</a></li><li><a href="cover-letter.pdf?v=4" download="김유란_자기소개서.pdf">자기소개서 PDF ↓</a></li></ul>
       </div>
     </div>
     <div class="ft__bar">
@@ -247,9 +247,9 @@
   </div>
 </div>
 
-<script src="data.js?v=83"></script>
-<script src="story.js?v=83"></script>
-<script src="app.js?v=83"></script>
-<script src="yolkbot.js?v=83"></script>
+<script src="data.js?v=84"></script>
+<script src="story.js?v=84"></script>
+<script src="app.js?v=84"></script>
+<script src="yolkbot.js?v=84"></script>
 </body>
 </html>

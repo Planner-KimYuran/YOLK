@@ -2880,3 +2880,54 @@ html.is-enter .hx__scroll { animation: enterFade .8s ease .6s both; }
   .home-fit .xb__photo img { width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; object-position: 50% 18%; }
 }
 @media (min-width: 981px) and (max-height: 1000px) { .home-fit .pcard__sum { display: none !important; } }
+
+/* ===== v15 · GNB를 위쪽 끝에서 내려 여유 있게 (두께는 얇게 유지) ===== */
+@media (min-width: 981px) {
+  :root { --gnb-h: 60px; }
+  .gnb__inner { padding-top: 14px !important; }
+}
+@media (min-width: 1600px) { :root { --gnb-h: 64px; } .gnb__inner { padding-top: 16px !important; } }
+.ax-prompt--first { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); }
+.ax-prompt--first .ax-anatomy li { padding: 22px 0; }
+.ax-prompt--first .ax-anatomy b { font-size: clamp(18px, 1.3vw, 23px); font-weight: 700; }
+.ax-prompt--first .ax-anatomy span { font-size: 13px; }
+/* AI 페이지 — 구역 내용이 가운데에 떠 있지 않고 위에서 시작 */
+@media (min-width: 1024px) and (min-height: 560px) {
+  .home-fit main.ax > .sx:not(.ax-hero) { justify-content: flex-start !important; padding-top: clamp(40px, 7vh, 88px) !important; }
+}
+
+/* ===== v16 · 상세 페이지 — 간결하게(자세히 보기) · 바이브코딩 블록 · 이미지 크게 보기 ===== */
+.dmore { margin-top: 4px; border-top: 1px solid #ECECEC; }
+.dmore > summary { list-style: none; display: flex; align-items: center; gap: 10px; padding: 18px 2px; cursor: pointer; color: #555; font-size: 16px; font-weight: 600; }
+.dmore > summary::-webkit-details-marker { display: none; }
+.dmore > summary:hover { color: #333; }
+.dmore__n { min-width: 24px; height: 22px; padding: 0 7px; display: inline-grid; place-items: center; border-radius: 99px; background: #F2F2F2; color: #777; font-size: 13px; font-weight: 600; }
+.dmore > summary i { margin-left: auto; width: 10px; height: 10px; border-right: 1.5px solid #999; border-bottom: 1.5px solid #999; transform: rotate(45deg) translate(-2px, -2px); transition: transform .25s; }
+.dmore[open] > summary i { transform: rotate(-135deg) translate(-2px, -2px); }
+.dmore__body { padding: 8px 0 24px; }
+.dmore--gal { border-top: 0; }
+.dmore--gal > .gal { margin-top: 4px; }
+.gal .g-open { position: relative; overflow: hidden; }
+.gal .g-open img { transition: filter .25s; }
+.g-zoom { position: absolute; right: 10px; bottom: 10px; padding: 6px 10px; border-radius: 4px; background: rgba(51,51,51,.86); color: #fff; font-size: 12px; font-weight: 600; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.gal .g-open:hover .g-zoom, .gal .g-open:focus-visible .g-zoom { opacity: 1; }
+.gal .g-open:hover img { filter: brightness(.96); }
+.gal img { image-rendering: auto; }
+
+.vibe { border-top: 1px solid #333; padding-top: 6px; }
+.vibe__flow { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 12px; }
+.vibe__flow li { padding: 20px 18px 22px; border: 1px solid #ECECEC; border-radius: 6px; background: #fff; position: relative; }
+.vibe__flow li + li::before { content: '→'; position: absolute; left: -12px; top: 22px; width: 12px; text-align: center; color: #BDBDBD; font-size: 13px; }
+.vibe__flow .en { font-size: 12px; color: #999; letter-spacing: .1em; }
+.vibe__flow b { display: block; margin-top: 10px; font-size: 18px; font-weight: 700; color: #333; letter-spacing: -0.02em; }
+.vibe__flow p { margin-top: 8px; font-size: 15px; line-height: 1.6; color: #666; }
+.vibe__log { margin-top: 20px; border-top: 1px solid #ECECEC; }
+.vibe__h { padding: 16px 0 6px; font-size: 12px; letter-spacing: .14em; color: #999; }
+.vibe__row { display: grid; grid-template-columns: 90px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid #F0F0F0; }
+.vibe__row .en { font-size: 14px; font-weight: 600; color: #333; }
+.vibe__row p { font-size: 16px; line-height: 1.6; color: #555; }
+.vibe__ask { margin: 20px 0 0; }
+.vibe__ask figcaption { font-size: 12px; letter-spacing: .14em; color: #999; margin-bottom: 10px; }
+.vibe__ask pre { margin: 0; padding: 24px 28px; border-radius: 6px; background: #333; color: #E6E6E6; font-family: ui-monospace, Menlo, Consolas, "Pretendard Variable", Pretendard, monospace; font-size: 15px; line-height: 1.9; white-space: pre-wrap; word-break: keep-all; }
+@media (max-width: 1100px) { .vibe__flow { grid-template-columns: 1fr 1fr; } .vibe__flow li + li::before { display: none; } }
+@media (max-width: 600px) { .vibe__flow { grid-template-columns: 1fr; } .vibe__row { grid-template-columns: 64px 1fr; } }

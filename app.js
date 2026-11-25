@@ -617,9 +617,12 @@
           return '<div class="b">' + lab(b.title) + '<div class="cmp">' + col(b.before, 'cmp__col--before') + '<span class="arrow" aria-hidden="true">→</span>' + col(b.after, 'cmp__col--after') + '</div>' + note(b.note) + '</div>';
         case 'table': return '<div class="b">' + lab(b.title) + '<div class="tbl-wrap"><table class="dtable"><thead><tr>' + b.head.map(function (h) { return '<th scope="col">' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>' +
           b.rows.map(function (r) { return '<tr>' + r.map(function (c, i) { return i === 0 ? '<th scope="row">' + esc(c) + '</th>' : '<td>' + esc(c) + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>' + note(b.note) + '</div>';
-        case 'gallery': var gset = gallery.push(b.items) - 1; return '<div class="b gal' + (b.grid ? ' gal--grid' : '') + '">' + b.items.map(function (it, gi) {
-            return '<figure><button type="button" class="g-open" data-g="' + gset + ':' + gi + '" aria-label="' + esc(it.cap) + ' 크게 보기"><img loading="lazy" src="' + esc(it.thumb || it.src) + '" alt="' + esc(it.cap) + '"></button><figcaption>' + esc(it.cap) + '</figcaption></figure>';
-          }).join('') + '</div>';
+        case 'gallery': var gset = gallery.push(b.items) - 1;
+          var fig = function (it, gi) { return '<figure><button type="button" class="g-open" data-g="' + gset + ':' + gi + '" aria-label="' + esc(it.cap) + ' 크게 보기"><img loading="lazy" src="' + esc(it.thumb || it.src) + '" alt="' + esc(it.cap) + '"><span class="g-zoom" aria-hidden="true">크게 보기 ⤢</span></button><figcaption>' + esc(it.cap) + '</figcaption></figure>'; };
+          var LIM = 8, cls = 'b gal' + (b.grid ? ' gal--grid' : '');
+          if (b.items.length <= LIM + 2) return '<div class="' + cls + '">' + b.items.map(fig).join('') + '</div>';
+          return '<div class="' + cls + '">' + b.items.slice(0, LIM).map(fig).join('') + '</div>' +
+            '<details class="dmore dmore--gal"><summary><span class="dmore__t">나머지 ' + (b.items.length - LIM) + '장 더 보기</span><i aria-hidden="true"></i></summary><div class="' + cls + '">' + b.items.slice(LIM).map(function (it, k) { return fig(it, k + LIM); }).join('') + '</div></details>';
         case 'decision': return '<div class="b">' + lab(b.label) + '<div class="decision">' +
           '<div><small>처음 판단</small><p>' + esc(b.steps[0]) + '</p></div><span class="arrow" aria-hidden="true">→</span>' +
           '<div><small>확인한 근거</small><p>' + esc(b.steps[1]) + '</p></div><span class="arrow" aria-hidden="true">→</span>' +
@@ -638,6 +641,11 @@
             var bg = c[1] ? c[1] : 'linear-gradient(90deg, ' + b.items[0][1] + ', ' + b.items[b.items.length - 1][1] + ')';
             return '<div class="clr__item"><span class="clr__sw" style="background:' + bg + '"></span><h4>' + esc(c[0]) + (c[1] ? ' <code>' + esc(c[1]) + '</code>' : '') + '</h4><p>' + esc(c[2]) + '</p></div>';
           }).join('') + '</div></div>';
+        case 'vibe': return '<div class="b vibe">' + lab(b.title) +
+          '<ol class="vibe__flow" style="--n:' + b.flow.length + '">' + b.flow.map(function (f, i) { return '<li><span class="en">' + two(i + 1) + '</span><b>' + esc(f[0]) + '</b><p>' + esc(f[1]) + '</p></li>'; }).join('') + '</ol>' +
+          (b.log ? '<div class="vibe__log"><p class="vibe__h en">' + esc(b.logTitle || 'VERSION LOG') + '</p>' + b.log.map(function (r) { return '<div class="vibe__row"><span class="en">' + esc(r[0]) + '</span><p>' + esc(r[1]) + '</p></div>'; }).join('') + '</div>' : '') +
+          (b.ask ? '<figure class="vibe__ask"><figcaption class="en">' + esc(b.askTitle || 'HOW I ASK') + '</figcaption><pre>' + esc(b.ask) + '</pre></figure>' : '') +
+          note(b.note) + '</div>';
         case 'learned': return '<div class="b learned"><small>LEARNED</small><p>' + esc(b.text) + '</p></div>';
         case 'video': return '<div class="b">' + lab(b.title) + '<figure class="vid"><video controls playsinline preload="none" poster="' + esc(b.poster) + '"><source src="' + esc(b.src) + '" type="video/mp4"></video>' + (b.cap ? '<figcaption>' + esc(b.cap) + '</figcaption>' : '') + '</figure></div>';
         case 'proto': return '<div class="b">' + lab(b.title) + '<div class="protos">' + b.items.map(function (it) {
@@ -662,8 +670,15 @@
         if (sc.kind === 'core') return { id: sc.id, name: sc.name, html: '<section class="dsec" id="' + sc.id + '" data-scene="' + sc.name.toUpperCase() + '"><div class="cp"><p class="cp__label"><i class="dot" aria-hidden="true"></i>' + no + ' · CORE PROBLEM</p>' +
           '<h2 class="cp__line"><s>' + esc(sc.phen) + '</s><span class="arr" aria-hidden="true">→</span>' + esc(sc.core) + '</h2><p class="cp__next">' + esc(sc.next) + '</p>' +
           '<p class="cp__go">↓ ' + two(i + 2) + ' ' + esc(P.story[i + 1] ? P.story[i + 1].name : '') + '으로 이어짐</p></div></section>' };
+        /* 간결하게: 핵심(첫 블록 · 숫자 · 강조 · 이미지 · 체험)은 바로 보이고, 표 · 긴 설명 같은 근거는 '자세히 보기' 안으로 */
+        var KEEP = { visual: 1, gallery: 1, video: 1, proto: 1, kpi: 1, versus: 1, stats: 1, callout: 1, learned: 1, vibe: 1 };
+        var prim = [], more = [];
+        sc.blocks.forEach(function (b, bi) { (bi === 0 || KEEP[b.t] ? prim : more).push(b); });
+        if (more.length === 1 && more[0].t === 'chips') { prim.push(more[0]); more = []; }
         return { id: sc.id, name: sc.name, html: '<section class="dsec" id="' + sc.id + '" data-scene="' + sc.name.toUpperCase() + '">' + head(no, sc.title, sc.lead) +
-          '<div class="dsec__content dsec__stack">' + sc.blocks.map(block).join('') + '</div></section>' };
+          '<div class="dsec__content dsec__stack">' + prim.map(block).join('') +
+          (more.length ? '<details class="dmore"><summary><span class="dmore__t">근거 · 과정 자세히 보기</span><span class="dmore__n">' + more.length + '</span><i aria-hidden="true"></i></summary><div class="dsec__stack dmore__body">' + more.map(block).join('') + '</div></details>' : '') +
+          '</div></section>' };
       });
     } else {
       var r = P.research, s = P.solution;
