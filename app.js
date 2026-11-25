@@ -480,7 +480,7 @@
      CORE WORKS — 전체 목록 (PROJECT-01 · 02)
      ========================================================= */
   if (page === 'works') {
-    var typeCodes = { plan: '기획서', report: '보고서', wire: '화면설계서', proposal: '제안서' };
+    var typeCodes = { plan: '기획서', report: '보고서', wire: '화면설계서', proposal: '제안서', vibe: '바이브코딩' };
     var typeCode = function (t) { for (var k in typeCodes) if (typeCodes[k] === t) return k; };
     var saved = store.get('yolk-works') || {};
     var q = new URLSearchParams(location.search);
@@ -490,7 +490,7 @@
     var sortLabels = { NEWEST: '최신순', OLDEST: '오래된순', NAME: '이름순' };
     function ordered() {
       var cur = D.curatedOrder;
-      var list = ids.filter(function (id) { return state.type === 'ALL' || D.projects[id].docs.some(function (d) { return d.type === state.type; }); });
+      var list = ids.filter(function (id) { var pj = D.projects[id]; return state.type === 'ALL' || (state.type === '바이브코딩' ? !!pj.vibe : pj.docs.some(function (d) { return d.type === state.type; })); });
       list.sort(function (a, b) {
         var A = D.projects[a], B = D.projects[b];
         if (state.sort === 'NAME') return A.cardTitle.localeCompare(B.cardTitle, 'ko');
@@ -515,7 +515,7 @@
             '<div class="card__thumb">' + thumb(p, 'ph--fill') + '<span class="card__bar" aria-hidden="true">VIEW PROJECT ↗</span></div>' +
             '<div class="card__body"><span class="card__no">#' + two(i + 1) + '</span><h2 class="card__title">' + esc(p.cardTitle) + '</h2>' +
             '<p class="core-line"><span class="core-label"><i class="dot" aria-hidden="true"></i>CORE</span><span>' + esc(p.core) + '</span></p>' +
-            '<span class="card__docs">' + docsSorted(p).map(function (t) { var n = p.docs.filter(function (d) { return d.type === t && d.file; }).length; return '<span class="tag-doc">' + t + (n > 1 ? ' <b>' + n + '</b>' : '') + '</span>'; }).join('') + '</span>' +
+            '<span class="card__docs">' + docsSorted(p).map(function (t) { var n = p.docs.filter(function (d) { return d.type === t && d.file; }).length; return '<span class="tag-doc">' + t + (n > 1 ? ' <b>' + n + '</b>' : '') + '</span>'; }).join('') + (p.vibe ? '<span class="tag-doc tag-doc--vibe">바이브코딩</span>' : '') + '</span>' +
             '<span class="card__meta">' + esc(p.cardMeta) + '</span></div></a>';
         }).join('');
       }
@@ -528,7 +528,7 @@
       history.replaceState(null, '', u.pathname + u.search);
     }
     (function () {
-      var cnt = {}, all = 0; ids.forEach(function (id) { D.projects[id].docs.forEach(function (d) { if (!d.file) return; cnt[d.type] = (cnt[d.type] || 0) + 1; all++; }); });
+      var cnt = {}, all = 0; ids.forEach(function (id) { D.projects[id].docs.forEach(function (d) { if (!d.file) return; cnt[d.type] = (cnt[d.type] || 0) + 1; all++; }); if (D.projects[id].vibe) cnt['바이브코딩'] = (cnt['바이브코딩'] || 0) + 1; });
       $$('.fchip[data-type]').forEach(function (b) { var t = b.getAttribute('data-type'); var n = t === 'ALL' ? 0 : (cnt[t] || 0); if (t === 'ALL') return; if (!n) { b.hidden = true; return; } b.insertAdjacentHTML('beforeend', ' <em class="fchip__n">' + n + '</em>'); });
       var sum = $('#doc-sum'); if (sum) sum.innerHTML = D.docTypes.filter(function (t) { return cnt[t]; }).map(function (t) { return '<span><b>' + cnt[t] + '</b>' + t + '</span>'; }).join('');
     })();

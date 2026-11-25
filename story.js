@@ -1195,3 +1195,5 @@
     ]
   });
 })();
+/* 바이브코딩 필터 — 바이브코딩으로 구현한 프로젝트 */
+(function () { var P = window.YOLK && window.YOLK.projects; if (!P) return; ['01', '10'].forEach(function (id) { if (P[id]) P[id].vibe = true; }); })();

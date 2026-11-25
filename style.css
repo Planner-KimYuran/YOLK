@@ -2931,3 +2931,5 @@ html.is-enter .hx__scroll { animation: enterFade .8s ease .6s both; }
 .vibe__ask pre { margin: 0; padding: 24px 28px; border-radius: 6px; background: #333; color: #E6E6E6; font-family: ui-monospace, Menlo, Consolas, "Pretendard Variable", Pretendard, monospace; font-size: 15px; line-height: 1.9; white-space: pre-wrap; word-break: keep-all; }
 @media (max-width: 1100px) { .vibe__flow { grid-template-columns: 1fr 1fr; } .vibe__flow li + li::before { display: none; } }
 @media (max-width: 600px) { .vibe__flow { grid-template-columns: 1fr; } .vibe__row { grid-template-columns: 64px 1fr; } }
+button.ft__btn { font: inherit; cursor: pointer; }
+.tag-doc--vibe { background: #333 !important; color: #fff !important; }
