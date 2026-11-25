@@ -924,3 +924,18 @@ document.addEventListener('click', function (e) {
     if (document.readyState === 'complete') setTimeout(go, 400); else addEventListener('load', function () { setTimeout(go, 400); });
   }
 })();
+
+/* 푸터 바가 화면에 들어오면 고정 버튼을 그만큼 위로 */
+(function () {
+  var bar = document.querySelector('.ft__bar'); if (!bar) return;
+  var root = document.documentElement, last = -1, raf = 0;
+  function upd() {
+    raf = 0;
+    var lift = Math.max(0, Math.round(window.innerHeight - bar.getBoundingClientRect().top + 4));
+    if (lift !== last) { last = lift; root.style.setProperty('--fab-lift', lift + 'px'); }
+  }
+  function req() { if (!raf) raf = requestAnimationFrame(upd); }
+  window.addEventListener('scroll', req, { passive: true });
+  window.addEventListener('resize', req);
+  upd();
+})();
