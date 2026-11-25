@@ -10,9 +10,10 @@ if (form && (cfg || new URLSearchParams(location.search).has('cheer'))) {
   const toast = (m) => { const t = document.querySelector('.toast'); if (t) { (t.querySelector('span') || t).textContent = m; t.classList.add('is-on'); setTimeout(() => t.classList.remove('is-on'), 2600); } };
   const count = form.querySelector('.chr__count');
   form.msg.addEventListener('input', () => { count.textContent = form.msg.value.length + ' / 300'; });
+  let fresh = null;
   const render = (items) => {
     total.textContent = items.length ? items.length + '개' : '';
-    list.innerHTML = items.length ? items.map((x) => '<li class="chr__item"><div class="chr__meta"><b>' + esc(x.nick) + '</b><time>' + fmt(x.ts) + '</time></div><p>' + esc(x.msg).replace(/\n/g, '<br>') + '</p></li>').join('')
+    list.innerHTML = items.length ? items.map((x) => '<li class="chr__item' + (x.id === fresh ? ' is-new' : '') + '"><div class="chr__meta"><b>' + esc(x.nick) + '</b><time>' + fmt(x.ts) + '</time></div><p>' + esc(x.msg).replace(/\n/g, '<br>') + '</p></li>').join('')
       : '<li class="chr__empty">아직 응원이 없어요. 첫 번째 응원을 남겨 주세요!</li>';
   };
   let db = null, fs = null, live = [], pending = [];
@@ -44,7 +45,7 @@ if (form && (cfg || new URLSearchParams(location.search).has('cheer'))) {
     if (!db) {
       /* 저장소 연결 전 미리보기: 이 브라우저에만 바로 올라감 */
       const item = { id: 'p' + Date.now(), nick: nick.slice(0, 20), msg: msg.slice(0, 300), ts: new Date() };
-      live = [item].concat(live); draw();
+      fresh = item.id; live = [item].concat(live); draw(); list.scrollTop = 0;
       try { localStorage.setItem(PKEY, JSON.stringify(live.slice(0, 50))); } catch (e) {}
       form.reset(); count.textContent = '0 / 300'; toast('응원이 올라갔어요. (미리보기 — 아직 이 브라우저에만 보여요)');
       return;
@@ -52,7 +53,7 @@ if (form && (cfg || new URLSearchParams(location.search).has('cheer'))) {
     sending = true; const btn = form.querySelector('.chr__send'); btn.disabled = true; btn.textContent = '보내는 중…';
     try {
       const ref = fs.doc(fs.collection(db, 'cheers'));
-      pending = [{ id: ref.id, nick: nick.slice(0, 20), msg: msg.slice(0, 300), ts: new Date() }].concat(pending); draw();
+      fresh = ref.id; pending = [{ id: ref.id, nick: nick.slice(0, 20), msg: msg.slice(0, 300), ts: new Date() }].concat(pending); draw(); list.scrollTop = 0;
       const b = fs.writeBatch(db);
       b.set(ref, { nick: nick.slice(0, 20), msg: msg.slice(0, 300), ts: fs.serverTimestamp() });
       if (name || phone) b.set(fs.doc(db, 'cheers_private', ref.id), { nick: nick.slice(0, 20), name: name.slice(0, 30), phone: phone.slice(0, 20), ts: fs.serverTimestamp() });

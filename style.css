@@ -2941,3 +2941,7 @@ button.ft__btn { font: inherit; cursor: pointer; }
 .hx__docs a, .hx__docs button { font-weight: 500 !important; }
 /* 하단 고정 버튼(맨 위로 · 노른자봇)이 푸터 바와 겹치지 않도록 — 푸터 바가 보이는 만큼 위로 비켜섬 */
 .to-top, .yb-launch, .yb-panel { translate: 0 calc(var(--fab-lift, 0px) * -1); }
+/* 방금 보낸 응원 — 받은 응원 맨 위에 잠깐 강조 */
+.chr__item.is-new { animation: chrNew 1.8s ease-out both; }
+@keyframes chrNew { 0% { background: #F3F3F1; } 100% { background: transparent; } }
+@media (prefers-reduced-motion: reduce) { .chr__item.is-new { animation: none; } }
